@@ -6,29 +6,55 @@ import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 const CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
 
+/* ══════════════════════════════
+   LIGHT THEME (default)
+══════════════════════════════ */
 :root {
-  --green:#003F25; --green2:#00301A; --green3:#1a3d2b; --green4:#0a2518;
-  --gold:#C6A55C;  --gold2:#AF8F51;  --gold3:#e8c97a;  --gold4:#f5dfa0;
-  --dark:#0e1210;  --dark2:#161a14;  --dark3:#1e231c;
-  --text:#f0ebd2;  --muted:rgba(240,235,210,.38);
+  --green:#1a6b44;  --green2:#155937;  --green3:#e8f5ee;  --green4:#d0ead9;
+  --gold:#9a6f1e;   --gold2:#7d5a18;   --gold3:#b8860b;   --gold4:#d4a843;
+  --dark:#f4f1eb;   --dark2:#ece8df;   --dark3:#e2ddd3;
+  --text:#1c1a14;   --muted:rgba(28,26,20,.45);
+  --bg:#f7f4ee;     --bg2:#ede9e0;     --bg3:#e6e1d6;
+  --border:rgba(154,111,30,.18);
+  --card:rgba(255,255,255,.75);
+  --card2:rgba(255,255,255,.5);
+  --shadow:0 2px 12px rgba(0,0,0,.08);
   --r:14px; --tr:all .22s cubic-bezier(.4,0,.2,1);
+}
+
+/* ══════════════════════════════
+   DARK THEME
+══════════════════════════════ */
+[data-theme="dark"] {
+  --green:#003F25;  --green2:#00301A;  --green3:#1a3d2b;  --green4:#0a2518;
+  --gold:#C6A55C;   --gold2:#AF8F51;   --gold3:#e8c97a;   --gold4:#f5dfa0;
+  --dark:#0e1210;   --dark2:#161a14;   --dark3:#1e231c;
+  --text:#f0ebd2;   --muted:rgba(240,235,210,.38);
+  --bg:#0e1210;     --bg2:#161a14;     --bg3:#1e231c;
+  --border:rgba(198,165,92,.15);
+  --card:rgba(255,255,255,.04);
+  --card2:rgba(255,255,255,.025);
+  --shadow:0 2px 12px rgba(0,0,0,.3);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .3s,color .3s}
 ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--green);border-radius:3px}
 
 /* HEADER */
-.hdr{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(14,18,16,.9);backdrop-filter:blur(18px);border-bottom:1px solid rgba(198,165,92,.1)}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(247,244,238,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);transition:background .3s,border-color .3s}
+[data-theme="dark"] .hdr{background:rgba(14,18,16,.92)}
 .logo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--gold);cursor:pointer;letter-spacing:.02em;user-select:none}
 .logo-sub{font-size:.52rem;letter-spacing:.22em;color:rgba(198,165,92,.4);text-transform:uppercase;font-weight:300;margin-top:-3px}
 .nav{display:flex;gap:2px}
-.nbtn{background:none;border:none;font-family:inherit;font-size:.73rem;letter-spacing:.04em;color:rgba(240,235,210,.4);padding:5px 10px;border-radius:8px;cursor:pointer;transition:var(--tr)}
-.nbtn:hover,.nbtn.on{color:var(--gold);background:rgba(198,165,92,.07)}
+.nbtn{background:none;border:none;font-family:inherit;font-size:.73rem;letter-spacing:.04em;color:var(--muted);padding:5px 10px;border-radius:8px;cursor:pointer;transition:var(--tr)}
+.nbtn:hover,.nbtn.on{color:var(--gold);background:rgba(154,111,30,.08)}
+[data-theme="dark"] .nbtn:hover,[data-theme="dark"] .nbtn.on{background:rgba(198,165,92,.07)}
 
 /* LANDING */
 .landing{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:80px 24px 60px}
-.lbg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 90% 55% at 50% 12%,rgba(0,63,37,.6) 0%,transparent 65%),radial-gradient(ellipse 40% 45% at 88% 80%,rgba(0,48,26,.3) 0%,transparent 55%)}
+.lbg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 90% 55% at 50% 12%,rgba(26,107,68,.12) 0%,transparent 65%),radial-gradient(ellipse 40% 45% at 88% 80%,rgba(26,107,68,.07) 0%,transparent 55%)}
+[data-theme="dark"] .lbg{background:radial-gradient(ellipse 90% 55% at 50% 12%,rgba(0,63,37,.6) 0%,transparent 65%),radial-gradient(ellipse 40% 45% at 88% 80%,rgba(0,48,26,.3) 0%,transparent 55%)}
 .ornament{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold) 30%,var(--gold3) 50%,var(--gold) 70%,transparent);opacity:.45}
 
 /* ELDER */
@@ -38,14 +64,18 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min
 .elder-ring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(198,165,92,.2);animation:rspin 20s linear infinite}
 .elder-ring2{position:absolute;inset:10px;border-radius:50%;border:1px dashed rgba(198,165,92,.1);animation:rspin 32s linear infinite reverse}
 @keyframes rspin{to{transform:rotate(360deg)}}
-.elder-circle{position:absolute;inset:20px;border-radius:50%;background:linear-gradient(155deg,var(--green3) 0%,var(--green2) 55%,var(--dark) 100%);border:1.5px solid rgba(198,165,92,.3);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.elder-circle{position:absolute;inset:20px;border-radius:50%;background:linear-gradient(155deg,#d0ead9 0%,#1a6b44 55%,#155937 100%);border:1.5px solid rgba(154,111,30,.3);overflow:hidden;display:flex;align-items:center;justify-content:center}
+[data-theme="dark"] .elder-circle{background:linear-gradient(155deg,var(--green3) 0%,var(--green2) 55%,#0e1210 100%);border-color:rgba(198,165,92,.3)}
 
 /* SPEECH BUBBLE */
 .speech{max-width:500px;width:100%;margin-bottom:28px;animation:fup .5s ease both}
 @keyframes fup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.sbub{background:rgba(0,48,26,.22);border:1px solid rgba(198,165,92,.18);border-radius:18px;padding:20px 24px;position:relative}
-.sbub::before{content:'';position:absolute;top:-9px;left:50%;transform:translateX(-50%);border:9px solid transparent;border-bottom-color:rgba(198,165,92,.18);border-top:none}
-.sbub::after{content:'';position:absolute;top:-7px;left:50%;transform:translateX(-50%);border:8px solid transparent;border-bottom-color:rgba(0,48,26,.4);border-top:none}
+.sbub{background:rgba(26,107,68,.08);border:1px solid rgba(154,111,30,.2);border-radius:18px;padding:20px 24px;position:relative}
+[data-theme="dark"] .sbub{background:rgba(0,48,26,.22);border-color:rgba(198,165,92,.18)}
+.sbub::before{content:'';position:absolute;top:-9px;left:50%;transform:translateX(-50%);border:9px solid transparent;border-bottom-color:rgba(154,111,30,.2);border-top:none}
+.sbub::after{content:'';position:absolute;top:-7px;left:50%;transform:translateX(-50%);border:8px solid transparent;border-bottom-color:rgba(26,107,68,.12);border-top:none}
+[data-theme="dark"] .sbub::before{border-bottom-color:rgba(198,165,92,.18)}
+[data-theme="dark"] .sbub::after{border-bottom-color:rgba(0,48,26,.4)}
 .sname{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:9px}
 .stext{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.65;color:var(--text);opacity:.88}
 .cur{display:inline-block;width:2px;height:1em;background:var(--gold);margin-left:2px;vertical-align:text-bottom;animation:blink .85s step-end infinite}
@@ -54,9 +84,12 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min
 /* FORM */
 .oform{width:100%;max-width:340px;animation:fup .4s .1s ease both}
 .flabel{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(198,165,92,.58);margin-bottom:9px}
-.ninput{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(198,165,92,.2);border-radius:var(--r);padding:13px 18px;font-family:'Playfair Display',serif;font-size:1rem;color:var(--text);outline:none;transition:var(--tr);margin-bottom:12px;text-align:center}
-.ninput::placeholder{color:rgba(240,235,210,.2);font-family:'Inter',sans-serif;font-size:.87rem}
-.ninput:focus{border-color:rgba(198,165,92,.5);background:rgba(255,255,255,.06)}
+.ninput{width:100%;background:rgba(255,255,255,.8);border:1px solid var(--border);border-radius:var(--r);padding:13px 18px;font-family:'Playfair Display',serif;font-size:1rem;color:var(--text);outline:none;transition:var(--tr);margin-bottom:12px;text-align:center}
+.ninput::placeholder{color:var(--muted);font-family:'Inter',sans-serif;font-size:.87rem}
+.ninput:focus{border-color:var(--gold);background:rgba(255,255,255,.95)}
+[data-theme="dark"] .ninput{background:rgba(255,255,255,.04);border-color:rgba(198,165,92,.2)}
+[data-theme="dark"] .ninput::placeholder{color:rgba(240,235,210,.2)}
+[data-theme="dark"] .ninput:focus{background:rgba(255,255,255,.06)}
 
 /* BUTTONS */
 .bgold{width:100%;background:var(--gold);color:var(--dark);border:none;padding:13px 28px;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:.83rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:var(--tr)}
@@ -70,7 +103,7 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min
 .bsmall:hover{background:rgba(198,165,92,.16);color:var(--gold)}
 
 /* SHELL */
-.shell{padding-top:54px}
+.shell{padding-top:54px;background:var(--bg);min-height:100vh}
 .wrap{max-width:1060px;margin:0 auto;padding:0 24px}
 .pe{animation:fup .32s ease both}
 
@@ -92,16 +125,19 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min
 .chip-arrow{color:rgba(198,165,92,.4);font-size:.7rem;margin-left:2px}
 
 /* MODAL OVERLAY */
-.modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;padding:24px;animation:fup .2s ease}
-.modal{background:var(--dark2);border:1px solid rgba(198,165,92,.2);border-radius:20px;padding:28px;width:100%;max-width:480px;max-height:80vh;display:flex;flex-direction:column}
+.modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:24px;animation:fup .2s ease}
+[data-theme="dark"] .modal-overlay{background:rgba(0,0,0,.7)}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:28px;width:100%;max-width:480px;max-height:80vh;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,.15)}
 .modal-title{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:6px}
 .modal-sub{font-size:.78rem;color:var(--muted);margin-bottom:18px}
-.modal-search{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(198,165,92,.15);border-radius:10px;padding:10px 14px;font-family:'Inter',sans-serif;font-size:.85rem;color:var(--text);outline:none;margin-bottom:14px;transition:var(--tr)}
-.modal-search:focus{border-color:rgba(198,165,92,.4)}
+.modal-search{width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-family:'Inter',sans-serif;font-size:.85rem;color:var(--text);outline:none;margin-bottom:14px;transition:var(--tr)}
+.modal-search:focus{border-color:var(--gold)}
 .modal-list{overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:6px}
 .modal-item{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;cursor:pointer;transition:var(--tr);border:1px solid transparent}
-.modal-item:hover{background:rgba(198,165,92,.06);border-color:rgba(198,165,92,.12)}
-.modal-item.sel{background:rgba(0,63,37,.2);border-color:rgba(198,165,92,.3)}
+.modal-item:hover{background:rgba(154,111,30,.06);border-color:var(--border)}
+.modal-item.sel{background:rgba(26,107,68,.1);border-color:var(--gold)}
+[data-theme="dark"] .modal-item:hover{background:rgba(198,165,92,.06)}
+[data-theme="dark"] .modal-item.sel{background:rgba(0,63,37,.2)}
 .modal-item-icon{font-size:1.1rem;width:32px;text-align:center;flex-shrink:0}
 .modal-item-name{font-size:.88rem;font-weight:500}
 .modal-item-sub{font-size:.7rem;color:var(--muted);margin-top:1px}
@@ -111,7 +147,7 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min
 
 /* STATS ROW */
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
-.scard{background:rgba(255,255,255,.03);border:1px solid rgba(198,165,92,.09);border-radius:12px;padding:14px;text-align:center}
+.scard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;box-shadow:var(--shadow)}
 .snum{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold);font-weight:700}
 .slbl{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,235,210,.27);margin-top:3px}
 
@@ -132,9 +168,11 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min
 /* SEARCH */
 .swrap{position:relative;margin-bottom:18px}
 .sicon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--gold2);opacity:.4;font-size:.95rem;pointer-events:none}
-.sinput{width:100%;max-width:460px;background:rgba(255,255,255,.035);border:1px solid rgba(198,165,92,.13);border-radius:var(--r);padding:11px 15px 11px 38px;font-family:'Inter',sans-serif;font-size:.86rem;color:var(--text);outline:none;transition:var(--tr)}
-.sinput::placeholder{color:rgba(240,235,210,.2)}
-.sinput:focus{border-color:rgba(198,165,92,.38);background:rgba(255,255,255,.05)}
+.sinput{width:100%;max-width:460px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:11px 15px 11px 38px;font-family:'Inter',sans-serif;font-size:.86rem;color:var(--text);outline:none;transition:var(--tr)}
+.sinput::placeholder{color:var(--muted)}
+.sinput:focus{border-color:var(--gold);background:rgba(255,255,255,.9)}
+[data-theme="dark"] .sinput{background:rgba(255,255,255,.035)}
+[data-theme="dark"] .sinput:focus{background:rgba(255,255,255,.05)}
 
 /* ALPHA */
 .abar{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:20px}
@@ -143,9 +181,10 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min
 
 /* PERSON GRID */
 .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(188px,1fr));gap:10px;padding-bottom:60px}
-.pcard{background:rgba(255,255,255,.03);border:1px solid rgba(198,165,92,.09);border-radius:var(--r);padding:16px;cursor:pointer;transition:var(--tr);position:relative;overflow:hidden}
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;cursor:pointer;transition:var(--tr);position:relative;overflow:hidden;box-shadow:var(--shadow)}
 .pcard::after{content:'';position:absolute;top:0;left:0;right:0;height:1.5px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:var(--tr)}
-.pcard:hover{background:rgba(198,165,92,.05);border-color:rgba(198,165,92,.22);transform:translateY(-2px)}
+.pcard:hover{background:rgba(154,111,30,.06);border-color:rgba(154,111,30,.3);transform:translateY(-2px)}
+[data-theme="dark"] .pcard:hover{background:rgba(198,165,92,.05);border-color:rgba(198,165,92,.22)}
 .pcard:hover::after{opacity:1}
 .pav{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green2));border:1px solid rgba(198,165,92,.2);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:.92rem;color:var(--gold);margin-bottom:10px}
 .pname{font-size:.85rem;font-weight:500;margin-bottom:3px;line-height:1.3}
@@ -160,31 +199,31 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min
 .pbigname{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.6rem);font-weight:700;letter-spacing:-.02em;margin-bottom:5px}
 .pbigera{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold2);opacity:.6}
 .igrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:11px;margin-bottom:26px}
-.iblock{background:rgba(255,255,255,.025);border:1px solid rgba(198,165,92,.09);border-radius:var(--r);padding:19px}
+.iblock{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:19px;box-shadow:var(--shadow)}
 .ilbl{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold2);opacity:.6;margin-bottom:8px}
 .iph{font-size:.82rem;color:rgba(240,235,210,.2);font-style:italic;line-height:1.65}
 .pcta{display:flex;gap:10px;flex-wrap:wrap}
 
 /* ═══ COMMUNITY PAGE ═══ */
 .comm-hero{padding:44px 0 28px}
-.comm-banner{background:linear-gradient(135deg,var(--green) 0%,var(--green2) 60%,var(--dark) 100%);border:1px solid rgba(198,165,92,.2);border-radius:20px;padding:32px;margin-bottom:28px;position:relative;overflow:hidden}
+.comm-banner{background:linear-gradient(135deg,var(--green) 0%,var(--green2) 60%,#1a3d2b 100%);border:1px solid var(--border);border-radius:20px;padding:32px;margin-bottom:28px;position:relative;overflow:hidden;color:#f0ebd2}
 .comm-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 90% 50%,rgba(198,165,92,.08) 0%,transparent 65%);pointer-events:none}
 .comm-icon{font-size:2.4rem;margin-bottom:10px}
 .comm-type-tag{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(198,165,92,.6);margin-bottom:8px}
 .comm-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;margin-bottom:8px}
 .comm-desc-text{font-size:.87rem;color:rgba(240,235,210,.5);line-height:1.7;max-width:560px}
 .comm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:28px}
-.cstat{background:rgba(255,255,255,.03);border:1px solid rgba(198,165,92,.09);border-radius:12px;padding:14px;text-align:center}
+.cstat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;box-shadow:var(--shadow)}
 .cstat-n{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);font-weight:700}
 .cstat-l{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(240,235,210,.27);margin-top:3px}
 .comm-members{margin-bottom:36px}
 .comm-members h3{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:14px}
-.member-row{display:flex;align-items:center;gap:12px;padding:11px 14px;background:rgba(255,255,255,.025);border:1px solid rgba(198,165,92,.08);border-radius:10px;margin-bottom:7px;cursor:pointer;transition:var(--tr)}
+.member-row{display:flex;align-items:center;gap:12px;padding:11px 14px;background:var(--card2);border:1px solid var(--border);border-radius:10px;margin-bottom:7px;cursor:pointer;transition:var(--tr)}
 .member-row:hover{background:rgba(198,165,92,.06);border-color:rgba(198,165,92,.2)}
 .mav{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green2));border:1px solid rgba(198,165,92,.18);display:flex;align-items:center;justify-content:center;font-size:.85rem;color:var(--gold);font-family:'Playfair Display',serif;flex-shrink:0}
 .mname{font-size:.85rem;font-weight:500}
 .mera{font-size:.68rem;color:var(--muted)}
-.tribe-card{background:rgba(255,255,255,.025);border:1px solid rgba(198,165,92,.1);border-radius:14px;padding:18px;cursor:pointer;transition:var(--tr);display:flex;align-items:flex-start;gap:14px}
+.tribe-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;cursor:pointer;transition:var(--tr);display:flex;align-items:flex-start;gap:14px;box-shadow:var(--shadow)}
 .tribe-card:hover{background:rgba(198,165,92,.05);border-color:rgba(198,165,92,.22);transform:translateY(-1px)}
 .tribe-icon{font-size:1.6rem;flex-shrink:0}
 .tribe-name{font-size:.92rem;font-weight:600;margin-bottom:3px}
@@ -203,9 +242,10 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min
 
 /* TREE NODES */
 .tn{position:absolute;width:160px;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease}
-.tn-inner{background:rgba(22,26,20,.9);border:1.5px solid rgba(198,165,92,.18);border-radius:14px;padding:14px 14px 12px;position:relative;transition:var(--tr)}
+.tn-inner{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:14px 14px 12px;position:relative;transition:var(--tr);box-shadow:var(--shadow)}
 .tn:hover .tn-inner,.tn.focused .tn-inner{border-color:rgba(198,165,92,.55);background:rgba(0,63,37,.22)}
-.tn.root .tn-inner{background:rgba(0,63,37,.28);border-color:rgba(198,165,92,.45);border-width:2px}
+.tn.root .tn-inner{background:rgba(26,107,68,.12);border-color:var(--gold);border-width:2px}
+[data-theme="dark"] .tn.root .tn-inner{background:rgba(0,63,37,.28)}
 .tn.editing .tn-inner{border-color:var(--gold);box-shadow:0 0 0 3px rgba(198,165,92,.12)}
 .tn-gen{font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(240,235,210,.28);margin-bottom:4px}
 .tn-name{font-size:.85rem;font-weight:500;line-height:1.25;word-break:break-word;min-height:20px}
@@ -251,15 +291,16 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min
 .mtc p{font-size:.84rem;color:rgba(240,235,210,.38);line-height:1.72;margin-bottom:26px}
 
 /* EMPTY / FOOTER */
-.empty{text-align:center;padding:60px 24px;color:rgba(240,235,210,.22)}
+.empty{text-align:center;padding:60px 24px;color:var(--muted)}
 .empty-i{font-size:2rem;margin-bottom:8px;opacity:.3}
 .empty-t{font-size:.83rem}
-.footer{border-top:1px solid rgba(198,165,92,.07);padding:24px;text-align:center;font-size:.67rem;letter-spacing:.1em;color:rgba(240,235,210,.18)}
+.footer{border-top:1px solid var(--border);padding:24px;text-align:center;font-size:.67rem;letter-spacing:.1em;color:var(--muted)}
 
 /* TAB BAR */
-.tabs{display:flex;gap:4px;background:rgba(255,255,255,.025);border:1px solid rgba(198,165,92,.1);border-radius:12px;padding:4px;margin-bottom:22px;width:fit-content}
-.tab{background:none;border:none;font-family:inherit;font-size:.78rem;color:rgba(240,235,210,.4);padding:8px 16px;border-radius:9px;cursor:pointer;transition:var(--tr)}
-.tab.on{background:rgba(0,63,37,.35);color:var(--gold);border:1px solid rgba(198,165,92,.2)}
+.tabs{display:flex;gap:4px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:4px;margin-bottom:22px;width:fit-content}
+.tab{background:none;border:none;font-family:inherit;font-size:.78rem;color:var(--muted);padding:8px 16px;border-radius:9px;cursor:pointer;transition:var(--tr)}
+.tab.on{background:rgba(26,107,68,.12);color:var(--gold);border:1px solid var(--border)}
+[data-theme="dark"] .tab.on{background:rgba(0,63,37,.35)}
 
 /* MOBILE */
 @media(max-width:700px){
@@ -271,14 +312,15 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min
 /* ══════════════════════════════
    ONBOARDING FLOW
 ══════════════════════════════ */
-.ob-wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:80px 24px 60px}
+.ob-wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:80px 24px 60px;background:var(--bg)}
 .ob-fade{animation:obfade .45s cubic-bezier(.4,0,.2,1) both}
 @keyframes obfade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 .ob-fade-out{animation:obfadeout .3s cubic-bezier(.4,0,.2,1) both}
 @keyframes obfadeout{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-12px)}}
 
 /* Progress bar */
-.ob-progress{position:fixed;top:0;left:0;right:0;z-index:400;display:flex;align-items:center;justify-content:space-between;padding:14px 28px;background:rgba(14,18,16,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(198,165,92,.08)}
+.ob-progress{position:fixed;top:0;left:0;right:0;z-index:400;display:flex;align-items:center;justify-content:space-between;padding:14px 28px;background:rgba(247,244,238,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);transition:background .3s}
+[data-theme="dark"] .ob-progress{background:rgba(14,18,16,.92)}
 .ob-prog-label{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(198,165,92,.5)}
 .ob-prog-track{width:180px;height:3px;background:rgba(198,165,92,.1);border-radius:2px;overflow:hidden}
 .ob-prog-fill{height:100%;background:linear-gradient(90deg,var(--gold2),var(--gold3));border-radius:2px;transition:width .5s cubic-bezier(.4,0,.2,1)}
@@ -318,7 +360,7 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min
    SHOW MATCHES STEP
 ══════════════════════════════ */
 .matches-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;width:100%;max-width:860px;margin-bottom:20px}
-.match-card{background:rgba(255,255,255,.03);border:1px solid rgba(198,165,92,.13);border-radius:16px;padding:18px;position:relative;overflow:hidden;transition:var(--tr)}
+.match-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;position:relative;overflow:hidden;transition:var(--tr);box-shadow:var(--shadow)}
 .match-card:not(.blurred):hover{background:rgba(0,63,37,.12);border-color:rgba(198,165,92,.28);transform:translateY(-2px)}
 .match-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:var(--tr)}
 .match-card:not(.blurred):hover::before{opacity:.7}
@@ -346,7 +388,8 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min
 .mc-strength-pct{font-size:.65rem;color:var(--gold2);flex-shrink:0;font-family:'Playfair Display',serif}
 
 /* Unlock banner */
-.unlock-banner{width:100%;max-width:860px;background:linear-gradient(135deg,rgba(0,63,37,.25) 0%,rgba(198,165,92,.06) 100%);border:1px solid rgba(198,165,92,.22);border-radius:16px;padding:22px 28px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:20px}
+.unlock-banner{width:100%;max-width:860px;background:linear-gradient(135deg,rgba(26,107,68,.1) 0%,rgba(154,111,30,.06) 100%);border:1px solid var(--border);border-radius:16px;padding:22px 28px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:20px}
+[data-theme="dark"] .unlock-banner{background:linear-gradient(135deg,rgba(0,63,37,.25) 0%,rgba(198,165,92,.06) 100%)}
 .unlock-left{display:flex;align-items:center;gap:14px}
 .unlock-sparkle{font-size:1.8rem;flex-shrink:0}
 .unlock-title{font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:3px}
@@ -377,7 +420,7 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min
 .prof-avatar-hint{font-size:.62rem;color:rgba(240,235,210,.25);letter-spacing:.06em}
 
 /* Left sidebar card */
-.prof-sidebar{background:rgba(255,255,255,.02);border:1px solid rgba(198,165,92,.1);border-radius:18px;padding:24px;display:flex;flex-direction:column;align-items:center;gap:16px}
+.prof-sidebar{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px;display:flex;flex-direction:column;align-items:center;gap:16px;box-shadow:var(--shadow)}
 .prof-name-big{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--text);text-align:center}
 .prof-tribe-badge{display:flex;align-items:center;gap:7px;background:rgba(0,63,37,.2);border:1px solid rgba(198,165,92,.18);border-radius:20px;padding:6px 14px;font-size:.78rem;cursor:pointer;transition:var(--tr);width:100%;justify-content:center}
 .prof-tribe-badge:hover{background:rgba(0,63,37,.32);border-color:var(--gold)}
@@ -388,7 +431,7 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min
 
 /* Right content */
 .prof-content{display:flex;flex-direction:column;gap:16px}
-.prof-section{background:rgba(255,255,255,.025);border:1px solid rgba(198,165,92,.09);border-radius:14px;padding:18px}
+.prof-section{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
 .prof-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .prof-section-title{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(198,165,92,.55)}
 .prof-section-action{font-size:.72rem;color:var(--gold2);cursor:pointer;background:none;border:none;font-family:inherit;transition:var(--tr);padding:3px 8px;border-radius:6px}
@@ -409,7 +452,7 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min
 
 /* Ancestors mini list */
 .anc-mini-list{display:flex;flex-direction:column;gap:7px}
-.anc-mini-row{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:8px;background:rgba(255,255,255,.02)}
+.anc-mini-row{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:8px;background:var(--bg2)}
 .anc-mini-num{font-size:.65rem;color:var(--gold2);opacity:.6;width:16px;text-align:right;flex-shrink:0}
 .anc-mini-gen{font-size:.67rem;color:var(--muted);width:100px;flex-shrink:0}
 .anc-mini-val{font-size:.8rem;font-family:'Playfair Display',serif;color:var(--text)}
@@ -427,11 +470,12 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min
 
 /* Node card */
 .sj-node{position:relative;min-width:160px;max-width:200px;border-radius:12px;padding:12px 16px;text-align:center;cursor:default;transition:var(--tr)}
-.sj-node.sj-user{background:linear-gradient(135deg,rgba(0,63,37,.55),rgba(0,48,26,.4));border:2px solid rgba(198,165,92,.55);box-shadow:0 0 20px rgba(0,63,37,.4)}
+.sj-node.sj-user{background:linear-gradient(135deg,rgba(26,107,68,.18),rgba(26,107,68,.08));border:2px solid var(--gold);box-shadow:0 0 16px rgba(26,107,68,.15)}
+[data-theme="dark"] .sj-node.sj-user{background:linear-gradient(135deg,rgba(0,63,37,.55),rgba(0,48,26,.4));box-shadow:0 0 20px rgba(0,63,37,.4)}
 .sj-node.sj-user:hover{border-color:var(--gold)}
-.sj-node.sj-ancestor{background:rgba(255,255,255,.04);border:1.5px solid rgba(198,165,92,.2)}
+.sj-node.sj-ancestor{background:var(--card);border:1.5px solid var(--border)}
 .sj-node.sj-ancestor:hover{background:rgba(0,63,37,.15);border-color:rgba(198,165,92,.38)}
-.sj-node.sj-empty{background:rgba(255,255,255,.02);border:1.5px dashed rgba(198,165,92,.14);cursor:pointer}
+.sj-node.sj-empty{background:var(--bg2);border:1.5px dashed var(--border);cursor:pointer}
 .sj-node.sj-empty:hover{background:rgba(0,63,37,.1);border-color:rgba(198,165,92,.32)}
 
 .sj-gen-label{font-size:.52rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:5px}
@@ -457,36 +501,36 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min
    DATA
 ═══════════════════════════════════════════════════════════ */
 const TRIBES = [
-  { id:"argyn",   name:"Арғын",    icon:"🏔", desc:"Один из крупнейших родов Среднего жуза", region:"Орталық Қазақстан", members:1240 },
-  { id:"naiman",  name:"Найман",   icon:"🦅", desc:"Древний могущественный род Среднего жуза", region:"Шығыс Қазақстан", members:980 },
-  { id:"kipchak", name:"Қыпшақ",   icon:"⚔️", desc:"Исторически значимый род Среднего жуза", region:"Солтүстік Қазақстан", members:870 },
-  { id:"kerey",   name:"Керей",    icon:"🌿", desc:"Один из основателей Казахского ханства", region:"Шығыс Қазақстан", members:760 },
-  { id:"kongrat", name:"Қоңырат",  icon:"🌊", desc:"Влиятельный род Старшего жуза", region:"Батыс Қазақстан", members:650 },
-  { id:"uysun",   name:"Үйсін",    icon:"🌞", desc:"Древнейший род Старшего жуза", region:"Оңтүстік Қазақстан", members:920 },
-  { id:"kerei2",  name:"Жалайыр",  icon:"🌺", desc:"Род Старшего жуза с богатой историей", region:"Жамбыл облысы", members:540 },
-  { id:"alban",   name:"Албан",    icon:"🏕", desc:"Воинственный род Старшего жуза", region:"Алматы облысы", members:680 },
-  { id:"tabyn",   name:"Табын",    icon:"🐎", desc:"Род Кіші жуза, известные коневоды", region:"Батыс Қазақстан", members:490 },
-  { id:"adai",    name:"Адай",     icon:"🌊", desc:"Легендарный непокорный род Кіші жуза", region:"Маңғыстау", members:720 },
-  { id:"shapyrashty", name:"Шапырашты", icon:"🌲", desc:"Древний род Старшего жуза", region:"Алматы облысы", members:410 },
-  { id:"sieyt",   name:"Сіергелі", icon:"🏞", desc:"Род Старшего жуза близ Алматы", region:"Алматы облысы", members:380 },
+  { id:"argyn",   name:"Арғын",    icon:"🏔", desc:"Один қаласынан крупнейших ру Среднего жуза", region:"Орталық Қазақстан", members:1240 },
+  { id:"naiman",  name:"Найман",   icon:"🦅", desc:"Орта жүздің ежелгі қуатты руы", region:"Шығыс Қазақстан", members:980 },
+  { id:"kipchak", name:"Қыпшақ",   icon:"⚔️", desc:"Орта жүздің тарихи маңызды руы", region:"Солтүстік Қазақстан", members:870 },
+  { id:"kerey",   name:"Керей",    icon:"🌿", desc:"Один қаласынан основателей Казахского ханства", region:"Шығыс Қазақстан", members:760 },
+  { id:"kongrat", name:"Қоңырат",  icon:"🌊", desc:"Ұлы жүздің ықпалды руы", region:"Батыс Қазақстан", members:650 },
+  { id:"uysun",   name:"Үйсін",    icon:"🌞", desc:"Ұлы жүздің ең ежелгі руы", region:"Оңтүстік Қазақстан", members:920 },
+  { id:"kerei2",  name:"Жалайыр",  icon:"🌺", desc:"Бай тарихы бар Ұлы жүз руы", region:"Жамбыл облысы", members:540 },
+  { id:"alban",   name:"Албан",    icon:"🏕", desc:"Ұлы жүздің батыр руы", region:"Алматы облысы", members:680 },
+  { id:"tabyn",   name:"Табын",    icon:"🐎", desc:"Кіші жүз руы, атақты малшылар", region:"Батыс Қазақстан", members:490 },
+  { id:"adai",    name:"Адай",     icon:"🌊", desc:"Кіші жүздің аңызға айналған мойымас руы", region:"Маңғыстау", members:720 },
+  { id:"shapyrashty", name:"Шапырашты", icon:"🌲", desc:"Ұлы жүздің ежелгі руы", region:"Алматы облысы", members:410 },
+  { id:"sieyt",   name:"Сіергелі", icon:"🏞", desc:"Род Старшего жуза блқаласынан Алматы", region:"Алматы облысы", members:380 },
 ];
 
 const CITIES = [
-  { id:"almaty",   name:"Алматы",       icon:"🏙", region:"Алматы",  pop:"2.1М", desc:"Южная столица Казахстана, культурный центр" },
-  { id:"astana",   name:"Астана",        icon:"🏛", region:"Астана",  pop:"1.4М", desc:"Столица Казахстана, город будущего" },
-  { id:"shymkent", name:"Шымкент",       icon:"🌺", region:"Оңтүстік", pop:"1.2М", desc:"Третий по величине город страны" },
-  { id:"karaganda", name:"Қарағанды",    icon:"⛏", region:"Орталық", pop:"490К", desc:"Промышленное сердце Казахстана" },
-  { id:"aktobe",   name:"Ақтөбе",        icon:"🌅", region:"Батыс",  pop:"380К", desc:"Нефтяная столица западного Казахстана" },
-  { id:"taraz",    name:"Тараз",         icon:"🏺", region:"Жамбыл", pop:"320К", desc:"Один из древнейших городов Средней Азии" },
-  { id:"pavlodar", name:"Павлодар",      icon:"🏭", region:"Солтүстік", pop:"310К", desc:"Промышленный центр севера" },
-  { id:"ust-kamenogorsk", name:"Өскемен", icon:"🏔", region:"Шығыс", pop:"295К", desc:"Столица Восточного Казахстана" },
-  { id:"semey",    name:"Семей",         icon:"📚", region:"Шығыс",  pop:"270К", desc:"Родина Абая, культурная столица востока" },
-  { id:"atyrau",   name:"Атырау",        icon:"🛢", region:"Батыс",  pop:"265К", desc:"Нефтяная столица Казахстана" },
-  { id:"kostanay", name:"Қостанай",      icon:"🌾", region:"Солтүстік", pop:"245К", desc:"Зерновая столица Казахстана" },
-  { id:"kyzylorda", name:"Қызылорда",    icon:"🍉", region:"Оңтүстік", pop:"220К", desc:"Рисовая столица Казахстана" },
-  { id:"oral",     name:"Орал",          icon:"🌿", region:"Батыс",  pop:"195К", desc:"Центр Западно-Казахстанской области" },
-  { id:"petropavlovsk", name:"Петропавл", icon:"❄️", region:"Солтүстік", pop:"185К", desc:"Северный форпост Казахстана" },
-  { id:"aktau",    name:"Ақтау",         icon:"🌊", region:"Маңғыстау", pop:"178К", desc:"Каспийский порт Казахстана" },
+  { id:"almaty",   name:"Алматы",       icon:"🏙", region:"Алматы",  pop:"2.1М", desc:"Қазақстанның оңтүстік астанасы, мәдени орталық" },
+  { id:"astana",   name:"Астана",        icon:"🏛", region:"Астана",  pop:"1.4М", desc:"Қазақстан астанасы, болашақ қаласы" },
+  { id:"shymkent", name:"Шымкент",       icon:"🌺", region:"Оңтүстік", pop:"1.2М", desc:"Елдегі үшінші ірі қала" },
+  { id:"karaganda", name:"Қарағанды",    icon:"⛏", region:"Орталық", pop:"490К", desc:"Қазақстанның өнеркәсіп жүрегі" },
+  { id:"aktobe",   name:"Ақтөбе",        icon:"🌅", region:"Батыс",  pop:"380К", desc:"Батыс Қазақстанның мұнай астанасы" },
+  { id:"taraz",    name:"Тараз",         icon:"🏺", region:"Жамбыл", pop:"320К", desc:"Один қаласынан древнейших қала Средней Азии" },
+  { id:"pavlodar", name:"Павлодар",      icon:"🏭", region:"Солтүстік", pop:"310К", desc:"Солтүстіктің өнеркәсіп орталығы" },
+  { id:"ust-kamenogorsk", name:"Өскемен", icon:"🏔", region:"Шығыс", pop:"295К", desc:"Шығыс Қазақстан астанасы" },
+  { id:"semey",    name:"Семей",         icon:"📚", region:"Шығыс",  pop:"270К", desc:"Абайдың туған жері, шығыстың мәдени астанасы" },
+  { id:"atyrau",   name:"Атырау",        icon:"🛢", region:"Батыс",  pop:"265К", desc:"Қазақстанның мұнай астанасы" },
+  { id:"kostanay", name:"Қостанай",      icon:"🌾", region:"Солтүстік", pop:"245К", desc:"Қазақстанның астық астанасы" },
+  { id:"kyzylorda", name:"Қызылорда",    icon:"🍉", region:"Оңтүстік", pop:"220К", desc:"Қазақстанның күріш астанасы" },
+  { id:"oral",     name:"Орал",          icon:"🌿", region:"Батыс",  pop:"195К", desc:"Батыс Қазақстан облысының орталығы" },
+  { id:"petropavlovsk", name:"Петропавл", icon:"❄️", region:"Солтүстік", pop:"185К", desc:"Қазақстанның солтүстік бекінісі" },
+  { id:"aktau",    name:"Ақтау",         icon:"🌊", region:"Маңғыстау", pop:"178К", desc:"Қазақстанның Каспий порты" },
 ];
 
 const PERSONS = [
@@ -512,7 +556,7 @@ const PERSONS = [
   {id:20, name:"Сұлтанмахмұт Торайғыров", era:"1893–1920", tribe:"argyn"},
 ];
 
-const GENS = ["Вы","Отец (Әке)","Дед (Ата)","Прадед (Баба)","Пра-прадед","Пра-пра-прадед","Пра-пра-пра-прадед"];
+const GENS = ["Сіз","Әке","Ата","Баба","Бабасының атасы","Арғы ата","Түп ата"];
 
 /* ═══════════════════════════════════════════════════════════
    ELDER SVG
@@ -604,7 +648,7 @@ function SelectModal({ title, subtitle, items, selected, onSelect, onClose, rend
       <div className="modal">
         <div className="modal-title">{title}</div>
         <div className="modal-sub">{subtitle}</div>
-        <input className="modal-search" placeholder="Поиск…" value={q} onChange={e => setQ(e.target.value)} autoFocus/>
+        <input className="modal-search" placeholder="Іздеу…" value={q} onChange={e => setQ(e.target.value)} autoFocus/>
         <div className="modal-list">
           {filtered.map(item => (
             <div key={item.id}
@@ -639,11 +683,11 @@ function PersonNode({ name, genLabel, isUser, isEmpty, onClick, animDelay = 0 })
       className={cls}
       style={{ animationDelay: `${animDelay}ms` }}
       onClick={isEmpty ? onClick : undefined}
-      title={isEmpty ? "Нажмите чтобы добавить предка" : name}
+      title={isEmpty ? "Ата-баба қосу үшін басыңыз" : name}
     >
       {genLabel && <div className="sj-gen-label">{genLabel}</div>}
       <div className="sj-name">
-        {isEmpty ? "+ Добавить" : name}
+        {isEmpty ? "+ Қосу" : name}
       </div>
     </div>
   );
@@ -663,9 +707,9 @@ function Connector({ flipped = false }) {
     compact    — уменьшенный режим для превью в профиле
 */
 const ANC_GEN_LABELS = [
-  "Отец", "Дед", "Прадед",
-  "Пра-прадед", "Пра-пра-прадед",
-  "Пра-пра-пра-прадед", "Пра-пра-пра-пра-прадед",
+  "Әке", "Ата", "Баба",
+  "Арғы ата", "Бесінші ата",
+  "Алтыншы ата", "Жетінші ата",
 ];
 
 function ShejireTree({ userName, ancestors = [], onAddAnc, compact = false }) {
@@ -708,8 +752,8 @@ function ShejireTree({ userName, ancestors = [], onAddAnc, compact = false }) {
         style={{ animationDelay: `${levels.length * 80}ms` }}
       >
         <PersonNode
-          name={userName || "Вы"}
-          genLabel="Вы"
+          name={userName || "Сіз"}
+          genLabel="Сіз"
           isUser
           animDelay={levels.length * 80}
         />
@@ -722,17 +766,13 @@ function ShejireTree({ userName, ancestors = [], onAddAnc, compact = false }) {
    ONBOARDING FLOW
 ═══════════════════════════════════════════════════════════ */
 
-/* Линейные шаги для прогресс-бара (profile — хаб, не линейный) */
-const OB_STEPS       = ["intro","ask_name","profile","show_tree","show_matches"];
-const OB_STEPS_LABEL = ["Знакомство","Ваше имя","Ваш профиль","Шежире","Связи рода"];
+/* Линейные шаги онбординга */
+const OB_STEPS       = ["ask_name","profile","show_matches"];
+const OB_STEPS_LABEL = ["Ваше имя","Ваш профиль","Связи рода"];
 
 const OB_SPEECHES = {
-  intro:         "Я — ABYZ. Я помогу тебе узнать историю твоего рода.",
   ask_name:      "Назови своё имя. Каждое имя — это нить, связывающая поколения.",
   profile:       "Это твоя история. Давай восстановим её вместе.",
-  add_tribe:     "Каждый человек принадлежит к роду. Знание своего ру — это знание себя.",
-  add_ancestors: "Твои предки — основа твоей истории. Даже одно имя — уже свет.",
-  show_tree:     "Теперь я вижу очертания твоего рода... Он обретает форму.",
   show_matches:  "Я нашёл связи в твоём роде... Нити времени тянутся сквозь века.",
 };
 
@@ -847,72 +887,45 @@ function ObSpeech({ text, speed=22, delay=400 }) {
   );
 }
 
-/* Full onboarding component (replaces LandingPage) */
+/* Full onboarding component */
 function OnboardingFlow({ onEnter }) {
-  const [step,      setStep]      = useState("intro");
+  const [step,      setStep]      = useState("ask_name");
   const [exiting,   setExiting]   = useState(false);
   const [name,      setName]      = useState("");
   const [tribeId,   setTribeId]   = useState(null);
+  const [cityId,    setCityId]    = useState(null);
   const [ancestors, setAncestors] = useState(Array(7).fill(""));
-  const [photo,     setPhoto]     = useState(null); // base64 or object URL
-  const [prevStep,  setPrevStep]  = useState(null); // for returning to profile
-
-  const ANC_GENS = ["Отец (Әке)","Дед (Ата)","Прадед (Баба)","Пра-прадед","Пра-пра-прадед","Пра-пра-пра-прадед","Пра-пра-пра-пра-прадед"];
+  const [photo,     setPhoto]     = useState(null);
+  const [dob,       setDob]       = useState("");
+  const [bio,       setBio]       = useState("");
   const fileRef = useRef(null);
 
-  /* Animated step transition */
+  const ANC_GENS = ["Отец (Әке)","Дед (Ата)","Прадед (Баба)","Пра-прадед","Пра-пра-прадед","Пра-пра-пра-прадед","Пра-пра-пра-пра-прадед"];
+
   const goTo = (nextStep) => {
     setExiting(true);
     setTimeout(() => { setStep(nextStep); setExiting(false); }, 300);
   };
 
-  /* Go to sub-step, remembering to return to profile */
-  const goToSub = (sub) => { setPrevStep("profile"); goTo(sub); };
-
-  /* Return to hub */
   const goBack = () => {
-    if (prevStep) { setPrevStep(null); goTo(prevStep); }
-    else {
-      const idx = OB_STEPS.indexOf(step);
-      if (idx > 0) goTo(OB_STEPS[idx - 1]);
-    }
+    const idx = OB_STEPS.indexOf(step);
+    if (idx > 0) goTo(OB_STEPS[idx - 1]);
   };
 
-  const handlePhoto = (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const url = URL.createObjectURL(file);
-    setPhoto(url);
-  };
-
-  const hasData  = tribeId || ancestors.some(Boolean);
-  const tribe    = TRIBES.find(t => t.id === tribeId);
+  const tribe = TRIBES.find(t => t.id === tribeId);
+  const city  = CITIES.find(c => c.id === cityId);
   const filledAnc = ancestors.filter(Boolean);
+  const score = (tribeId ? 30 : 0) + (cityId ? 30 : 0) + (filledAnc.length * Math.floor(40/7));
+  const pct = Math.min(100, score);
+  const canSearch = tribeId || cityId || filledAnc.length > 0;
 
-  /* ─── INTRO ─── */
-  if (step === "intro") return (
-    <div className="ob-wrap">
-      <div className="lbg"/><div className="ornament"/>
-      <ObProgress step={step}/>
-      <div className={exiting ? "ob-fade-out" : "ob-fade"} style={{display:"flex",flexDirection:"column",alignItems:"center",width:"100%"}}>
-        <ElderCircle size={210}/>
-        <ObSpeech text={OB_SPEECHES.intro} delay={500}/>
-        <div className="ob-nav">
-          <button className="bgold" style={{maxWidth:300,width:"100%"}} onClick={() => goTo("ask_name")}>
-            Начать →
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-
-  /* ─── ASK NAME ─── */
+  /* ─── ШАГ 1: ИМЯ ─── */
   if (step === "ask_name") return (
     <div className="ob-wrap">
       <div className="lbg"/><div className="ornament"/>
       <ObProgress step={step}/>
       <div className={exiting ? "ob-fade-out" : "ob-fade"} style={{display:"flex",flexDirection:"column",alignItems:"center",width:"100%"}}>
-        <ElderCircle size={160}/>
+        <ElderCircle size={180}/>
         <ObSpeech text={OB_SPEECHES.ask_name} delay={300}/>
         <div className="oform">
           <div className="flabel">Ваше имя</div>
@@ -920,8 +933,7 @@ function OnboardingFlow({ onEnter }) {
             onChange={e => setName(e.target.value)}
             onKeyDown={e => e.key==="Enter" && name.trim() && goTo("profile")}
             autoFocus/>
-          <div className="ob-nav">
-            <button className="ob-back" onClick={goBack}>← Назад</button>
+          <div className="ob-nav" style={{marginTop:4}}>
             <button className="bgold" style={{flex:1}} disabled={!name.trim()}
               onClick={() => goTo("profile")}>
               Далее →
@@ -932,276 +944,240 @@ function OnboardingFlow({ onEnter }) {
     </div>
   );
 
-  /* ─── PROFILE HUB ─── */
-  if (step === "profile") return (
-    <div className="ob-wrap" style={{justifyContent:"flex-start",paddingTop:90}}>
-      <div className="lbg"/><div className="ornament"/>
-      <ObProgress step={step}/>
-      <div className={exiting ? "ob-fade-out" : "ob-fade"} style={{display:"flex",flexDirection:"column",alignItems:"center",width:"100%",gap:20}}>
+  /* ─── ШАГ 2: ПРОФИЛЬ ─── */
+  if (step === "profile") {
+    let badge = null;
+    if (pct === 100)     badge = { icon:"🏆", label:"Профиль заполнен!", color:"var(--gold)" };
+    else if (pct >= 60)  badge = { icon:"🌳", label:"Отличный старт!", color:"#7ec87e" };
+    else if (pct >= 30)  badge = { icon:"🌱", label:"Продолжай!", color:"var(--gold2)" };
 
-        {/* ABYZ mini speech */}
-        <div style={{display:"flex",alignItems:"center",gap:16,width:"100%",maxWidth:860,marginBottom:4}}>
-          <ElderCircle size={72}/>
-          <div className="speech" style={{margin:0,flex:1}}>
-            <div className="sbub" style={{padding:"12px 18px"}}>
-              <div className="sname">Абыз</div>
-              <div className="stext" style={{fontSize:".88rem"}}>{OB_SPEECHES.profile}</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Profile layout */}
-        <div className="prof-layout">
-
-          {/* LEFT SIDEBAR */}
-          <div className="prof-sidebar">
-            {/* Avatar upload */}
-            <input ref={fileRef} type="file" accept="image/*" style={{display:"none"}} onChange={handlePhoto}/>
-            <div className="prof-avatar-wrap" onClick={() => fileRef.current?.click()}>
-              <div className="prof-avatar">
-                {photo
-                  ? <img src={photo} alt="avatar"/>
-                  : <div className="prof-avatar-placeholder">{name?.[0]?.toUpperCase() || "?"}</div>
-                }
-                <div className="prof-avatar-overlay">Изменить</div>
-              </div>
-              <div className="prof-avatar-hint">Нажмите чтобы загрузить фото</div>
-            </div>
-
-            {/* Name */}
-            <div className="prof-name-big">{name || "Путник"}</div>
-
-            {/* Tribe badge or add button */}
-            {tribe ? (
-              <div className="prof-tribe-badge" onClick={() => goToSub("add_tribe")}>
-                <span style={{fontSize:"1.1rem"}}>{tribe.icon}</span>
-                <div>
-                  <div className="ptb-lbl">Род</div>
-                  <div className="ptb-val">{tribe.name}</div>
-                </div>
-                <span style={{color:"rgba(198,165,92,.4)",fontSize:".75rem",marginLeft:"auto"}}>›</span>
-              </div>
-            ) : (
-              <button className="prof-empty-tribe" onClick={() => goToSub("add_tribe")}>
-                🏔 Добавить род
-              </button>
-            )}
-
-            {/* Stats */}
-            <div style={{width:"100%",borderTop:"1px solid rgba(198,165,92,.08)",paddingTop:14,display:"flex",justifyContent:"space-around"}}>
-              <div style={{textAlign:"center"}}>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.3rem",color:"var(--gold)"}}>{filledAnc.length}</div>
-                <div style={{fontSize:".6rem",letterSpacing:".1em",textTransform:"uppercase",color:"rgba(240,235,210,.28)",marginTop:2}}>Предков</div>
-              </div>
-              <div style={{textAlign:"center"}}>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.3rem",color:"var(--gold)"}}>{tribe?1:0}</div>
-                <div style={{fontSize:".6rem",letterSpacing:".1em",textTransform:"uppercase",color:"rgba(240,235,210,.28)",marginTop:2}}>Ру</div>
-              </div>
-              <div style={{textAlign:"center"}}>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.3rem",color:"var(--gold)"}}>{hasData?filledAnc.length+1:0}</div>
-                <div style={{fontSize:".6rem",letterSpacing:".1em",textTransform:"uppercase",color:"rgba(240,235,210,.28)",marginTop:2}}>Уровней</div>
-              </div>
-            </div>
-          </div>
-
-          {/* RIGHT CONTENT */}
-          <div className="prof-content">
-
-            {/* Tree section */}
-            <div className="prof-section">
-              <div className="prof-section-head">
-                <div className="prof-section-title">🌳 Шежире</div>
-                {hasData && (
-                  <button className="prof-section-action" onClick={() => goTo("show_tree")}>
-                    Открыть полное →
-                  </button>
-                )}
-              </div>
-              {hasData ? (
-                <ShejireTree
-                  userName={name}
-                  ancestors={ancestors}
-                  onAddAnc={() => goToSub("add_ancestors")}
-                  compact
-                />
-              ) : (
-                <div className="prof-tree-ph" onClick={() => goToSub("add_ancestors")}>
-                  <div className="prof-tree-ph-icon">🌱</div>
-                  <div className="prof-tree-ph-text">Шежире пока пустое</div>
-                  <div className="prof-tree-ph-sub">Добавьте предков или род, чтобы начать</div>
-                </div>
-              )}
-            </div>
-
-            {/* Ancestors section */}
-            <div className="prof-section">
-              <div className="prof-section-head">
-                <div className="prof-section-title">👤 Предки (7 ата)</div>
-                <button className="prof-section-action" onClick={() => goToSub("add_ancestors")}>
-                  {filledAnc.length > 0 ? "Редактировать" : "Добавить"} →
-                </button>
-              </div>
-              {filledAnc.length > 0 ? (
-                <div className="anc-mini-list">
-                  {ancestors.map((a, i) => (
-                    <div key={i} className="anc-mini-row">
-                      <span className="anc-mini-num">{i+1}</span>
-                      <span className="anc-mini-gen">{ANC_GENS[i]}</span>
-                      {a
-                        ? <span className="anc-mini-val">{a}</span>
-                        : <span className="anc-mini-empty">не указан</span>
-                      }
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div style={{fontSize:".78rem",color:"rgba(240,235,210,.22)",fontStyle:"italic",padding:"8px 0"}}>
-                  Предки не добавлены
-                </div>
-              )}
-            </div>
-
-            {/* CTA */}
-            <div className="prof-cta-row">
-              {hasData ? (
-                <>
-                  <button className="bgold" style={{flex:1}} onClick={() => goTo("show_tree")}>
-                    🌳 Смотреть шежире →
-                  </button>
-                  <button className="boutline" onClick={() => goTo("show_matches")}>
-                    Найти связи
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button className="bgold" style={{flex:1}} onClick={() => goToSub("add_tribe")}>
-                    🏔 Добавить род
-                  </button>
-                  <button className="boutline" style={{flex:1}} onClick={() => goToSub("add_ancestors")}>
-                    👤 Добавить предков
-                  </button>
-                </>
-              )}
-            </div>
-
-            <div style={{textAlign:"center"}}>
-              <button style={{background:"none",border:"none",fontSize:".75rem",color:"rgba(240,235,210,.25)",cursor:"pointer",fontFamily:"inherit"}}
-                onClick={() => onEnter(name.trim()||"Путник", { tribeId, ancestors })}>
-                Пропустить и войти →
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  /* ─── ADD TRIBE (sub-step, returns to profile) ─── */
-  if (step === "add_tribe") return (
-    <div className="ob-wrap">
-      <div className="lbg"/><div className="ornament"/>
-      <ObProgress step="profile"/>
-      <div className={exiting ? "ob-fade-out" : "ob-fade"} style={{display:"flex",flexDirection:"column",alignItems:"center",width:"100%"}}>
-        <ElderCircle size={110}/>
-        <ObSpeech text={OB_SPEECHES.add_tribe} delay={250}/>
-        <div className="tribe-grid-ob">
-          {TRIBES.map(t => (
-            <button key={t.id} className={`tribe-btn${tribeId===t.id?" sel":""}`} onClick={() => setTribeId(t.id)}>
-              <span className="tb-icon">{t.icon}</span>
-              <div>
-                <div className="tb-name">{t.name}</div>
-                <div className="tb-reg">{t.region}</div>
-              </div>
-            </button>
-          ))}
-        </div>
-        <button className="tribe-unknown" onClick={() => { setTribeId(null); goTo("profile"); }}>
-          Не знаю своего рода
-        </button>
-        <div className="ob-nav">
-          <button className="ob-back" onClick={goBack}>← Назад</button>
-          <button className="bgold" style={{flex:1}} onClick={() => goTo("profile")}>
-            {tribeId ? "Сохранить →" : "Пропустить →"}
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-
-  /* ─── ADD ANCESTORS (sub-step, returns to profile) ─── */
-  if (step === "add_ancestors") return (
-    <div className="ob-wrap">
-      <div className="lbg"/><div className="ornament"/>
-      <ObProgress step="profile"/>
-      <div className={exiting ? "ob-fade-out" : "ob-fade"} style={{display:"flex",flexDirection:"column",alignItems:"center",width:"100%"}}>
-        <ElderCircle size={110}/>
-        <ObSpeech text={OB_SPEECHES.add_ancestors} delay={250}/>
-        <div className="anc-list">
-          {ANC_GENS.map((gen, i) => (
-            <div className="anc-row" key={i}>
-              <span className="anc-num">{i+1}</span>
-              <span className="anc-gen">{gen}</span>
-              <input
-                className={`anc-inp${ancestors[i] ? " filled" : ""}`}
-                placeholder="Имя предка…"
-                value={ancestors[i]}
-                onChange={e => { const a=[...ancestors]; a[i]=e.target.value; setAncestors(a); }}
-              />
-            </div>
-          ))}
-        </div>
-        <div className="ob-nav">
-          <button className="ob-back" onClick={goBack}>← Назад</button>
-          <button className="bgold" style={{flex:1}} onClick={() => goTo("profile")}>
-            Сохранить →
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-
-  /* ─── SHOW TREE ─── */
-  if (step === "show_tree") {
-    const topAncestor = ancestors.filter(Boolean).pop() || null;
     return (
-      <div className="ob-wrap" style={{justifyContent:"flex-start",paddingTop:100}}>
+      <div className="ob-wrap" style={{justifyContent:"flex-start",paddingTop:90,paddingBottom:80}}>
         <div className="lbg"/><div className="ornament"/>
         <ObProgress step={step}/>
-        <div className={exiting ? "ob-fade-out" : "ob-fade"} style={{display:"flex",flexDirection:"column",alignItems:"center",width:"100%"}}>
-          <ElderCircle size={110}/>
-          <ObSpeech text={OB_SPEECHES.show_tree} delay={200}/>
-          <div className="tree-reveal" style={{width:"100%",maxWidth:520,margin:"0 auto 24px",background:"rgba(0,48,26,.1)",border:"1px solid rgba(198,165,92,.14)",borderRadius:18,padding:"24px 16px",display:"flex",flexDirection:"column",alignItems:"center",gap:0}}>
-            <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.2rem",color:"var(--gold)",marginBottom:4,letterSpacing:"-.01em"}}>
-              🌳 Шежире · {name}
+        <div className={exiting ? "ob-fade-out" : "ob-fade"} style={{display:"flex",flexDirection:"column",alignItems:"center",width:"100%",gap:18,maxWidth:980}}>
+
+          {/* Elder + speech */}
+          <div style={{display:"flex",alignItems:"center",gap:14,width:"100%"}}>
+            <ElderCircle size={56}/>
+            <div className="speech" style={{margin:0,flex:1}}>
+              <div className="sbub" style={{padding:"11px 16px"}}>
+                <div className="sname">Абыз · Хранитель памяти</div>
+                <div className="stext" style={{fontSize:".85rem"}}>{OB_SPEECHES.profile}</div>
+              </div>
             </div>
-            {tribe && (
-              <div className="abadge" style={{marginBottom:12}}>{tribe.icon} Род: <strong>{tribe.name}</strong></div>
+          </div>
+
+          {/* Gamification bar */}
+          <div style={{width:"100%",background:"rgba(255,255,255,.03)",border:"1px solid rgba(198,165,92,.15)",borderRadius:12,padding:"12px 18px"}}>
+            <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:7}}>
+              <div style={{fontSize:".6rem",letterSpacing:".16em",textTransform:"uppercase",color:"rgba(198,165,92,.5)"}}>Полнота профиля</div>
+              <div style={{display:"flex",alignItems:"center",gap:10}}>
+                {badge && <span style={{fontSize:".75rem",color:badge.color,fontWeight:600}}>{badge.icon} {badge.label}</span>}
+                <span style={{fontFamily:"'Playfair Display',serif",fontSize:"1.05rem",color:"var(--gold)",fontWeight:700}}>{pct}%</span>
+              </div>
+            </div>
+            <div style={{height:5,background:"rgba(255,255,255,.06)",borderRadius:3,overflow:"hidden"}}>
+              <div style={{height:"100%",width:`${pct}%`,background:"linear-gradient(90deg,var(--green),var(--gold))",borderRadius:3,transition:"width .6s cubic-bezier(.4,0,.2,1)"}}/>
+            </div>
+            <div style={{display:"flex",gap:14,marginTop:8,flexWrap:"wrap"}}>
+              {[
+                {ok:!!tribeId,   label:"Ру (+30)"},
+                {ok:!!cityId,    label:"Город (+30)"},
+                {ok:filledAnc.length>0, label:`7 Ата ${filledAnc.length}/7 (+${filledAnc.length*5}%)`},
+              ].map((it,i) => (
+                <span key={i} style={{fontSize:".68rem",color:it.ok?"var(--gold)":"rgba(240,235,210,.28)",display:"flex",alignItems:"center",gap:4}}>
+                  {it.ok?"✓":"○"} {it.label}
+                </span>
+              ))}
+              {canSearch && <span style={{fontSize:".68rem",color:"#7ec87e",fontWeight:600}}>🔓 Поиск связей доступен!</span>}
+            </div>
+          </div>
+
+          {/* 3-col layout: личный профиль | ру+город | 7 ата */}
+          <div style={{display:"grid",gridTemplateColumns:"220px 1fr 1fr",gap:14,width:"100%",alignItems:"start"}}>
+
+            {/* COL 1: ЛИЧНЫЙ ПРОФИЛЬ */}
+            <div style={{background:"linear-gradient(160deg,rgba(0,63,37,.22) 0%,rgba(14,18,16,.9) 100%)",border:"1px solid rgba(198,165,92,.2)",borderRadius:16,padding:20,display:"flex",flexDirection:"column",alignItems:"center",gap:14,position:"relative",overflow:"hidden"}}>
+              {/* decorative top line */}
+              <div style={{position:"absolute",top:0,left:0,right:0,height:2,background:"linear-gradient(90deg,transparent,var(--gold),transparent)",opacity:.5}}/>
+
+              {/* Avatar */}
+              <div style={{position:"relative"}}>
+                <input ref={fileRef} type="file" accept="image/*" style={{display:"none"}} onChange={e => {
+                  const f=e.target.files?.[0]; if(!f) return;
+                  setPhoto(URL.createObjectURL(f));
+                }}/>
+                <div onClick={() => fileRef.current?.click()} style={{width:90,height:90,borderRadius:"50%",border:"2px solid rgba(198,165,92,.35)",background:"linear-gradient(135deg,var(--green3),var(--green2))",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",overflow:"hidden",position:"relative",transition:"border-color .2s"}}>
+                  {photo
+                    ? <img src={photo} alt="" style={{width:"100%",height:"100%",objectFit:"cover"}}/>
+                    : <span style={{fontFamily:"'Playfair Display',serif",fontSize:"2rem",color:"var(--gold)",opacity:.8}}>{name?.[0]?.toUpperCase()||"?"}</span>
+                  }
+                  <div style={{position:"absolute",inset:0,background:"rgba(0,0,0,.45)",display:"flex",alignItems:"center",justifyContent:"center",opacity:0,transition:"opacity .2s",borderRadius:"50%",fontSize:".6rem",letterSpacing:".08em",color:"rgba(240,235,210,.8)",textAlign:"center"}}
+                    onMouseEnter={e=>e.currentTarget.style.opacity=1}
+                    onMouseLeave={e=>e.currentTarget.style.opacity=0}>
+                    Изменить
+                  </div>
+                </div>
+                {/* gold ring pulse */}
+                <div style={{position:"absolute",inset:-5,borderRadius:"50%",border:"1px solid rgba(198,165,92,.15)",animation:"npulse 2.5s ease-in-out infinite",pointerEvents:"none"}}/>
+              </div>
+
+              {/* Name */}
+              <div style={{textAlign:"center"}}>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.15rem",fontWeight:700,color:"var(--gold)",letterSpacing:"-.01em"}}>{name||"Путник"}</div>
+                <div style={{fontSize:".6rem",letterSpacing:".14em",textTransform:"uppercase",color:"rgba(240,235,210,.3)",marginTop:3}}>Участник ABYZ</div>
+              </div>
+
+              {/* Divider */}
+              <div style={{width:"100%",height:1,background:"rgba(198,165,92,.1)"}}/>
+
+              {/* Date of birth */}
+              <div style={{width:"100%"}}>
+                <div style={{fontSize:".55rem",letterSpacing:".16em",textTransform:"uppercase",color:"rgba(198,165,92,.45)",marginBottom:6}}>Дата рождения</div>
+                <input
+                  type="date"
+                  style={{width:"100%",background:"rgba(255,255,255,.04)",border:"1px solid rgba(198,165,92,.15)",borderRadius:8,padding:"8px 10px",fontFamily:"'Inter',sans-serif",fontSize:".8rem",color:"var(--text)",outline:"none",colorScheme:"dark"}}
+                  value={dob} onChange={e => setDob(e.target.value)}
+                />
+              </div>
+
+              {/* Bio */}
+              <div style={{width:"100%"}}>
+                <div style={{fontSize:".55rem",letterSpacing:".16em",textTransform:"uppercase",color:"rgba(198,165,92,.45)",marginBottom:6}}>О себе</div>
+                <textarea
+                  rows={3}
+                  placeholder="Несколько слов о себе…"
+                  style={{width:"100%",background:"rgba(255,255,255,.04)",border:"1px solid rgba(198,165,92,.15)",borderRadius:8,padding:"8px 10px",fontFamily:"'Inter',sans-serif",fontSize:".78rem",color:"var(--text)",outline:"none",resize:"none",lineHeight:1.55,colorScheme:"dark"}}
+                  value={bio} onChange={e => setBio(e.target.value)}
+                />
+              </div>
+
+              {/* Selected badges */}
+              {(tribe||city) && (
+                <div style={{width:"100%",display:"flex",flexDirection:"column",gap:6}}>
+                  {tribe && (
+                    <div style={{display:"flex",alignItems:"center",gap:8,background:"rgba(0,63,37,.2)",border:"1px solid rgba(198,165,92,.18)",borderRadius:8,padding:"7px 10px"}}>
+                      <span style={{fontSize:"1rem"}}>{tribe.icon}</span>
+                      <div>
+                        <div style={{fontSize:".6rem",color:"rgba(198,165,92,.5)",letterSpacing:".1em",textTransform:"uppercase"}}>Ру</div>
+                        <div style={{fontSize:".82rem",fontWeight:500,color:"var(--gold)"}}>{tribe.name}</div>
+                      </div>
+                    </div>
+                  )}
+                  {city && (
+                    <div style={{display:"flex",alignItems:"center",gap:8,background:"rgba(0,63,37,.15)",border:"1px solid rgba(198,165,92,.12)",borderRadius:8,padding:"7px 10px"}}>
+                      <span style={{fontSize:"1rem"}}>{city.icon}</span>
+                      <div>
+                        <div style={{fontSize:".6rem",color:"rgba(198,165,92,.5)",letterSpacing:".1em",textTransform:"uppercase"}}>Город</div>
+                        <div style={{fontSize:".82rem",fontWeight:500}}>{city.name}</div>
+                      </div>
+                    </div>
+                  )}
+                  {filledAnc.length > 0 && (
+                    <div style={{display:"flex",alignItems:"center",gap:8,background:"rgba(0,63,37,.12)",border:"1px solid rgba(198,165,92,.1)",borderRadius:8,padding:"7px 10px"}}>
+                      <span style={{fontSize:"1rem"}}>👤</span>
+                      <div>
+                        <div style={{fontSize:".6rem",color:"rgba(198,165,92,.5)",letterSpacing:".1em",textTransform:"uppercase"}}>7 Ата</div>
+                        <div style={{fontSize:".82rem",color:"var(--text)"}}>{filledAnc.length} из 7 заполнено</div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* COL 2: РУ + ГОРОД */}
+            <div style={{display:"flex",flexDirection:"column",gap:12}}>
+              {/* РУ */}
+              <div style={{background:"rgba(255,255,255,.025)",border:"1px solid rgba(198,165,92,.1)",borderRadius:14,padding:14}}>
+                <div style={{fontSize:".58rem",letterSpacing:".18em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:9}}>🏔 Ру (Род)</div>
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:5,maxHeight:190,overflowY:"auto",paddingRight:2}}>
+                  {TRIBES.map(t => (
+                    <button key={t.id}
+                      style={{background:tribeId===t.id?"rgba(0,63,37,.35)":"rgba(255,255,255,.03)",border:`1.5px solid ${tribeId===t.id?"var(--gold)":"rgba(198,165,92,.1)"}`,borderRadius:8,padding:"7px 9px",cursor:"pointer",color:"var(--text)",fontFamily:"inherit",textAlign:"left",transition:"all .18s",display:"flex",alignItems:"center",gap:6}}
+                      onClick={() => setTribeId(tribeId===t.id?null:t.id)}>
+                      <span style={{fontSize:".9rem"}}>{t.icon}</span>
+                      <div>
+                        <div style={{fontSize:".74rem",fontWeight:500}}>{t.name}</div>
+                        <div style={{fontSize:".57rem",color:"var(--muted)"}}>{t.region}</div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+                {!tribeId && <div style={{fontSize:".65rem",color:"rgba(240,235,210,.2)",marginTop:7,textAlign:"center"}}>Не знаю — пропущу</div>}
+              </div>
+
+              {/* ГОРОД */}
+              <div style={{background:"rgba(255,255,255,.025)",border:"1px solid rgba(198,165,92,.1)",borderRadius:14,padding:14}}>
+                <div style={{fontSize:".58rem",letterSpacing:".18em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:9}}>🏙 Город рождения</div>
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:5,maxHeight:170,overflowY:"auto",paddingRight:2}}>
+                  {CITIES.map(c => (
+                    <button key={c.id}
+                      style={{background:cityId===c.id?"rgba(0,63,37,.35)":"rgba(255,255,255,.03)",border:`1.5px solid ${cityId===c.id?"var(--gold)":"rgba(198,165,92,.1)"}`,borderRadius:8,padding:"7px 9px",cursor:"pointer",color:"var(--text)",fontFamily:"inherit",textAlign:"left",transition:"all .18s",display:"flex",alignItems:"center",gap:6}}
+                      onClick={() => setCityId(cityId===c.id?null:c.id)}>
+                      <span style={{fontSize:".9rem"}}>{c.icon}</span>
+                      <div>
+                        <div style={{fontSize:".74rem",fontWeight:500}}>{c.name}</div>
+                        <div style={{fontSize:".57rem",color:"var(--muted)"}}>{c.region}</div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* COL 3: 7 АТА */}
+            <div style={{background:"rgba(255,255,255,.025)",border:"1px solid rgba(198,165,92,.1)",borderRadius:14,padding:14,display:"flex",flexDirection:"column"}}>
+              <div style={{fontSize:".58rem",letterSpacing:".18em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:4}}>👤 7 Ата — предки</div>
+              <div style={{fontSize:".67rem",color:"rgba(240,235,210,.22)",marginBottom:10,lineHeight:1.5}}>Казахская традиция — знать 7 поколений</div>
+              <div style={{display:"flex",flexDirection:"column",gap:7,flex:1}}>
+                {ANC_GENS.map((gen, i) => (
+                  <div key={i} style={{display:"flex",alignItems:"center",gap:7}}>
+                    <span style={{fontFamily:"'Playfair Display',serif",fontSize:".82rem",color:"var(--gold)",opacity:.6,width:14,textAlign:"right",flexShrink:0}}>{i+1}</span>
+                    <span style={{fontSize:".58rem",color:"var(--muted)",width:80,flexShrink:0,lineHeight:1.2}}>{gen}</span>
+                    <input
+                      style={{flex:1,background:"rgba(255,255,255,.04)",border:`1px solid ${ancestors[i]?"rgba(198,165,92,.32)":"rgba(198,165,92,.1)"}`,borderRadius:7,padding:"6px 9px",fontFamily:"'Playfair Display',serif",fontSize:".8rem",color:"var(--text)",outline:"none",transition:"all .18s"}}
+                      placeholder="Имя…"
+                      value={ancestors[i]}
+                      onChange={e => { const a=[...ancestors]; a[i]=e.target.value; setAncestors(a); }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Nav */}
+          <div className="ob-nav" style={{maxWidth:"100%"}}>
+            <button className="ob-back" onClick={goBack}>← Назад</button>
+            {canSearch ? (
+              <button className="bgold" style={{flex:1,maxWidth:340}} onClick={() => goTo("show_matches")}>
+                🔍 Найти связи рода →
+              </button>
+            ) : (
+              <button className="bgold" style={{flex:1,maxWidth:340}}
+                onClick={() => onEnter(name.trim()||"Путник", { tribeId, cityId, ancestors })}>
+                Войти в ABYZ →
+              </button>
             )}
-            <ShejireTree
-              userName={name}
-              ancestors={ancestors}
-              onAddAnc={() => goTo("profile")}
-            />
           </div>
-          <div className="ob-nav">
-            <button className="ob-back" onClick={() => goTo("profile")}>← Профиль</button>
-            <button className="bgold" style={{flex:1,maxWidth:280}} onClick={() => goTo("show_matches")}>
-              Найти связи →
-            </button>
-          </div>
+          <button style={{background:"none",border:"none",fontSize:".7rem",color:"rgba(240,235,210,.2)",cursor:"pointer",fontFamily:"inherit"}}
+            onClick={() => onEnter(name.trim()||"Путник", { tribeId, cityId, ancestors })}>
+            Пропустить →
+          </button>
         </div>
       </div>
     );
   }
 
-  /* ─── SHOW MATCHES ─── */
+  /* ─── ШАГ 3: СВЯЗИ ─── */
   if (step === "show_matches") {
     const matches = tribeId
       ? [...MOCK_MATCHES].sort((a,b) => (b.tribeId===tribeId?1:0)-(a.tribeId===tribeId?1:0))
       : MOCK_MATCHES;
     const visibleCount = matches.filter(m => !m.blurred).length;
     const lockedCount  = matches.filter(m => m.blurred).length;
-
     return (
       <div className="ob-wrap" style={{justifyContent:"flex-start",paddingTop:110}}>
         <div className="lbg"/><div className="ornament"/>
@@ -1266,9 +1242,9 @@ function OnboardingFlow({ onEnter }) {
           </div>
 
           <div className="ob-nav" style={{marginTop:8}}>
-            <button className="ob-back" onClick={() => goTo("show_tree")}>← Назад</button>
+            <button className="ob-back" onClick={goBack}>← Назад</button>
             <button className="bgold" style={{flex:1,maxWidth:280}}
-              onClick={() => onEnter(name.trim()||"Путник", { tribeId, ancestors })}>
+              onClick={() => onEnter(name.trim()||"Путник", { tribeId, cityId, ancestors })}>
               Войти в ABYZ →
             </button>
           </div>
@@ -1280,7 +1256,6 @@ function OnboardingFlow({ onEnter }) {
   return null;
 }
 
-
 /* Keep LandingPage as alias (App uses it) */
 function LandingPage({ onEnter }) {
   return <OnboardingFlow onEnter={onEnter}/>;
@@ -1289,7 +1264,7 @@ function LandingPage({ onEnter }) {
 /* ═══════════════════════════════════════════════════════════
    HEADER
 ═══════════════════════════════════════════════════════════ */
-function Header({ page, setPage }) {
+function Header({ page, setPage, dark, setDark }) {
   const nav = [
     {id:"personal", label:"Моя страница"},
     {id:"list",     label:"Личности"},
@@ -1309,6 +1284,12 @@ function Header({ page, setPage }) {
             onClick={() => setPage({id:n.id})}>{n.label}</button>
         ))}
       </nav>
+      <button
+        onClick={() => setDark(d => !d)}
+        style={{background:"none",border:"1px solid var(--border)",borderRadius:20,padding:"5px 13px",cursor:"pointer",fontSize:".72rem",color:"var(--gold)",fontFamily:"'Inter',sans-serif",transition:"all .2s",letterSpacing:".04em",flexShrink:0}}
+        title="Сменить тему">
+        {dark ? "☀️ Светлая" : "🌙 Тёмная"}
+      </button>
     </header>
   );
 }
@@ -1322,10 +1303,38 @@ function Footer() {
 ═══════════════════════════════════════════════════════════ */
 function PersonalPage({ userName, profile, setProfile, setPage }) {
   const [showTribeModal, setShowTribeModal] = useState(false);
-  const [showCityModal, setShowCityModal]   = useState(false);
+  const [showCityModal,  setShowCityModal]  = useState(false);
+  const [treeNames,      setTreeNames]      = useState(() => {
+    const arr = Array(7).fill("");
+    arr[0] = userName || "";
+    return arr;
+  });
+  const [editingNode, setEditingNode]       = useState(null);
+  const [editVal,     setEditVal]           = useState("");
+  const editRef = useRef(null);
 
   const tribe = TRIBES.find(t => t.id === profile.tribeId);
   const city  = CITIES.find(c => c.id === profile.cityId);
+
+  // Sync treeNames[0] when userName changes
+  useEffect(() => {
+    setTreeNames(prev => { const n=[...prev]; n[0]=userName||""; return n; });
+  }, [userName]);
+
+  const startEdit = (i) => {
+    if (i === 0) return;
+    setEditingNode(i);
+    setEditVal(treeNames[i]);
+    setTimeout(() => editRef.current?.focus(), 50);
+  };
+  const commitEdit = () => {
+    if (editingNode !== null) {
+      setTreeNames(prev => { const n=[...prev]; n[editingNode]=editVal; return n; });
+      setEditingNode(null);
+    }
+  };
+
+  const TREE_GENS = ["Вы","Отец","Дед","Прадед","Пра-прадед","Пра-пра-прадед","7-й дед"];
 
   return (
     <div className="shell pe">
@@ -1341,10 +1350,8 @@ function PersonalPage({ userName, profile, setProfile, setPage }) {
               <span className="chip-icon">🏔</span>
               <div>
                 <div className="chip-lbl">Род / Ру</div>
-                {tribe
-                  ? <div className="chip-val">{tribe.name}</div>
-                  : <div className="chip-empty">Выбрать род</div>
-                }
+                {tribe ? <div className="chip-val">{tribe.name}</div>
+                       : <div className="chip-empty">Выбрать род</div>}
               </div>
               <span className="chip-arrow">›</span>
             </div>
@@ -1352,25 +1359,22 @@ function PersonalPage({ userName, profile, setProfile, setPage }) {
               <span className="chip-icon">🏙</span>
               <div>
                 <div className="chip-lbl">Город рождения</div>
-                {city
-                  ? <div className="chip-val">{city.name}</div>
-                  : <div className="chip-empty">Выбрать город</div>
-                }
+                {city ? <div className="chip-val">{city.name}</div>
+                      : <div className="chip-empty">Выбрать город</div>}
               </div>
               <span className="chip-arrow">›</span>
             </div>
           </div>
 
-          {/* COMMUNITY LINKS */}
           {(tribe || city) && (
             <div style={{display:"flex",gap:8,flexWrap:"wrap",marginBottom:20}}>
               {tribe && (
-                <button className="bsmall" onClick={() => setPage({id:"community", data:{type:"tribe", itemId:tribe.id}})}>
+                <button className="bsmall" onClick={() => setPage({id:"community",data:{type:"tribe",itemId:tribe.id}})}>
                   {tribe.icon} Страница рода {tribe.name} →
                 </button>
               )}
               {city && (
-                <button className="bsmall" onClick={() => setPage({id:"community", data:{type:"city", itemId:city.id}})}>
+                <button className="bsmall" onClick={() => setPage({id:"community",data:{type:"city",itemId:city.id}})}>
                   {city.icon} Страница {city.name} →
                 </button>
               )}
@@ -1404,12 +1408,87 @@ function PersonalPage({ userName, profile, setProfile, setPage }) {
           </div>
           {tribe && (
             <div style={{background:"rgba(0,63,37,.12)",border:"1px solid rgba(198,165,92,.15)",borderRadius:14,padding:"14px 16px",textAlign:"center",width:"100%"}}>
-              <div style={{fontSize:1.8+"rem",marginBottom:6}}>{tribe.icon}</div>
+              <div style={{fontSize:"1.8rem",marginBottom:6}}>{tribe.icon}</div>
               <div style={{fontSize:".7rem",color:"var(--gold2)",letterSpacing:".1em",textTransform:"uppercase",marginBottom:4}}>Ваш род</div>
-              <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.1rem",color:"var(--text)"}}>{tribe.name}</div>
+              <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.1rem"}}>{tribe.name}</div>
               <div style={{fontSize:".72rem",color:"var(--muted)",marginTop:4}}>{tribe.members.toLocaleString()} участников</div>
             </div>
           )}
+        </div>
+      </div>
+
+      {/* ══════════════════════════════
+          СЕМЕЙНОЕ ДРЕВО — редактор
+      ══════════════════════════════ */}
+      <div style={{maxWidth:1060,margin:"0 auto",padding:"0 24px 80px"}}>
+        <div style={{borderTop:"1px solid rgba(198,165,92,.1)",paddingTop:44,marginBottom:24,display:"flex",alignItems:"baseline",justifyContent:"space-between",flexWrap:"wrap",gap:10}}>
+          <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"1.7rem",fontWeight:700,letterSpacing:"-.02em"}}>
+            🌳 Семейное древо
+          </h2>
+          <div style={{fontSize:".75rem",color:"rgba(240,235,210,.3)"}}>
+            Нажмите на узел для редактирования · {treeNames.filter(Boolean).length} / 7 заполнено
+          </div>
+        </div>
+
+        {/* Edit bar */}
+        {editingNode !== null && (
+          <div className="tree-editor" style={{marginBottom:16}}>
+            <div style={{flexShrink:0}}>
+              <div className="te-gen">{TREE_GENS[editingNode]}</div>
+              <div className="te-name">{treeNames[editingNode]||"Не указан"}</div>
+            </div>
+            <input ref={editRef} className="te-inp"
+              value={editVal} onChange={e => setEditVal(e.target.value)}
+              onKeyDown={e => { if(e.key==="Enter") commitEdit(); if(e.key==="Escape") setEditingNode(null); }}
+              placeholder="Имя предка…"/>
+            <button className="boutline" style={{padding:"8px 16px",flexShrink:0}} onClick={commitEdit}>✓ Сохранить</button>
+            <button className="bghost"   style={{padding:"8px 14px",flexShrink:0}} onClick={() => setEditingNode(null)}>✕</button>
+          </div>
+        )}
+
+        {/* Vertical tree */}
+        <div style={{background:"rgba(0,48,26,.07)",border:"1px solid rgba(198,165,92,.1)",borderRadius:20,padding:"32px 24px",display:"flex",flexDirection:"column",alignItems:"center",gap:0}}>
+          {tribe && (
+            <div className="abadge" style={{marginBottom:20}}>{tribe.icon} Род: <strong>{tribe.name}</strong>{city && <> · {city.icon} {city.name}</>}</div>
+          )}
+
+          {/* Render nodes top-to-bottom: gen6 → gen0 → you */}
+          {[...Array(7)].map((_, revI) => {
+            const i = 6 - revI; // 6,5,4,3,2,1,0 then user=0
+            const isUser = i === 0;
+            const filled = !!treeNames[i];
+            return (
+              <div key={i} style={{display:"flex",flexDirection:"column",alignItems:"center",animationDelay:`${revI*60}ms`}} className="sj-level">
+                {/* Node */}
+                <div
+                  className={`sj-node ${isUser?"sj-user":"sj-ancestor"}${!filled&&!isUser?" sj-empty":""}`}
+                  style={{minWidth:180,cursor:isUser?"default":"pointer"}}
+                  onClick={() => !isUser && startEdit(i)}>
+                  <div className="sj-gen-label">{TREE_GENS[i]}</div>
+                  {editingNode===i
+                    ? <div className="sj-name" style={{opacity:.5}}>✏️ редактирование…</div>
+                    : <div className="sj-name">{filled ? treeNames[i] : (isUser ? userName||"Вы" : "+ добавить")}</div>
+                  }
+                  {filled && !isUser && (
+                    <div style={{fontSize:".52rem",color:"rgba(198,165,92,.4)",marginTop:3,letterSpacing:".08em"}}>{i+1}-е поколение</div>
+                  )}
+                </div>
+                {/* Connector down (not after last = user) */}
+                {revI < 7 && <div className="sj-connector"/>}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Legend */}
+        <div className="tree-legend" style={{marginTop:16}}>
+          <div className="leg-item"><div className="leg-dot" style={{background:"var(--gold)"}}/> Заполнено</div>
+          <div className="leg-item"><div className="leg-dot" style={{background:"rgba(198,165,92,.15)"}}/> Нажмите чтобы добавить</div>
+          <div className="leg-item" style={{marginLeft:"auto"}}>
+            <button className="bghost" style={{fontSize:".72rem",padding:"5px 12px"}} onClick={() => setPage({id:"my-tree"})}>
+              Открыть полный редактор →
+            </button>
+          </div>
         </div>
       </div>
 
@@ -1465,7 +1544,7 @@ function ClansPage({ setPage }) {
               <div>
                 <div className="tribe-name">{t.name}</div>
                 <div className="tribe-sub">{t.desc}</div>
-                <div className="tribe-count">👥 {t.members.toLocaleString()} участников · {t.region}</div>
+                <div className="tribe-count">👥 {t.members.toLocaleString()} уч. · {t.region}</div>
               </div>
             </div>
           ))}
@@ -1501,7 +1580,7 @@ function CitiesPage({ setPage }) {
               <div>
                 <div className="tribe-name">{c.name}</div>
                 <div className="tribe-sub">{c.desc}</div>
-                <div className="tribe-count">👥 {c.pop} жителей · {c.region}</div>
+                <div className="tribe-count">👥 {c.pop} жит. · {c.region}</div>
               </div>
             </div>
           ))}
@@ -1544,7 +1623,7 @@ function CommunityPage({ data, setPage }) {
     <div className="shell pe">
       <div className="wrap">
         <button className="back" onClick={() => setPage({id: backPage})}>
-          ← Назад к {type === "tribe" ? "родам" : "городам"}
+          ← Артқа к {type === "tribe" ? "родам" : "городам"}
         </button>
 
         {/* BANNER */}
@@ -1558,7 +1637,7 @@ function CommunityPage({ data, setPage }) {
 
           {/* STATS */}
           <div className="comm-stats">
-            <div className="cstat"><div className="cstat-n">{type === "tribe" ? item.members?.toLocaleString() : item.pop}</div><div className="cstat-l">{type === "tribe" ? "Участников" : "Жителей"}</div></div>
+            <div className="cstat"><div className="cstat-n">{type === "tribe" ? item.members?.toLocaleString() : item.pop}</div><div className="cstat-l">{type === "tribe" ? "Мүше" : "Тұрғын"}</div></div>
             <div className="cstat"><div className="cstat-n">{relatedPersons.length}</div><div className="cstat-l">Личностей</div></div>
             <div className="cstat"><div className="cstat-n">{communityMembers.length}</div><div className="cstat-l">В базе</div></div>
             <div className="cstat"><div className="cstat-n">{type === "tribe" ? item.region : item.region}</div><div className="cstat-l">Регион</div></div>
@@ -1573,7 +1652,7 @@ function CommunityPage({ data, setPage }) {
           {tab === "persons" && (
             <div>
               <div className="comm-members">
-                <h3>Исторические личности {type === "tribe" ? `рода ${item.name}` : `из ${item.name}`}</h3>
+                <h3>Тарихи тұлғалар {type === "tribe" ? `рода ${item.name}` : `қаласынан ${item.name}`}</h3>
                 {relatedPersons.length === 0
                   ? <div className="empty"><div className="empty-i">📜</div><div className="empty-t">Данные пополняются</div></div>
                   : relatedPersons.map(p => (
@@ -1593,7 +1672,7 @@ function CommunityPage({ data, setPage }) {
 
           {tab === "members" && (
             <div className="comm-members">
-              <h3>Участники сообщества</h3>
+              <h3>Мүшелер сообщества</h3>
               {communityMembers.map((m, i) => (
                 <div key={i} className="member-row">
                   <div className="mav" style={{fontSize:".75rem",background:"rgba(198,165,92,.1)"}}>{m.name[0]}</div>
@@ -1673,7 +1752,7 @@ function PersonPage({ person, setPage }) {
     <div className="shell pe">
       <div className="wrap">
         <div className="ppg">
-          <button className="back" onClick={() => setPage({id:"list"})}>← Назад к списку</button>
+          <button className="back" onClick={() => setPage({id:"list"})}>← Артқа к списку</button>
           <div className="phero">
             <div className="pbigav">{person.name[0]}</div>
             <div>
@@ -1707,7 +1786,7 @@ function PersonPage({ person, setPage }) {
             </button>
             {tribe && (
               <button className="boutline" onClick={() => setPage({id:"community",data:{type:"tribe",itemId:tribe.id}})}>
-                {tribe.icon} Страница рода {tribe.name}
+                {tribe.icon} Ру беті {tribe.name}
               </button>
             )}
           </div>
@@ -1880,7 +1959,7 @@ function InteractiveTree({ rootName, ancestorName }) {
                   {isEdit
                     ? <div className="tn-name">✏️ редактирование…</div>
                     : <div className={`tn-name${filled?"":" empty"}`}>
-                        {filled ? names[i] : (isRoot ? "Вы" : "— не указано —")}
+                        {filled ? names[i] : (isRoot ? "Сіз" : "— не указано —")}
                       </div>
                   }
                   <div className="tn-num">{String(i+1).padStart(2,"0")} / {COUNT}</div>
@@ -1896,9 +1975,9 @@ function InteractiveTree({ rootName, ancestorName }) {
 
       {/* LEGEND */}
       <div className="tree-legend" style={{marginTop:16}}>
-        <div className="leg-item"><div className="leg-dot" style={{background:"var(--gold)"}}/> Заполнено</div>
-        <div className="leg-item"><div className="leg-dot" style={{background:"rgba(198,165,92,.2)"}}/> Пусто — нажмите для редактирования</div>
-        <div className="leg-item"><div style={{width:20,height:2,borderTop:"1.5px dashed rgba(198,165,92,.3)"}}/> Неизвестная связь</div>
+        <div className="leg-item"><div className="leg-dot" style={{background:"var(--gold)"}}/> Толтырылған</div>
+        <div className="leg-item"><div className="leg-dot" style={{background:"rgba(198,165,92,.2)"}}/> Бос — өзгерту үшін басыңыз</div>
+        <div className="leg-item"><div style={{width:20,height:2,borderTop:"1.5px dashed rgba(198,165,92,.3)"}}/> Белгісіз байланыс</div>
       </div>
     </div>
   );
@@ -1917,7 +1996,7 @@ function MyTreePage({ userName, initialData, setPage }) {
             <h2>Ваше шежире</h2>
             <p>Верхний предок: <strong style={{color:"var(--gold)"}}>{initialData.ancestor}</strong>.<br/>Введите своё имя, чтобы начать.</p>
             <div style={{width:"100%",marginBottom:12}}>
-              <div className="flabel" style={{textAlign:"left"}}>Ваше имя</div>
+              <div className="flabel" style={{textAlign:"left"}}>Есіміңіз</div>
               <input className="ninput" placeholder="Введите имя…" value={localName}
                 onChange={e => setLocalName(e.target.value)}
                 onKeyDown={e => e.key==="Enter" && setTreeRoot({user:localName.trim()||userName, ancestor:initialData.ancestor})}/>
@@ -1936,7 +2015,7 @@ function MyTreePage({ userName, initialData, setPage }) {
         <div className="wrap">
           <div className="tree-page">
             <div className="tree-header">
-              <div className="tree-title">🌳 Шежире · {treeRoot.user}</div>
+              <div className="tree-title">🌳 Шежіре · {treeRoot.user}</div>
               <div style={{display:"flex",gap:8}}>
                 <button className="bghost" onClick={() => setTreeRoot(null)}>← Изменить</button>
                 <button className="boutline" onClick={() => setPage({id:"list"})}>Найти предка</button>
@@ -1962,16 +2041,16 @@ function MyTreePage({ userName, initialData, setPage }) {
           <h2>Моё шежире</h2>
           <p>Постройте интерактивное родословное дерево до 7 поколений. Нажимайте на узлы, чтобы заполнить имена предков.</p>
           <div style={{width:"100%",marginBottom:12}}>
-            <div className="flabel" style={{textAlign:"left"}}>Ваше имя</div>
+            <div className="flabel" style={{textAlign:"left"}}>Есіміңіз</div>
             <input className="ninput" placeholder={userName} value={localName}
               onChange={e => setLocalName(e.target.value)}
               onKeyDown={e => e.key==="Enter" && setTreeRoot({user:localName.trim()||userName, ancestor:null})}/>
           </div>
           <button className="bgold" onClick={() => setTreeRoot({user:localName.trim()||userName, ancestor:null})}>
-            Создать шежире
+            Шежіре жасау
           </button>
           <div style={{marginTop:28,fontSize:".75rem",color:"rgba(240,235,210,.28)"}}>
-            или{" "}
+            немесе{" "}
             <span style={{color:"var(--gold)",cursor:"pointer"}} onClick={() => setPage({id:"list"})}>
               найдите историческую личность
             </span>{" "}и начните дерево от неё
@@ -1990,15 +2069,33 @@ export default function App() {
   const [userName, setUserName] = useState(null);
   const [profile,  setProfile]  = useState({ tribeId: null, cityId: null });
   const [page,     setPage]     = useState({ id: "personal" });
+  const [dark,     setDark]     = useState(false);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+  }, [dark]);
 
   const handleEnter = useCallback((name, obData) => {
     setUserName(name);
-    if (obData?.tribeId) setProfile(p => ({ ...p, tribeId: obData.tribeId }));
+    setProfile(p => ({
+      ...p,
+      tribeId:   obData?.tribeId   || p.tribeId,
+      cityId:    obData?.cityId    || p.cityId,
+      ancestors: obData?.ancestors || p.ancestors || [],
+    }));
     setPage({ id: "personal" });
   }, []);
 
   if (!userName) {
-    return (<><style>{CSS}</style><LandingPage onEnter={handleEnter}/></>);
+    return (
+      <>
+        <style>{CSS}</style>
+        <button onClick={() => setDark(d=>!d)} style={{position:"fixed",top:14,right:20,zIndex:999,background:"none",border:"1px solid var(--border)",borderRadius:20,padding:"5px 12px",cursor:"pointer",fontSize:".75rem",color:"var(--gold)",fontFamily:"'Inter',sans-serif",backdropFilter:"blur(8px)",background:"rgba(247,244,238,.7)",transition:"all .2s"}}>
+          {dark ? "☀️ Светлая" : "🌙 Тёмная"}
+        </button>
+        <LandingPage onEnter={handleEnter}/>
+      </>
+    );
   }
 
   const render = () => {
@@ -2017,7 +2114,7 @@ export default function App() {
   return (
     <>
       <style>{CSS}</style>
-      <Header page={page} setPage={setPage}/>
+      <Header page={page} setPage={setPage} dark={dark} setDark={setDark}/>
       {render()}
     </>
   );

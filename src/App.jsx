@@ -496,120 +496,129 @@ const TRIBES = [
 ];
 
 const CITIES = [
-  /* Алматы қаласы */
-  { id:"almaty",          name:"Алматы",           region:"Алматы қаласы",           type:"қала",    pop:"2 100 000", desc:"Қазақстанның оңтүстік астанасы, мәдени орталық" },
+  /* ── Республикалық маңызы бар қалалар ── */
+  { id:"astana",       name:"Астана",           oblast:"Астана қаласы",              type:"республикалық қала" },
+  { id:"almaty",       name:"Алматы",           oblast:"Алматы қаласы",              type:"республикалық қала" },
+  { id:"shymkent",     name:"Шымкент",          oblast:"Шымкент қаласы",             type:"республикалық қала" },
 
-  /* Астана қаласы */
-  { id:"astana",          name:"Астана",            region:"Астана қаласы",            type:"қала",    pop:"1 400 000", desc:"Қазақстан Республикасының астанасы" },
+  /* ── Абай облысы ── */
+  { id:"semey",        name:"Семей",            oblast:"Абай облысы",                type:"облыс орталығы" },
+  { id:"ayagoz",       name:"Аягөз",            oblast:"Абай облысы",                type:"қала" },
+  { id:"kurchatov",    name:"Курчатов",         oblast:"Абай облысы",                type:"қала" },
+  { id:"zhangiztobe",  name:"Жаңғызтөбе",      oblast:"Абай облысы",                type:"кент" },
+  { id:"shemonaikha",  name:"Шемонайха",        oblast:"Абай облысы",                type:"қала" },
 
-  /* Шымкент қаласы */
-  { id:"shymkent",        name:"Шымкент",           region:"Шымкент қаласы",           type:"қала",    pop:"1 200 000", desc:"Елдегі үшінші ірі қала" },
+  /* ── Ақмола облысы ── */
+  { id:"kokshetau",    name:"Көкшетау",         oblast:"Ақмола облысы",              type:"облыс орталығы" },
+  { id:"stepnogorsk",  name:"Степногорск",      oblast:"Ақмола облысы",              type:"қала" },
+  { id:"atbasar",      name:"Атбасар",          oblast:"Ақмола облысы",              type:"қала" },
+  { id:"shchuchinsk",  name:"Щучинск",          oblast:"Ақмола облысы",              type:"қала" },
+  { id:"makinsk",      name:"Макінск",          oblast:"Ақмола облысы",              type:"қала" },
+  { id:"esil",         name:"Есіл",             oblast:"Ақмола облысы",              type:"қала" },
+  { id:"bayanaul",     name:"Баянауыл",         oblast:"Ақмола облысы",              type:"кент" },
 
-  /* Абай облысы */
-  { id:"semey",           name:"Семей",             region:"Абай облысы",              type:"қала",    pop:"345 000", desc:"Абайдың туған жері, мәдени орталық" },
-  { id:"kurchatov",       name:"Курчатов",          region:"Абай облысы",              type:"қала",    pop:"12 000",  desc:"Бывший Семипалатинский ядерный полигон" },
-  { id:"ayagoz",          name:"Аягөз",             region:"Абай облысы",              type:"қала",    pop:"43 000",  desc:"Абай облысының қаласы" },
-  { id:"zhangiztobe",     name:"Жаңғызтөбе",        region:"Абай облысы",              type:"кент",    pop:"11 000",  desc:"Абай облысының кенті" },
+  /* ── Ақтөбе облысы ── */
+  { id:"aktobe",       name:"Ақтөбе",           oblast:"Ақтөбе облысы",              type:"облыс орталығы" },
+  { id:"khromtau",     name:"Хромтау",          oblast:"Ақтөбе облысы",              type:"қала" },
+  { id:"kandyagash",   name:"Қандыағаш",        oblast:"Ақтөбе облысы",              type:"қала" },
+  { id:"embi",         name:"Ембі",             oblast:"Ақтөбе облысы",              type:"қала" },
+  { id:"shalkar",      name:"Шалқар",           oblast:"Ақтөбе облысы",              type:"қала" },
 
-  /* Акмола облысы */
-  { id:"kokshetau",       name:"Көкшетау",          region:"Ақмола облысы",            type:"қала",    pop:"149 000", desc:"Ақмола облысының орталығы" },
-  { id:"stepnogorsk",     name:"Степногорск",       region:"Ақмола облысы",            type:"қала",    pop:"60 000",  desc:"Ақмола облысының өнеркәсіп қаласы" },
-  { id:"atbasar",         name:"Атбасар",           region:"Ақмола облысы",            type:"қала",    pop:"32 000",  desc:"Ақмола облысының қаласы" },
-  { id:"esil_akm",        name:"Есіл",              region:"Ақмола облысы",            type:"қала",    pop:"10 000",  desc:"Ақмола облысының қаласы" },
-  { id:"makinsk",         name:"Макінск",           region:"Ақмола облысы",            type:"қала",    pop:"17 000",  desc:"Ақмола облысының қаласы" },
-  { id:"shchuchinsk",     name:"Щучинск",           region:"Ақмола облысы",            type:"қала",    pop:"43 000",  desc:"Бурабай курорттық аймағы" },
+  /* ── Алматы облысы ── */
+  { id:"konaev",       name:"Қонаев",           oblast:"Алматы облысы",              type:"облыс орталығы" },
+  { id:"kapshagay",    name:"Қапшағай",         oblast:"Алматы облысы",              type:"қала" },
+  { id:"taldykorgan",  name:"Талдықорған",      oblast:"Алматы облысы",              type:"қала" },
+  { id:"esik",         name:"Есік",             oblast:"Алматы облысы",              type:"қала" },
+  { id:"kaskelen",     name:"Қасқелең",         oblast:"Алматы облысы",              type:"қала" },
+  { id:"tekeli",       name:"Текелі",           oblast:"Алматы облысы",              type:"қала" },
+  { id:"sarkand",      name:"Саркан",           oblast:"Алматы облысы",              type:"қала" },
+  { id:"usharal",      name:"Ұшарал",           oblast:"Алматы облысы",              type:"қала" },
+  { id:"uzynagash",    name:"Үзынағаш",         oblast:"Алматы облысы",              type:"кент" },
+  { id:"shelek",       name:"Шелек",            oblast:"Алматы облысы",              type:"кент" },
+  { id:"korday",       name:"Қордай",           oblast:"Алматы облысы",              type:"кент" },
+  { id:"boralday",     name:"Боралдай",         oblast:"Алматы облысы",              type:"кент" },
 
-  /* Актобе облысы */
-  { id:"aktobe",          name:"Ақтөбе",            region:"Ақтөбе облысы",            type:"қала",    pop:"526 000", desc:"Ақтөбе облысының орталығы" },
-  { id:"khromtau",        name:"Хромтау",           region:"Ақтөбе облысы",            type:"қала",    pop:"40 000",  desc:"Хром кен орындары бар қала" },
-  { id:"kandyagash",      name:"Қандыағаш",         region:"Ақтөбе облысы",            type:"қала",    pop:"21 000",  desc:"Ақтөбе облысының темір жол торабы" },
-  { id:"embi",            name:"Ембі",              region:"Ақтөбе облысы",            type:"қала",    pop:"10 000",  desc:"Ақтөбе облысының қаласы" },
+  /* ── Атырау облысы ── */
+  { id:"atyrau",       name:"Атырау",           oblast:"Атырау облысы",              type:"облыс орталығы" },
+  { id:"kuryk",        name:"Құрық",            oblast:"Атырау облысы",              type:"кент" },
+  { id:"makat",        name:"Мақат",            oblast:"Атырау облысы",              type:"кент" },
+  { id:"dossor",       name:"Доссор",           oblast:"Атырау облысы",              type:"кент" },
 
-  /* Алматы облысы */
-  { id:"taldykorgan",     name:"Талдықорған",       region:"Алматы облысы",            type:"қала",    pop:"165 000", desc:"Алматы облысының орталығы" },
-  { id:"kapshagay",       name:"Қапшағай",          region:"Алматы облысы",            type:"қала",    pop:"57 000",  desc:"Қапшағай су қоймасы жағасындағы қала" },
-  { id:"tekeli",          name:"Текелі",            region:"Алматы облысы",            type:"қала",    pop:"24 000",  desc:"Алматы облысының тау қаласы" },
-  { id:"taldykorgan_aud", name:"Талдықорған ауданы",region:"Алматы облысы",            type:"аудан",   pop:"",        desc:"" },
-  { id:"kaskelen",        name:"Қасқелең",          region:"Алматы облысы",            type:"қала",    pop:"77 000",  desc:"Алматы маңындағы қала" },
-  { id:"esik",            name:"Есік",              region:"Алматы облысы",            type:"қала",    pop:"43 000",  desc:"Алматы облысының қаласы" },
-  { id:"sarkand",         name:"Саркан",            region:"Алматы облысы",            type:"қала",    pop:"21 000",  desc:"Алматы облысының қаласы" },
-  { id:"usharal",         name:"Ұшарал",            region:"Алматы облысы",            type:"қала",    pop:"14 000",  desc:"Алматы облысының шекара маңы қаласы" },
+  /* ── Батыс Қазақстан облысы ── */
+  { id:"oral",         name:"Орал",             oblast:"Батыс Қазақстан облысы",     type:"облыс орталығы" },
+  { id:"aksay",        name:"Ақсай",            oblast:"Батыс Қазақстан облысы",     type:"қала" },
+  { id:"qazaly",       name:"Қазалы",           oblast:"Батыс Қазақстан облысы",     type:"кент" },
 
-  /* Атырау облысы */
-  { id:"atyrau",          name:"Атырау",            region:"Атырау облысы",            type:"қала",    pop:"290 000", desc:"Қазақстанның мұнай астанасы" },
-  { id:"kuryk",           name:"Құрық",             region:"Атырау облысы",            type:"кент",    pop:"8 000",   desc:"Каспий теңізі жағасындағы кент" },
-  { id:"makat",           name:"Мақат",             region:"Атырау облысы",            type:"кент",    pop:"9 000",   desc:"Атырау облысының кенті" },
+  /* ── Жамбыл облысы ── */
+  { id:"taraz",        name:"Тараз",            oblast:"Жамбыл облысы",              type:"облыс орталығы" },
+  { id:"shu",          name:"Шу",               oblast:"Жамбыл облысы",              type:"қала" },
+  { id:"karatau",      name:"Қаратау",          oblast:"Жамбыл облысы",              type:"қала" },
+  { id:"zhanatas",     name:"Жаңатас",          oblast:"Жамбыл облысы",              type:"қала" },
+  { id:"merke",        name:"Мерке",            oblast:"Жамбыл облысы",              type:"кент" },
 
-  /* Шығыс Қазақстан облысы */
-  { id:"oskemen",         name:"Өскемен",           region:"Шығыс Қазақстан облысы",   type:"қала",    pop:"310 000", desc:"Шығыс Қазақстан облысының орталығы" },
-  { id:"ridder",          name:"Риддер",            region:"Шығыс Қазақстан облысы",   type:"қала",    pop:"49 000",  desc:"Таулы кен өндіру қаласы" },
-  { id:"zyryanоvsk",      name:"Зыряновск",         region:"Шығыс Қазақстан облысы",   type:"қала",    pop:"23 000",  desc:"Шығыс Қазақстан облысының қаласы" },
-  { id:"shemonaikha",     name:"Шемонайха",         region:"Шығыс Қазақстан облысы",   type:"қала",    pop:"22 000",  desc:"Шығыс Қазақстан облысының қаласы" },
-  { id:"zyryanovsk",      name:"Серебрянск",        region:"Шығыс Қазақстан облысы",   type:"қала",    pop:"20 000",  desc:"Шығыс Қазақстан облысының қаласы" },
-  { id:"altay_vg",        name:"Алтай",             region:"Шығыс Қазақстан облысы",   type:"қала",    pop:"18 000",  desc:"Шығыс Қазақстан облысының қаласы" },
+  /* ── Жетісу облысы ── */
+  { id:"taldykorgan2", name:"Талдықорған",      oblast:"Жетісу облысы",              type:"облыс орталығы" },
+  { id:"zharkent",     name:"Жаркент",          oblast:"Жетісу облысы",              type:"қала" },
+  { id:"ushtobe",      name:"Үштөбе",           oblast:"Жетісу облысы",              type:"қала" },
 
-  /* Жамбыл облысы */
-  { id:"taraz",           name:"Тараз",             region:"Жамбыл облысы",            type:"қала",    pop:"395 000", desc:"Орта Азияның ең ежелгі қалаларының бірі" },
-  { id:"karatau",         name:"Қаратау",           region:"Жамбыл облысы",            type:"қала",    pop:"34 000",  desc:"Жамбыл облысының қаласы" },
-  { id:"shu",             name:"Шу",                region:"Жамбыл облысы",            type:"қала",    pop:"60 000",  desc:"Жамбыл облысының теміржол торабы" },
-  { id:"zhanatas",        name:"Жаңатас",           region:"Жамбыл облысы",            type:"қала",    pop:"25 000",  desc:"Жамбыл облысының кен қаласы" },
+  /* ── Қарағанды облысы ── */
+  { id:"karaganda",    name:"Қарағанды",        oblast:"Қарағанды облысы",           type:"облыс орталығы" },
+  { id:"temirtau",     name:"Теміртау",         oblast:"Қарағанды облысы",           type:"қала" },
+  { id:"balkhash",     name:"Балқаш",           oblast:"Қарағанды облысы",           type:"қала" },
+  { id:"saran",        name:"Саран",            oblast:"Қарағанды облысы",           type:"қала" },
+  { id:"shakhtinsk",   name:"Шахтинск",         oblast:"Қарағанды облысы",           type:"қала" },
+  { id:"abay_kg",      name:"Абай",             oblast:"Қарағанды облысы",           type:"қала" },
+  { id:"karakaragay",  name:"Қарқаралы",        oblast:"Қарағанды облысы",           type:"кент" },
+  { id:"priozersk",    name:"Приозерск",        oblast:"Қарағанды облысы",           type:"қала" },
 
-  /* Жетісу облысы */
-  { id:"taldykorgan2",    name:"Талдықорған",       region:"Жетісу облысы",            type:"қала",    pop:"165 000", desc:"Жетісу облысының орталығы" },
-  { id:"zharkent",        name:"Жаркент",           region:"Жетісу облысы",            type:"қала",    pop:"44 000",  desc:"Жетісу облысының шекара маңы қаласы" },
-  { id:"ushtobe",         name:"Үштөбе",            region:"Жетісу облысы",            type:"қала",    pop:"36 000",  desc:"Жетісу облысының қаласы" },
+  /* ── Қостанай облысы ── */
+  { id:"kostanay",     name:"Қостанай",         oblast:"Қостанай облысы",            type:"облыс орталығы" },
+  { id:"rudny",        name:"Рудный",           oblast:"Қостанай облысы",            type:"қала" },
+  { id:"lisakovsk",    name:"Лисаковск",        oblast:"Қостанай облысы",            type:"қала" },
+  { id:"arkalyk",      name:"Арқалық",          oblast:"Қостанай облысы",            type:"қала" },
+  { id:"zhitikara",    name:"Жітіқара",         oblast:"Қостанай облысы",            type:"қала" },
 
-  /* Батыс Қазақстан облысы */
-  { id:"oral",            name:"Орал",              region:"Батыс Қазақстан облысы",   type:"қала",    pop:"280 000", desc:"Батыс Қазақстан облысының орталығы" },
-  { id:"aksay_wk",        name:"Ақсай",             region:"Батыс Қазақстан облысы",   type:"қала",    pop:"39 000",  desc:"Батыс Қазақстан облысының қаласы" },
+  /* ── Қызылорда облысы ── */
+  { id:"kyzylorda",    name:"Қызылорда",        oblast:"Қызылорда облысы",           type:"облыс орталығы" },
+  { id:"baikonur",     name:"Байқоңыр",         oblast:"Қызылорда облысы",           type:"қала" },
+  { id:"aral",         name:"Арал",             oblast:"Қызылорда облысы",           type:"қала" },
+  { id:"zhosaly",      name:"Жосалы",           oblast:"Қызылорда облысы",           type:"кент" },
+  { id:"zhalagash",    name:"Жалағаш",          oblast:"Қызылорда облысы",           type:"кент" },
+  { id:"shiyeli",      name:"Шиелі",            oblast:"Қызылорда облысы",           type:"кент" },
 
-  /* Қарағанды облысы */
-  { id:"karaganda",       name:"Қарағанды",         region:"Қарағанды облысы",         type:"қала",    pop:"510 000", desc:"Қазақстанның өнеркәсіп жүрегі" },
-  { id:"temirtau",        name:"Теміртау",          region:"Қарағанды облысы",         type:"қала",    pop:"188 000", desc:"Металлургия орталығы" },
-  { id:"zhezkazgan",      name:"Жезқазған",         region:"Қарағанды облысы",         type:"қала",    pop:"80 000",  desc:"Мыс кен орталығы" },
-  { id:"balkhash",        name:"Балқаш",            region:"Қарағанды облысы",         type:"қала",    pop:"74 000",  desc:"Балқаш көлі жағасындағы қала" },
-  { id:"saran",           name:"Саран",             region:"Қарағанды облысы",         type:"қала",    pop:"51 000",  desc:"Қарағанды облысының қаласы" },
-  { id:"shakhtinsk",      name:"Шахтинск",          region:"Қарағанды облысы",         type:"қала",    pop:"50 000",  desc:"Қарағанды облысының кен қаласы" },
-  { id:"abay_kg",         name:"Абай",              region:"Қарағанды облысы",         type:"қала",    pop:"36 000",  desc:"Қарағанды облысының қаласы" },
-  { id:"priozersk",       name:"Приозерск",         region:"Қарағанды облысы",         type:"қала",    pop:"9 000",   desc:"Қарағанды облысының қаласы" },
-  { id:"satpayev",        name:"Сәтпаев",           region:"Қарағанды облысы",         type:"қала",    pop:"44 000",  desc:"Академик Сәтпаевтың атымен аталған қала" },
+  /* ── Маңғыстау облысы ── */
+  { id:"aktau",        name:"Ақтау",            oblast:"Маңғыстау облысы",           type:"облыс орталығы" },
+  { id:"zhanaozen",    name:"Жаңаөзен",         oblast:"Маңғыстау облысы",           type:"қала" },
+  { id:"beyneu",       name:"Бейнеу",           oblast:"Маңғыстау облысы",           type:"кент" },
+  { id:"kuryk_m",      name:"Құрық",            oblast:"Маңғыстау облысы",           type:"кент" },
 
-  /* Қостанай облысы */
-  { id:"kostanay",        name:"Қостанай",          region:"Қостанай облысы",          type:"қала",    pop:"245 000", desc:"Қазақстанның астық астанасы" },
-  { id:"rudny",           name:"Рудный",            region:"Қостанай облысы",          type:"қала",    pop:"108 000", desc:"Темір рудасы өндіру орталығы" },
-  { id:"lisakovsk",       name:"Лисаковск",         region:"Қостанай облысы",          type:"қала",    pop:"38 000",  desc:"Қостанай облысының қаласы" },
-  { id:"arkalyk",         name:"Арқалық",           region:"Қостанай облысы",          type:"қала",    pop:"28 000",  desc:"Қостанай облысының қаласы" },
-  { id:"zhitikara",       name:"Жітіқара",          region:"Қостанай облысы",          type:"қала",    pop:"24 000",  desc:"Қостанай облысының қаласы" },
+  /* ── Павлодар облысы ── */
+  { id:"pavlodar",     name:"Павлодар",         oblast:"Павлодар облысы",            type:"облыс орталығы" },
+  { id:"ekibastuz",    name:"Екібастұз",        oblast:"Павлодар облысы",            type:"қала" },
+  { id:"aksu_pav",     name:"Ақсу",             oblast:"Павлодар облысы",            type:"қала" },
 
-  /* Қызылорда облысы */
-  { id:"kyzylorda",       name:"Қызылорда",         region:"Қызылорда облысы",         type:"қала",    pop:"290 000", desc:"Қазақстанның күріш астанасы" },
-  { id:"baikonur",        name:"Байқоңыр",          region:"Қызылорда облысы",         type:"қала",    pop:"73 000",  desc:"Ғарышкер ұшыратын кешен орналасқан қала" },
-  { id:"turkestan_kz",    name:"Түркістан",         region:"Түркістан облысы",         type:"қала",    pop:"215 000", desc:"Қазақстанның рухани астанасы, Қожа Ахмет Яссауи кесенесі" },
+  /* ── Солтүстік Қазақстан облысы ── */
+  { id:"petropavl",    name:"Петропавл",        oblast:"Солтүстік Қазақстан облысы", type:"облыс орталығы" },
 
-  /* Маңғыстау облысы */
-  { id:"aktau",           name:"Ақтау",             region:"Маңғыстау облысы",         type:"қала",    pop:"215 000", desc:"Қазақстанның Каспий порты" },
-  { id:"zhanaozen",       name:"Жаңаөзен",          region:"Маңғыстау облысы",         type:"қала",    pop:"130 000", desc:"Маңғыстау облысының мұнай қаласы" },
+  /* ── Түркістан облысы ── */
+  { id:"turkestan",    name:"Түркістан",        oblast:"Түркістан облысы",           type:"облыс орталығы" },
+  { id:"kentau",       name:"Кентау",           oblast:"Түркістан облысы",           type:"қала" },
+  { id:"arys",         name:"Арыс",             oblast:"Түркістан облысы",           type:"қала" },
+  { id:"saryagash",    name:"Сарыағаш",         oblast:"Түркістан облысы",           type:"қала" },
+  { id:"zhetisay",     name:"Жетісай",          oblast:"Түркістан облысы",           type:"қала" },
+  { id:"lengir",       name:"Леңгір",           oblast:"Түркістан облысы",           type:"қала" },
 
-  /* Павлодар облысы */
-  { id:"pavlodar",        name:"Павлодар",          region:"Павлодар облысы",          type:"қала",    pop:"340 000", desc:"Павлодар облысының орталығы" },
-  { id:"ekibastuz",       name:"Екібастұз",         region:"Павлодар облысы",          type:"қала",    pop:"124 000", desc:"Ірі жылу электр станциялары бар қала" },
-  { id:"aksu_pav",        name:"Ақсу",              region:"Павлодар облысы",          type:"қала",    pop:"40 000",  desc:"Павлодар облысының қаласы" },
+  /* ── Ұлытау облысы ── */
+  { id:"zhezkazgan",   name:"Жезқазған",        oblast:"Ұлытау облысы",              type:"облыс орталығы" },
+  { id:"satpayev",     name:"Сәтпаев",          oblast:"Ұлытау облысы",              type:"қала" },
+  { id:"ulytau",       name:"Ұлытау",           oblast:"Ұлытау облысы",              type:"кент" },
 
-  /* Солтүстік Қазақстан облысы */
-  { id:"petropavl",       name:"Петропавл",         region:"Солтүстік Қазақстан облысы", type:"қала", pop:"215 000", desc:"Солтүстік Қазақстан облысының орталығы" },
-
-  /* Түркістан облысы */
-  { id:"shymkent_reg",    name:"Кентау",            region:"Түркістан облысы",         type:"қала",    pop:"63 000",  desc:"Түркістан облысының өнеркәсіп қаласы" },
-  { id:"arys",            name:"Арыс",              region:"Түркістан облысы",         type:"қала",    pop:"37 000",  desc:"Түркістан облысының теміржол торабы" },
-  { id:"lengersk",        name:"Леңгір",            region:"Түркістан облысы",         type:"қала",    pop:"23 000",  desc:"Түркістан облысының қаласы" },
-  { id:"saryagash",       name:"Сарыағаш",          region:"Түркістан облысы",         type:"қала",    pop:"33 000",  desc:"Түркістан облысының қаласы" },
-  { id:"zhetisay",        name:"Жетісай",           region:"Түркістан облысы",         type:"қала",    pop:"45 000",  desc:"Түркістан облысының шекара маңы қаласы" },
-
-  /* Ұлытау облысы */
-  { id:"zhezkazgan2",     name:"Жезқазған",         region:"Ұлытау облысы",            type:"қала",    pop:"80 000",  desc:"Ұлытау облысының орталығы" },
-  { id:"satpayev2",       name:"Сәтпаев",           region:"Ұлытау облысы",            type:"қала",    pop:"44 000",  desc:"Ұлытау облысының қаласы" },
+  /* ── Шығыс Қазақстан облысы ── */
+  { id:"oskemen",      name:"Өскемен",          oblast:"Шығыс Қазақстан облысы",     type:"облыс орталығы" },
+  { id:"ridder",       name:"Риддер",           oblast:"Шығыс Қазақстан облысы",     type:"қала" },
+  { id:"zyryanovsk",   name:"Зыряновск",        oblast:"Шығыс Қазақстан облысы",     type:"қала" },
+  { id:"altay_vg",     name:"Алтай",            oblast:"Шығыс Қазақстан облысы",     type:"қала" },
 ];
-
 
 const PERSONS = [
   {id:1,  name:"Абылай хан",              era:"1711–1781", tribe:"argyn"},
@@ -841,62 +850,111 @@ function ShejireTree({ userName, ancestors = [], onAddAnc, compact = false }) {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   CITY PICKER (reusable searchable dropdown)
+   CITY PICKER — 2-step: oblast → city
 ═══════════════════════════════════════════════════════════ */
+const OBLASTS = [
+  "Астана қаласы","Алматы қаласы","Шымкент қаласы",
+  "Абай облысы","Ақмола облысы","Ақтөбе облысы",
+  "Алматы облысы","Атырау облысы","Батыс Қазақстан облысы",
+  "Жамбыл облысы","Жетісу облысы","Қарағанды облысы",
+  "Қостанай облысы","Қызылорда облысы","Маңғыстау облысы",
+  "Павлодар облысы","Солтүстік Қазақстан облысы",
+  "Түркістан облысы","Ұлытау облысы","Шығыс Қазақстан облысы",
+];
+
 function CityPicker({ cityId, setCityId }) {
-  const [q, setQ] = useState("");
+  const [oblastQ,  setOblastQ]  = useState("");
+  const [cityQ,    setCityQ]    = useState("");
+  const [selOblast,setSelOblast]= useState(null);
+
   const city = CITIES.find(c => c.id === cityId);
 
-  const filtered = useMemo(() => {
-    if (!q) return [];
-    return CITIES.filter(c =>
-      c.name.toLowerCase().includes(q.toLowerCase()) ||
-      c.region.toLowerCase().includes(q.toLowerCase())
-    ).slice(0, 12);
-  }, [q]);
-
-  return (
-    <div style={{position:"relative"}}>
-      {/* Selected display */}
-      {city && !q && (
-        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",background:"rgba(26,107,68,.15)",border:"1px solid var(--gold)",borderRadius:8,padding:"8px 12px",marginBottom:6}}>
-          <div>
-            <div style={{fontSize:".82rem",fontWeight:500,color:"var(--gold)"}}>{city.name}</div>
-            <div style={{fontSize:".6rem",color:"var(--muted)"}}>{city.region}</div>
-          </div>
-          <button onClick={() => setCityId(null)} style={{background:"none",border:"none",color:"var(--muted)",cursor:"pointer",fontSize:".8rem",fontFamily:"inherit",padding:"2px 6px"}}>✕</button>
+  /* If already selected, show compact result */
+  if (city && !selOblast) {
+    return (
+      <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",background:"rgba(26,107,68,.15)",border:"1px solid var(--gold)",borderRadius:10,padding:"10px 14px"}}>
+        <div>
+          <div style={{fontFamily:"'Playfair Display',serif",fontSize:".9rem",color:"var(--gold)",fontWeight:600}}>{city.name}</div>
+          <div style={{fontSize:".62rem",color:"var(--muted)",marginTop:2}}>{city.type} · {city.oblast}</div>
         </div>
-      )}
-      {/* Search input */}
-      <input
-        style={{width:"100%",background:"rgba(255,255,255,.04)",border:"1px solid rgba(198,165,92,.2)",borderRadius:8,padding:"8px 12px",fontFamily:"'Inter',sans-serif",fontSize:".82rem",color:"var(--text)",outline:"none",transition:"border-color .18s"}}
-        placeholder={city ? "Өзгерту…" : "Қала немесе аудан іздеу…"}
-        value={q}
-        onChange={e => setQ(e.target.value)}
-        onFocus={e => e.target.style.borderColor="var(--gold)"}
-        onBlur={e => setTimeout(() => { setQ(""); e.target.style.borderColor="rgba(198,165,92,.2)"; }, 200)}
-      />
-      {/* Dropdown results */}
-      {filtered.length > 0 && (
-        <div style={{position:"absolute",top:"100%",left:0,right:0,zIndex:50,background:"var(--bg2)",border:"1px solid var(--border)",borderRadius:10,marginTop:4,maxHeight:200,overflowY:"auto",boxShadow:"0 8px 24px rgba(0,0,0,.25)"}}>
-          {filtered.map(c => (
-            <div key={c.id}
-              onMouseDown={() => { setCityId(c.id); setQ(""); }}
-              style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"9px 14px",cursor:"pointer",borderBottom:"1px solid rgba(198,165,92,.06)",transition:"background .15s"}}
-              onMouseEnter={e => e.currentTarget.style.background="rgba(26,107,68,.12)"}
-              onMouseLeave={e => e.currentTarget.style.background="transparent"}>
-              <div>
-                <div style={{fontSize:".83rem",fontWeight:500}}>{c.name}</div>
-                <div style={{fontSize:".6rem",color:"var(--muted)"}}>{c.type} · {c.region}</div>
-              </div>
-              {c.pop && <div style={{fontSize:".62rem",color:"rgba(198,165,92,.5)",flexShrink:0}}>{c.pop}</div>}
-            </div>
+        <button onClick={() => { setCityId(null); setSelOblast(null); }}
+          style={{background:"rgba(198,165,92,.1)",border:"1px solid rgba(198,165,92,.2)",borderRadius:6,color:"var(--muted)",cursor:"pointer",fontSize:".72rem",fontFamily:"inherit",padding:"4px 10px",transition:"all .18s"}}
+          onMouseEnter={e=>{e.currentTarget.style.color="var(--gold)"}}
+          onMouseLeave={e=>{e.currentTarget.style.color="var(--muted)"}}>
+          Өзгерту
+        </button>
+      </div>
+    );
+  }
+
+  /* Step 1: pick oblast */
+  if (!selOblast) {
+    const filteredOblasts = oblastQ
+      ? OBLASTS.filter(o => o.toLowerCase().includes(oblastQ.toLowerCase()))
+      : OBLASTS;
+    return (
+      <div>
+        <div style={{fontSize:".6rem",letterSpacing:".14em",textTransform:"uppercase",color:"rgba(198,165,92,.45)",marginBottom:8}}>1. Облысты таңдаңыз</div>
+        <input
+          style={{width:"100%",background:"var(--card)",border:"1px solid var(--border)",borderRadius:8,padding:"8px 12px",fontFamily:"'Inter',sans-serif",fontSize:".82rem",color:"var(--text)",outline:"none",marginBottom:8,transition:"border-color .18s"}}
+          placeholder="Облыс іздеу…"
+          value={oblastQ}
+          onChange={e => setOblastQ(e.target.value)}
+          onFocus={e=>e.target.style.borderColor="var(--gold)"}
+          onBlur={e=>e.target.style.borderColor="var(--border)"}
+          autoFocus
+        />
+        <div style={{display:"flex",flexDirection:"column",gap:4,maxHeight:180,overflowY:"auto"}}>
+          {filteredOblasts.map(o => (
+            <button key={o} onClick={() => { setSelOblast(o); setOblastQ(""); }}
+              style={{background:"var(--bg2)",border:"1px solid var(--border)",borderRadius:8,padding:"9px 12px",cursor:"pointer",color:"var(--text)",fontFamily:"inherit",textAlign:"left",fontSize:".82rem",transition:"all .18s",display:"flex",alignItems:"center",justifyContent:"space-between"}}
+              onMouseEnter={e=>{e.currentTarget.style.background="rgba(26,107,68,.12)";e.currentTarget.style.borderColor="rgba(198,165,92,.3)"}}
+              onMouseLeave={e=>{e.currentTarget.style.background="var(--bg2)";e.currentTarget.style.borderColor="var(--border)"}}>
+              {o}
+              <span style={{color:"rgba(198,165,92,.4)",fontSize:".75rem"}}>›</span>
+            </button>
           ))}
         </div>
-      )}
-      {!city && !q && (
-        <div style={{fontSize:".65rem",color:"rgba(240,235,210,.2)",marginTop:6,textAlign:"center"}}>Белгісіз — өткізу</div>
-      )}
+      </div>
+    );
+  }
+
+  /* Step 2: pick city within oblast */
+  const oblastCities = CITIES.filter(c => c.oblast === selOblast &&
+    (cityQ ? c.name.toLowerCase().includes(cityQ.toLowerCase()) : true));
+
+  return (
+    <div>
+      <button onClick={() => { setSelOblast(null); setCityQ(""); }}
+        style={{background:"none",border:"none",color:"rgba(198,165,92,.6)",cursor:"pointer",fontFamily:"inherit",fontSize:".72rem",marginBottom:8,padding:0,display:"flex",alignItems:"center",gap:4}}>
+        ← {selOblast}
+      </button>
+      <div style={{fontSize:".6rem",letterSpacing:".14em",textTransform:"uppercase",color:"rgba(198,165,92,.45)",marginBottom:8}}>2. Қала немесе кент таңдаңыз</div>
+      <input
+        style={{width:"100%",background:"var(--card)",border:"1px solid var(--border)",borderRadius:8,padding:"8px 12px",fontFamily:"'Inter',sans-serif",fontSize:".82rem",color:"var(--text)",outline:"none",marginBottom:8,transition:"border-color .18s"}}
+        placeholder="Қала іздеу…"
+        value={cityQ}
+        onChange={e => setCityQ(e.target.value)}
+        onFocus={e=>e.target.style.borderColor="var(--gold)"}
+        onBlur={e=>e.target.style.borderColor="var(--border)"}
+        autoFocus
+      />
+      <div style={{display:"flex",flexDirection:"column",gap:4,maxHeight:180,overflowY:"auto"}}>
+        {oblastCities.map(c => (
+          <button key={c.id} onClick={() => { setCityId(c.id); setSelOblast(null); setCityQ(""); }}
+            style={{background:"var(--bg2)",border:"1px solid var(--border)",borderRadius:8,padding:"9px 12px",cursor:"pointer",color:"var(--text)",fontFamily:"inherit",textAlign:"left",transition:"all .18s",display:"flex",alignItems:"center",justifyContent:"space-between"}}
+            onMouseEnter={e=>{e.currentTarget.style.background="rgba(26,107,68,.12)";e.currentTarget.style.borderColor="rgba(198,165,92,.3)"}}
+            onMouseLeave={e=>{e.currentTarget.style.background="var(--bg2)";e.currentTarget.style.borderColor="var(--border)"}}>
+            <div>
+              <div style={{fontFamily:"'Playfair Display',serif",fontSize:".85rem",fontWeight:500}}>{c.name}</div>
+              <div style={{fontSize:".6rem",color:"var(--muted)",marginTop:1}}>{c.type}</div>
+            </div>
+          </button>
+        ))}
+        {oblastCities.length === 0 && (
+          <div style={{fontSize:".75rem",color:"var(--muted)",textAlign:"center",padding:"12px 0"}}>Табылмады</div>
+        )}
+      </div>
     </div>
   );
 }
@@ -1676,7 +1734,7 @@ function PersonalPage({ userName, profile, setProfile, setPage }) {
           selected={profile.cityId}
           onSelect={id => setProfile(p => ({...p, cityId: id}))}
           onClose={() => setShowCityModal(false)}
-          renderItem={c => `${c.region} · ${c.pop}`}
+          renderItem={c => `${c.type} · ${c.oblast}`}
         />
       )}
       <Footer/>
@@ -1746,73 +1804,136 @@ function ClansPage({ setPage }) {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   CITIES LIST PAGE
+   CITIES LIST PAGE — two-step: oblast → city
 ═══════════════════════════════════════════════════════════ */
 function CitiesPage({ setPage }) {
+  const [selOblast, setSelOblast] = useState(null);
   const [q, setQ] = useState("");
-  const [selOblast, setSelOblast] = useState("all");
 
-  const oblasts = useMemo(() => {
-    const set = new Set(CITIES.map(c => c.region));
-    return ["all", ...Array.from(set).sort()];
+  const oblastCities = useMemo(() =>
+    selOblast ? CITIES.filter(c => c.oblast === selOblast &&
+      (q ? c.name.toLowerCase().includes(q.toLowerCase()) : true))
+    : [], [selOblast, q]);
+
+  /* Oblast list with city counts */
+  const oblastList = useMemo(() => {
+    return OBLASTS.map(o => ({
+      name: o,
+      count: CITIES.filter(c => c.oblast === o).length,
+    }));
   }, []);
 
-  const list = useMemo(() => CITIES.filter(c => {
-    const matchQ = c.name.toLowerCase().includes(q.toLowerCase()) ||
-                   c.region.toLowerCase().includes(q.toLowerCase());
-    const matchO = selOblast === "all" || c.region === selOblast;
-    return matchQ && matchO;
-  }), [q, selOblast]);
+  /* Global search across all cities */
+  const globalSearch = q && !selOblast
+    ? CITIES.filter(c => c.name.toLowerCase().includes(q.toLowerCase()) ||
+        c.oblast.toLowerCase().includes(q.toLowerCase()))
+    : [];
 
   return (
     <div className="shell pe">
       <div className="wrap">
         <div className="sh">
-          <h2>Қазақстан қалалары</h2>
-          <span className="sh-count">{list.length} елді мекен</span>
+          <h2>Қазақстан елді мекендері</h2>
+          <span className="sh-count">{CITIES.length}+ елді мекен</span>
         </div>
-        <p className="sdesc">Туған жеріңізді таңдаңыз. Қала немесе ауданды іздеп, тарихи тұлғаларды ашыңыз.</p>
 
-        {/* Search */}
-        <div className="swrap" style={{marginBottom:10}}>
+        {/* Global search bar always visible */}
+        <div className="swrap" style={{marginBottom:20}}>
           <span className="sicon">⌕</span>
-          <input className="sinput" placeholder="Қала немесе облыс іздеу…" value={q} onChange={e => setQ(e.target.value)}/>
+          <input className="sinput"
+            placeholder="Кез келген қала немесе облыс іздеу…"
+            value={q}
+            onChange={e => { setQ(e.target.value); if (selOblast && e.target.value) setSelOblast(null); }}
+          />
         </div>
 
-        {/* Oblast filter */}
-        <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:20}}>
-          {oblasts.map(o => (
-            <button key={o}
-              onClick={() => setSelOblast(o)}
-              style={{background:selOblast===o?"rgba(26,107,68,.25)":"rgba(255,255,255,.03)",border:`1px solid ${selOblast===o?"var(--gold)":"rgba(198,165,92,.12)"}`,borderRadius:20,padding:"5px 13px",fontSize:".71rem",color:selOblast===o?"var(--gold)":"var(--muted)",cursor:"pointer",fontFamily:"inherit",transition:"all .18s",whiteSpace:"nowrap"}}>
-              {o === "all" ? "Барлығы" : o}
-            </button>
-          ))}
-        </div>
+        {/* Global search results */}
+        {globalSearch.length > 0 && (
+          <div style={{marginBottom:24}}>
+            <div style={{fontSize:".6rem",letterSpacing:".16em",textTransform:"uppercase",color:"rgba(198,165,92,.45)",marginBottom:10}}>
+              Іздеу нәтижелері — {globalSearch.length} елді мекен
+            </div>
+            <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(190px,1fr))",gap:7}}>
+              {globalSearch.map(c => (
+                <div key={c.id} className="tribe-card" style={{padding:"10px 14px",gap:10,cursor:"pointer"}}
+                  onClick={() => setPage({id:"community",data:{type:"city",itemId:c.id}})}>
+                  <div style={{width:32,height:32,borderRadius:7,background:"rgba(26,107,68,.15)",border:"1px solid rgba(198,165,92,.15)",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Playfair Display',serif",fontSize:".95rem",color:"var(--gold)",fontWeight:700,flexShrink:0}}>
+                    {c.name[0]}
+                  </div>
+                  <div style={{minWidth:0}}>
+                    <div style={{fontSize:".84rem",fontWeight:500,lineHeight:1.2}}>{c.name}</div>
+                    <div style={{fontSize:".6rem",color:"rgba(198,165,92,.5)",marginTop:2}}>{c.type}</div>
+                    <div style={{fontSize:".58rem",color:"var(--muted)",marginTop:1}}>{c.oblast}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
-        {/* Grid */}
-        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(200px,1fr))",gap:8,paddingBottom:60}}>
-          {list.map(c => (
-            <div key={c.id} className="tribe-card"
-              style={{padding:"12px 14px",gap:10}}
-              onClick={() => setPage({id:"community", data:{type:"city", itemId:c.id}})}>
-              <div style={{width:36,height:36,borderRadius:8,background:"rgba(26,107,68,.15)",border:"1px solid rgba(198,165,92,.15)",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Playfair Display',serif",fontSize:"1rem",color:"var(--gold)",fontWeight:700,flexShrink:0}}>
-                {c.name[0]}
-              </div>
-              <div style={{minWidth:0}}>
-                <div className="tribe-name" style={{fontSize:".85rem"}}>{c.name}</div>
-                <div style={{fontSize:".62rem",color:"rgba(198,165,92,.55)",marginTop:2}}>{c.type} · {c.region}</div>
-                {c.pop && <div className="tribe-count" style={{marginTop:3}}>👥 {c.pop}</div>}
+        {/* Step 1: oblast grid (when no search, no oblast selected) */}
+        {!selOblast && !q && (
+          <>
+            <div style={{fontSize:".6rem",letterSpacing:".16em",textTransform:"uppercase",color:"rgba(198,165,92,.45)",marginBottom:12}}>
+              Облысты таңдаңыз
+            </div>
+            <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(230px,1fr))",gap:8,paddingBottom:60}}>
+              {oblastList.map(({name,count}) => (
+                <div key={name} className="tribe-card"
+                  style={{padding:"14px 16px",gap:0,flexDirection:"column",alignItems:"flex-start",cursor:"pointer"}}
+                  onClick={() => setSelOblast(name)}>
+                  <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",width:"100%",marginBottom:4}}>
+                    <div style={{fontFamily:"'Playfair Display',serif",fontSize:".95rem",fontWeight:600}}>{name}</div>
+                    <div style={{fontSize:".65rem",color:"rgba(198,165,92,.5)",background:"rgba(198,165,92,.08)",borderRadius:20,padding:"2px 8px"}}>{count}</div>
+                  </div>
+                  <div style={{fontSize:".65rem",color:"var(--muted)"}}>
+                    {CITIES.filter(c=>c.oblast===name).filter(c=>c.type==="облыс орталығы")[0]?.name || ""}
+                    {count > 1 ? ` және тағы ${count-1}` : ""}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+
+        {/* Step 2: cities within selected oblast */}
+        {selOblast && (
+          <>
+            <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:16}}>
+              <button onClick={() => { setSelOblast(null); setQ(""); }}
+                style={{background:"none",border:"1px solid var(--border)",borderRadius:20,padding:"5px 14px",cursor:"pointer",color:"var(--muted)",fontFamily:"inherit",fontSize:".75rem",transition:"all .18s",display:"flex",alignItems:"center",gap:5}}
+                onMouseEnter={e=>e.currentTarget.style.borderColor="var(--gold)"}
+                onMouseLeave={e=>e.currentTarget.style.borderColor="var(--border)"}>
+                ← Облыстар
+              </button>
+              <div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.1rem",fontWeight:700}}>{selOblast}</div>
+                <div style={{fontSize:".65rem",color:"var(--muted)"}}>{CITIES.filter(c=>c.oblast===selOblast).length} елді мекен</div>
               </div>
             </div>
-          ))}
-          {list.length === 0 && (
-            <div className="empty" style={{gridColumn:"1/-1"}}>
-              <div className="empty-i">🔍</div>
-              <div className="empty-t">Табылмады — іздеу өрісін өзгертіңіз</div>
+
+            <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(190px,1fr))",gap:7,paddingBottom:60}}>
+              {oblastCities.map(c => (
+                <div key={c.id} className="tribe-card" style={{padding:"10px 14px",gap:10,cursor:"pointer"}}
+                  onClick={() => setPage({id:"community",data:{type:"city",itemId:c.id}})}>
+                  <div style={{width:34,height:34,borderRadius:8,background:"rgba(26,107,68,.15)",border:"1px solid rgba(198,165,92,.15)",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Playfair Display',serif",fontSize:"1rem",color:"var(--gold)",fontWeight:700,flexShrink:0}}>
+                    {c.name[0]}
+                  </div>
+                  <div style={{minWidth:0}}>
+                    <div style={{fontSize:".84rem",fontWeight:500}}>{c.name}</div>
+                    <div style={{fontSize:".62rem",color:"rgba(198,165,92,.5)",marginTop:2}}>{c.type}</div>
+                  </div>
+                </div>
+              ))}
+              {oblastCities.length === 0 && (
+                <div className="empty" style={{gridColumn:"1/-1"}}>
+                  <div className="empty-i" style={{fontSize:"1.4rem"}}>🔍</div>
+                  <div className="empty-t">Табылмады</div>
+                </div>
+              )}
             </div>
-          )}
-        </div>
+          </>
+        )}
       </div>
       <Footer/>
     </div>

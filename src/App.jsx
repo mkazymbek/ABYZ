@@ -25,7 +25,6 @@ const CSS = `
 /* ══════════════════════════════
    LIGHT THEME
 ══════════════════════════════ */
-[data-theme="light"] {
   --green:#1a6b44;  --green2:#155937;  --green3:#e8f5ee;  --green4:#d0ead9;
   --gold:#9a6f1e;   --gold2:#7d5a18;   --gold3:#b8860b;   --gold4:#d4a843;
   --dark:#f4f1eb;   --dark2:#ece8df;   --dark3:#e2ddd3;
@@ -43,18 +42,15 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 
 /* HEADER */
 .hdr{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(247,244,238,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);transition:background .3s,border-color .3s}
-[data-theme="light"] .hdr{background:rgba(247,244,238,.92)}
 .logo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--gold);cursor:pointer;letter-spacing:.02em;user-select:none}
 .logo-sub{font-size:.52rem;letter-spacing:.22em;color:rgba(198,165,92,.4);text-transform:uppercase;font-weight:300;margin-top:-3px}
 .nav{display:flex;gap:2px}
 .nbtn{background:none;border:none;font-family:inherit;font-size:.73rem;letter-spacing:.04em;color:var(--muted);padding:5px 10px;border-radius:8px;cursor:pointer;transition:var(--tr)}
 .nbtn:hover,.nbtn.on{color:var(--gold);background:rgba(154,111,30,.08)}
-[data-theme="light"] .nbtn:hover,[data-theme="light"] .nbtn.on{background:rgba(154,111,30,.08)}
 
 /* LANDING */
 .landing{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:80px 24px 60px}
 .lbg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 90% 55% at 50% 12%,rgba(26,107,68,.12) 0%,transparent 65%),radial-gradient(ellipse 40% 45% at 88% 80%,rgba(26,107,68,.07) 0%,transparent 55%)}
-[data-theme="light"] .lbg{background:radial-gradient(ellipse 90% 55% at 50% 12%,rgba(26,107,68,.12) 0%,transparent 65%),radial-gradient(ellipse 40% 45% at 88% 80%,rgba(26,107,68,.07) 0%,transparent 55%)}
 .ornament{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold) 30%,var(--gold3) 50%,var(--gold) 70%,transparent);opacity:.45}
 
 /* ELDER */
@@ -65,17 +61,13 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .elder-ring2{position:absolute;inset:10px;border-radius:50%;border:1px dashed rgba(198,165,92,.1);animation:rspin 32s linear infinite reverse}
 @keyframes rspin{to{transform:rotate(360deg)}}
 .elder-circle{position:absolute;inset:20px;border-radius:50%;background:linear-gradient(155deg,#d0ead9 0%,#1a6b44 55%,#155937 100%);border:1.5px solid rgba(154,111,30,.3);overflow:hidden;display:flex;align-items:center;justify-content:center}
-[data-theme="light"] .elder-circle{background:linear-gradient(155deg,#d0ead9 0%,#1a6b44 55%,#155937 100%);border-color:rgba(154,111,30,.3)}
 
 /* SPEECH BUBBLE */
 .speech{max-width:500px;width:100%;margin-bottom:28px;animation:fup .5s ease both}
 @keyframes fup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .sbub{background:rgba(26,107,68,.08);border:1px solid rgba(154,111,30,.2);border-radius:18px;padding:20px 24px;position:relative}
-[data-theme="light"] .sbub{background:rgba(26,107,68,.08);border-color:rgba(154,111,30,.2)}
 .sbub::before{content:'';position:absolute;top:-9px;left:50%;transform:translateX(-50%);border:9px solid transparent;border-bottom-color:rgba(154,111,30,.2);border-top:none}
 .sbub::after{content:'';position:absolute;top:-7px;left:50%;transform:translateX(-50%);border:8px solid transparent;border-bottom-color:rgba(26,107,68,.12);border-top:none}
-[data-theme="light"] .sbub::before{border-bottom-color:rgba(154,111,30,.2)}
-[data-theme="light"] .sbub::after{border-bottom-color:rgba(26,107,68,.12)}
 .sname{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:9px}
 .stext{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.65;color:var(--text);opacity:.88}
 .cur{display:inline-block;width:2px;height:1em;background:var(--gold);margin-left:2px;vertical-align:text-bottom;animation:blink .85s step-end infinite}
@@ -84,12 +76,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 /* FORM */
 .oform{width:100%;max-width:340px;animation:fup .4s .1s ease both}
 .flabel{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(198,165,92,.58);margin-bottom:9px}
-.ninput{width:100%;background:rgba(255,255,255,.8);border:1px solid var(--border);border-radius:var(--r);padding:13px 18px;font-family:'Playfair Display',serif;font-size:1rem;color:var(--text);outline:none;transition:var(--tr);margin-bottom:12px;text-align:center}
-.ninput::placeholder{color:var(--muted);font-family:'Inter',sans-serif;font-size:.87rem}
-.ninput:focus{border-color:var(--gold);background:rgba(255,255,255,.95)}
-[data-theme="light"] .ninput{background:rgba(255,255,255,.8);border-color:rgba(154,111,30,.18)}
-[data-theme="light"] .ninput::placeholder{color:rgba(28,26,20,.45)}
-[data-theme="light"] .ninput:focus{background:rgba(255,255,255,.95)}
+.ninput{width:100%;background:rgba(255,255,255,.95);border:1.5px solid rgba(198,165,92,.4);border-radius:var(--r);padding:13px 18px;font-family:'Playfair Display',serif;font-size:1rem;color:#111;-webkit-text-fill-color:#111;caret-color:#333;outline:none;transition:var(--tr);margin-bottom:12px;text-align:center}
+.ninput::placeholder{color:rgba(0,0,0,.4);font-family:'Inter',sans-serif;font-size:.87rem}
+.ninput:focus{border-color:var(--gold);background:#fff;box-shadow:0 0 0 3px rgba(198,165,92,.12)}
 
 /* BUTTONS */
 .bgold{width:100%;background:var(--gold);color:var(--dark);border:none;padding:13px 28px;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:.83rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:var(--tr)}
@@ -126,7 +115,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 
 /* MODAL OVERLAY */
 .modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:24px;animation:fup .2s ease}
-[data-theme="light"] .modal-overlay{background:rgba(0,0,0,.45)}
 .modal{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:28px;width:100%;max-width:480px;max-height:80vh;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,.15)}
 .modal-title{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:6px}
 .modal-sub{font-size:.78rem;color:var(--muted);margin-bottom:18px}
@@ -136,8 +124,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .modal-item{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;cursor:pointer;transition:var(--tr);border:1px solid transparent}
 .modal-item:hover{background:rgba(154,111,30,.06);border-color:var(--border)}
 .modal-item.sel{background:rgba(26,107,68,.1);border-color:var(--gold)}
-[data-theme="light"] .modal-item:hover{background:rgba(154,111,30,.06)}
-[data-theme="light"] .modal-item.sel{background:rgba(26,107,68,.1)}
 .modal-item-icon{font-size:1.1rem;width:32px;text-align:center;flex-shrink:0}
 .modal-item-name{font-size:.88rem;font-weight:500}
 .modal-item-sub{font-size:.7rem;color:var(--muted);margin-top:1px}
@@ -171,8 +157,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .sinput{width:100%;max-width:460px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:11px 15px 11px 38px;font-family:'Inter',sans-serif;font-size:.86rem;color:var(--text);outline:none;transition:var(--tr)}
 .sinput::placeholder{color:var(--muted)}
 .sinput:focus{border-color:var(--gold);background:rgba(255,255,255,.9)}
-[data-theme="light"] .sinput{background:rgba(255,255,255,.9)}
-[data-theme="light"] .sinput:focus{background:rgba(255,255,255,.98)}
 
 /* ALPHA */
 .abar{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:20px}
@@ -184,7 +168,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .pcard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;cursor:pointer;transition:var(--tr);position:relative;overflow:hidden;box-shadow:var(--shadow)}
 .pcard::after{content:'';position:absolute;top:0;left:0;right:0;height:1.5px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:var(--tr)}
 .pcard:hover{background:rgba(154,111,30,.06);border-color:rgba(154,111,30,.3);transform:translateY(-2px)}
-[data-theme="light"] .pcard:hover{background:rgba(154,111,30,.06);border-color:rgba(154,111,30,.3)}
 .pcard:hover::after{opacity:1}
 .pav{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green2));border:1px solid rgba(198,165,92,.2);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:.92rem;color:var(--gold);margin-bottom:10px}
 .pname{font-size:.85rem;font-weight:500;margin-bottom:3px;line-height:1.3}
@@ -245,7 +228,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .tn-inner{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:14px 14px 12px;position:relative;transition:var(--tr);box-shadow:var(--shadow)}
 .tn:hover .tn-inner,.tn.focused .tn-inner{border-color:rgba(198,165,92,.55);background:rgba(0,63,37,.22)}
 .tn.root .tn-inner{background:rgba(26,107,68,.12);border-color:var(--gold);border-width:2px}
-[data-theme="light"] .tn.root .tn-inner{background:rgba(26,107,68,.12)}
 .tn.editing .tn-inner{border-color:var(--gold);box-shadow:0 0 0 3px rgba(198,165,92,.12)}
 .tn-gen{font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(240,235,210,.28);margin-bottom:4px}
 .tn-name{font-size:.85rem;font-weight:500;line-height:1.25;word-break:break-word;min-height:20px}
@@ -300,7 +282,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .tabs{display:flex;gap:4px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:4px;margin-bottom:22px;width:fit-content}
 .tab{background:none;border:none;font-family:inherit;font-size:.78rem;color:var(--muted);padding:8px 16px;border-radius:9px;cursor:pointer;transition:var(--tr)}
 .tab.on{background:rgba(26,107,68,.12);color:var(--gold);border:1px solid var(--border)}
-[data-theme="light"] .tab.on{background:rgba(26,107,68,.12)}
 
 /* ══════════════════════════════
    ONBOARDING FLOW
@@ -311,7 +292,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .ob-fade-out{animation:obfadeout .28s cubic-bezier(.4,0,.2,1) both}
 @keyframes obfadeout{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-14px)}}
 .ob-progress{position:fixed;top:0;left:0;right:0;z-index:400;display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:52px;background:rgba(14,18,16,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:background .3s}
-[data-theme="light"] .ob-progress{background:rgba(247,244,238,.92)}
 .ob-prog-label{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(198,165,92,.5)}
 .ob-prog-track{width:160px;height:2px;background:rgba(198,165,92,.1);border-radius:2px;overflow:hidden;margin-top:5px}
 .ob-prog-fill{height:100%;background:linear-gradient(90deg,var(--gold2),var(--gold3));border-radius:2px;transition:width .6s cubic-bezier(.4,0,.2,1)}
@@ -370,7 +350,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .mc-strength-pct{font-size:.65rem;color:var(--gold2);flex-shrink:0;font-family:'Playfair Display',serif;font-weight:700}
 .unlock-banner{width:100%;max-width:860px;background:linear-gradient(135deg,rgba(26,107,68,.12),rgba(154,111,30,.07));border:1px solid var(--border);border-radius:16px;padding:20px 26px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:20px;position:relative;overflow:hidden}
 .unlock-banner::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.4}
-[data-theme="light"] .unlock-banner{background:linear-gradient(135deg,rgba(26,107,68,.08),rgba(154,111,30,.05))}
 .unlock-left{display:flex;align-items:center;gap:14px}
 .unlock-sparkle{font-size:1.6rem;flex-shrink:0}
 .unlock-title{font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:3px}
@@ -446,6 +425,54 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
   .matches-grid{grid-template-columns:1fr}
   .unlock-banner{flex-direction:column;align-items:flex-start}
 }
+/* ══════════════════════════════
+   TRIBE PICKER SCREEN
+══════════════════════════════ */
+.tp-wrap{width:100%;max-width:1020px;display:flex;flex-direction:column;gap:28px}
+.tp-zhuz{display:flex;flex-direction:column;gap:10px}
+.tp-zhuz-label{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(198,165,92,.5);padding:0 2px;display:flex;align-items:center;gap:10px}
+.tp-zhuz-label::after{content:"";flex:1;height:1px;background:rgba(198,165,92,.12)}
+.tp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.tp-card{position:relative;background:rgba(255,255,255,.03);border:1.5px solid rgba(198,165,92,.1);border-radius:16px;padding:18px 16px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1);overflow:hidden;text-align:left}
+.tp-card::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,63,37,.0),rgba(0,63,37,.22));opacity:0;transition:opacity .22s}
+.tp-card:hover{border-color:rgba(198,165,92,.35);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.tp-card:hover::before{opacity:1}
+.tp-card.sel{background:rgba(0,63,37,.28);border-color:var(--gold);box-shadow:0 0 0 3px rgba(198,165,92,.12),0 8px 28px rgba(0,0,0,.3)}
+.tp-card.sel::before{opacity:1}
+.tp-icon{font-size:2rem;margin-bottom:10px;display:block}
+.tp-name{font-family:"Playfair Display",serif;font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:4px;line-height:1.2}
+.tp-card.sel .tp-name{color:var(--gold)}
+.tp-region{font-size:.62rem;color:var(--muted);letter-spacing:.05em;margin-bottom:8px}
+.tp-desc{font-size:.72rem;color:rgba(240,235,210,.45);line-height:1.55}
+.tp-members{font-size:.6rem;color:rgba(198,165,92,.45);margin-top:10px;letter-spacing:.06em}
+.tp-check{position:absolute;top:12px;right:12px;width:22px;height:22px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:.75rem;opacity:0;transform:scale(.6);transition:all .2s}
+.tp-card.sel .tp-check{opacity:1;transform:scale(1)}
+.tp-selected-banner{background:linear-gradient(135deg,rgba(0,63,37,.3),rgba(198,165,92,.08));border:1px solid rgba(198,165,92,.3);border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:16px;width:100%;max-width:1020px}
+
+/* ══════════════════════════════
+   CITY PICKER SCREEN
+══════════════════════════════ */
+.cp-regions{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;width:100%;max-width:900px}
+.cp-region{position:relative;background:rgba(255,255,255,.03);border:1.5px solid rgba(198,165,92,.1);border-radius:14px;padding:16px 14px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1);overflow:hidden;text-align:left}
+.cp-region::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,63,37,0),rgba(0,63,37,.2));opacity:0;transition:opacity .22s}
+.cp-region:hover{border-color:rgba(198,165,92,.4);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.cp-region:hover::before{opacity:1}
+.cp-region.sel{background:rgba(0,63,37,.25);border-color:var(--gold);box-shadow:0 0 0 2px rgba(198,165,92,.1)}
+.cp-region-icon{font-size:1.6rem;margin-bottom:8px;display:block}
+.cp-region-name{font-family:"Playfair Display",serif;font-size:.88rem;font-weight:700;color:var(--text);line-height:1.2;margin-bottom:3px}
+.cp-region.sel .cp-region-name{color:var(--gold)}
+.cp-region-count{font-size:.6rem;color:rgba(198,165,92,.45);letter-spacing:.06em}
+.cp-cities-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;width:100%;max-width:900px;max-height:380px;overflow-y:auto;padding-right:4px}
+.cp-city{background:rgba(255,255,255,.03);border:1.5px solid rgba(198,165,92,.1);border-radius:10px;padding:12px 12px;cursor:pointer;transition:all .18s;text-align:left}
+.cp-city:hover{background:rgba(0,63,37,.15);border-color:rgba(198,165,92,.35);transform:translateY(-1px)}
+.cp-city.sel{background:rgba(0,63,37,.28);border-color:var(--gold)}
+.cp-city-name{font-family:"Playfair Display",serif;font-size:.85rem;font-weight:600;color:var(--text);margin-bottom:2px}
+.cp-city.sel .cp-city-name{color:var(--gold)}
+.cp-city-type{font-size:.58rem;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+.cp-search{width:100%;max-width:900px;background:rgba(255,255,255,.06);border:1.5px solid rgba(198,165,92,.2);border-radius:10px;padding:11px 16px;font-family:"Inter",sans-serif;font-size:.86rem;color:var(--text);outline:none;transition:all .2s;margin-bottom:12px}
+.cp-search::placeholder{color:rgba(240,235,210,.3)}
+.cp-search:focus{border-color:var(--gold);background:rgba(255,255,255,.09);box-shadow:0 0 0 3px rgba(198,165,92,.1)}
+
 `;
 
 /* ═══════════════════════════════════════════════════════════
@@ -964,8 +991,8 @@ function CityPicker({ cityId, setCityId }) {
 ═══════════════════════════════════════════════════════════ */
 
 /* Линейные шаги онбординга */
-const OB_STEPS       = ["intro","ask_name","profile","show_matches"];
-const OB_STEPS_LABEL = ["Начало","Ваше имя","Ваш профиль","Связи рода"];
+const OB_STEPS       = ["intro","ask_name","pick_tribe","pick_city","profile","show_matches"];
+const OB_STEPS_LABEL = ["Начало","Ваше имя","Ваш ру","Ваш город","Ваш профиль","Связи рода"];
 
 const OB_SPEECHES = {
   intro:         "Я — Абыз. Хранитель родовой памяти. Я помогу тебе узнать историю твоего рода.",
@@ -1100,6 +1127,8 @@ function OnboardingFlow({ onEnter }) {
   const [photo,     setPhoto]     = useState(null);
   const [dob,       setDob]       = useState("");
   const [bio,       setBio]       = useState("");
+  const [pickCityOblast,  setPickCityOblast]  = useState(null);
+  const [pickCitySearch,  setPickCitySearch]  = useState("");
   const fileRef = useRef(null);
 
   const ANC_GENS = ["Отец (Әке)","Дед (Ата)","Прадед (Баба)","Пра-прадед","Пра-пра-прадед","Пра-пра-пра-прадед","Пра-пра-пра-пра-прадед"];
@@ -1155,12 +1184,12 @@ function OnboardingFlow({ onEnter }) {
           <div className="flabel">Ваше имя</div>
           <input className="ninput" placeholder="Введите своё имя…" value={name}
             onChange={e => setName(e.target.value)}
-            onKeyDown={e => e.key==="Enter" && name.trim() && goTo("profile")}
+            onKeyDown={e => e.key==="Enter" && name.trim() && goTo("pick_tribe")}
             autoFocus/>
           <div className="ob-nav" style={{marginTop:4}}>
             <button className="ob-back" onClick={goBack}>← Назад</button>
             <button className="bgold" style={{flex:1}} disabled={!name.trim()}
-              onClick={() => goTo("profile")}>
+              onClick={() => goTo("pick_tribe")}>
               Далее →
             </button>
           </div>
@@ -1169,7 +1198,233 @@ function OnboardingFlow({ onEnter }) {
     </div>
   );
 
-  /* ─── ШАГ 2: ПРОФИЛЬ ─── */
+  /* ─── ШАГ 1.5: ВЫБОР РУ ─── */
+  if (step === "pick_tribe") {
+    const ZHUZ_ICONS = {
+      "Ұлы жүз":"🦅",
+      "Орта жүз":"🏔",
+      "Кіші жүз · Алимулы":"🌊",
+      "Кіші жүз · Байулы":"⚔️",
+      "Кіші жүз · Жетіру":"🐎",
+      "Жүзден тыс":"👑",
+    };
+    const ZHUZ_LABELS = {
+      "Ұлы жүз":"Ұлы жүз · Старший жуз",
+      "Орта жүз":"Орта жүз · Средний жуз",
+      "Кіші жүз · Алимулы":"Кіші жүз · Алимулы",
+      "Кіші жүз · Байулы":"Кіші жүз · Байулы",
+      "Кіші жүз · Жетіру":"Кіші жүз · Жетіру",
+      "Жүзден тыс":"Жүзден тыс · Вне жузов",
+    };
+    const zhuzGroups = Object.keys(ZHUZ_LABELS);
+    const selectedTribe = TRIBES.find(t => t.id === tribeId);
+
+    return (
+      <div className="ob-wrap" style={{justifyContent:"flex-start",paddingTop:90,paddingBottom:80}}>
+        <div className="lbg"/><div className="ornament"/>
+        <ObProgress step={step}/>
+        <div className={exiting ? "ob-fade-out" : "ob-fade"} style={{display:"flex",flexDirection:"column",alignItems:"center",width:"100%",gap:20}}>
+
+          {/* Header */}
+          <div style={{textAlign:"center",marginBottom:4}}>
+            <div style={{fontSize:".6rem",letterSpacing:".22em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:8}}>Шаг 2 из 4</div>
+            <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.6rem,3vw,2.2rem)",fontWeight:700,color:"var(--text)",letterSpacing:"-.02em",marginBottom:6}}>
+              Выберите свой <span style={{color:"var(--gold)"}}>ру</span>
+            </h2>
+            <p style={{fontSize:".85rem",color:"rgba(240,235,210,.4)",lineHeight:1.6,maxWidth:480}}>
+              Каждый казах принадлежит к роду. Знание своего ру — основа шежире.
+            </p>
+          </div>
+
+          {/* Selected banner */}
+          {selectedTribe && (
+            <div className="tp-selected-banner">
+              <div style={{width:48,height:48,borderRadius:12,background:"rgba(198,165,92,.12)",border:"1px solid rgba(198,165,92,.3)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"1.5rem",flexShrink:0}}>
+                {selectedTribe.name[0]}
+              </div>
+              <div style={{flex:1}}>
+                <div style={{fontSize:".58rem",letterSpacing:".16em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:3}}>Выбран род</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.1rem",fontWeight:700,color:"var(--gold)"}}>{selectedTribe.name}</div>
+                <div style={{fontSize:".72rem",color:"rgba(240,235,210,.45)",marginTop:2}}>{selectedTribe.zhuz} · {selectedTribe.region}</div>
+              </div>
+              <button onClick={() => setTribeId(null)}
+                style={{background:"none",border:"1px solid rgba(198,165,92,.2)",borderRadius:8,padding:"6px 12px",color:"rgba(240,235,210,.4)",fontSize:".72rem",cursor:"pointer",fontFamily:"inherit",flexShrink:0}}>
+                Сбросить
+              </button>
+            </div>
+          )}
+
+          {/* Zhuz groups */}
+          <div className="tp-wrap">
+            {zhuzGroups.map(zhuz => {
+              const group = TRIBES.filter(t => t.zhuz === zhuz);
+              if (!group.length) return null;
+              return (
+                <div key={zhuz} className="tp-zhuz">
+                  <div className="tp-zhuz-label">
+                    {ZHUZ_ICONS[zhuz]} {ZHUZ_LABELS[zhuz]}
+                  </div>
+                  <div className="tp-grid">
+                    {group.map(t => (
+                      <div key={t.id}
+                        className={`tp-card${tribeId===t.id?" sel":""}`}
+                        onClick={() => setTribeId(tribeId===t.id?null:t.id)}>
+                        <div className="tp-check">✓</div>
+                        <span className="tp-icon">{t.name[0]}</span>
+                        <div className="tp-name">{t.name}</div>
+                        <div className="tp-region">{t.region}</div>
+                        <div className="tp-desc">{t.desc}</div>
+                        <div className="tp-members">👥 {t.members.toLocaleString()} участников</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Not sure option */}
+          <button
+            onClick={() => { setTribeId(null); goTo("pick_city"); }}
+            style={{background:"none",border:"1px dashed rgba(198,165,92,.2)",borderRadius:10,padding:"12px 28px",color:"rgba(240,235,210,.3)",fontSize:".8rem",cursor:"pointer",fontFamily:"inherit",transition:"all .2s"}}
+            onMouseEnter={e=>{e.currentTarget.style.borderColor="rgba(198,165,92,.4)";e.currentTarget.style.color="rgba(240,235,210,.55)"}}
+            onMouseLeave={e=>{e.currentTarget.style.borderColor="rgba(198,165,92,.2)";e.currentTarget.style.color="rgba(240,235,210,.3)"}}>
+            Не знаю своего рода — пропустить
+          </button>
+
+          {/* Nav */}
+          <div className="ob-nav" style={{maxWidth:"100%",position:"sticky",bottom:20}}>
+            <button className="ob-back" onClick={goBack}>← Назад</button>
+            <button className="bgold" style={{flex:1,maxWidth:340}} onClick={() => goTo("pick_city")}>
+              {tribeId ? `Продолжить с родом ${selectedTribe?.name} →` : "Продолжить →"}
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+    /* ─── ШАГ 2.5: ВЫБОР ГОРОДА ─── */
+  if (step === "pick_city") {
+    const [selOblast, setSelOblast] = [pickCityOblast, setPickCityOblast];
+    const [citySearch, setCitySearch] = [pickCitySearch, setPickCitySearch];
+
+    const OBLAST_ICONS = {
+      "Астана қаласы":"🏛","Алматы қаласы":"🏙","Шымкент қаласы":"🌺",
+      "Абай облысы":"📚","Ақмола облысы":"🌾","Ақтөбе облысы":"🌅",
+      "Алматы облысы":"🏔","Атырау облысы":"🛢","Батыс Қазақстан облысы":"🌿",
+      "Жамбыл облысы":"🏺","Жетісу облысы":"🍎","Қарағанды облысы":"⛏",
+      "Қостанай облысы":"🌾","Қызылорда облысы":"🍉","Маңғыстау облысы":"🌊",
+      "Павлодар облысы":"🏭","Солтүстік Қазақстан облысы":"❄️",
+      "Түркістан облысы":"🕌","Ұлытау облысы":"🗿","Шығыс Қазақстан облысы":"🏔",
+    };
+
+    const selectedCity = CITIES.find(c => c.id === cityId);
+    const oblastCities = selOblast
+      ? CITIES.filter(c => c.oblast === selOblast && (citySearch ? c.name.toLowerCase().includes(citySearch.toLowerCase()) : true))
+      : [];
+
+    return (
+      <div className="ob-wrap" style={{justifyContent:"flex-start",paddingTop:90,paddingBottom:80}}>
+        <div className="lbg"/><div className="ornament"/>
+        <ObProgress step={step}/>
+        <div className={exiting ? "ob-fade-out" : "ob-fade"} style={{display:"flex",flexDirection:"column",alignItems:"center",width:"100%",gap:20}}>
+
+          {/* Header */}
+          <div style={{textAlign:"center",marginBottom:4}}>
+            <div style={{fontSize:".6rem",letterSpacing:".22em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:8}}>Шаг 3 из 5</div>
+            <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.6rem,3vw,2.2rem)",fontWeight:700,color:"var(--text)",letterSpacing:"-.02em",marginBottom:6}}>
+              {selOblast ? <><span style={{color:"var(--gold)"}}>{selOblast}</span></> : <>Выберите <span style={{color:"var(--gold)"}}>регион</span></>}
+            </h2>
+            <p style={{fontSize:".85rem",color:"rgba(240,235,210,.4)",lineHeight:1.6,maxWidth:480}}>
+              {selOblast ? "Теперь выберите город или населённый пункт" : "Откуда вы родом? Выберите область Казахстана."}
+            </p>
+          </div>
+
+          {/* Selected city banner */}
+          {selectedCity && !selOblast && (
+            <div style={{background:"linear-gradient(135deg,rgba(0,63,37,.3),rgba(198,165,92,.08))",border:"1px solid rgba(198,165,92,.3)",borderRadius:14,padding:"16px 20px",display:"flex",alignItems:"center",gap:16,width:"100%",maxWidth:900}}>
+              <div style={{fontSize:"2rem"}}>{OBLAST_ICONS[selectedCity.oblast]||"🏙"}</div>
+              <div style={{flex:1}}>
+                <div style={{fontSize:".58rem",letterSpacing:".16em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:3}}>Выбран город</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.1rem",fontWeight:700,color:"var(--gold)"}}>{selectedCity.name}</div>
+                <div style={{fontSize:".72rem",color:"rgba(240,235,210,.45)",marginTop:2}}>{selectedCity.type} · {selectedCity.oblast}</div>
+              </div>
+              <button onClick={() => { setCityId(null); }}
+                style={{background:"none",border:"1px solid rgba(198,165,92,.2)",borderRadius:8,padding:"6px 12px",color:"rgba(240,235,210,.4)",fontSize:".72rem",cursor:"pointer",fontFamily:"inherit"}}>
+                Сбросить
+              </button>
+            </div>
+          )}
+
+          {/* Oblast back button */}
+          {selOblast && (
+            <button onClick={() => { setSelOblast(null); setCitySearch(""); }}
+              style={{alignSelf:"flex-start",background:"none",border:"1px solid rgba(198,165,92,.2)",borderRadius:8,padding:"8px 16px",color:"rgba(198,165,92,.65)",fontSize:".8rem",cursor:"pointer",fontFamily:"inherit",display:"flex",alignItems:"center",gap:6,transition:"all .18s"}}
+              onMouseEnter={e=>e.currentTarget.style.borderColor="var(--gold)"}
+              onMouseLeave={e=>e.currentTarget.style.borderColor="rgba(198,165,92,.2)"}>
+              ← {selOblast}
+            </button>
+          )}
+
+          {/* Regions grid */}
+          {!selOblast && (
+            <div className="cp-regions">
+              {OBLASTS.map(o => {
+                const count = CITIES.filter(c => c.oblast === o).length;
+                const center = CITIES.filter(c => c.oblast === o).find(c => c.type === "облыс орталығы" || c.type === "республикалық қала");
+                return (
+                  <div key={o}
+                    className={`cp-region${cityId && CITIES.find(c=>c.id===cityId)?.oblast===o?" sel":""}`}
+                    onClick={() => setSelOblast(o)}>
+                    <span className="cp-region-icon">{OBLAST_ICONS[o]||"📍"}</span>
+                    <div className="cp-region-name">{o.replace(" облысы","").replace(" қаласы","")}</div>
+                    {center && <div style={{fontSize:".68rem",color:"rgba(240,235,210,.35)",marginBottom:3}}>{center.name}</div>}
+                    <div className="cp-region-count">{count} нас. пунктов</div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {/* Cities within oblast */}
+          {selOblast && (
+            <>
+              <input className="cp-search"
+                placeholder="Поиск города…"
+                value={citySearch}
+                onChange={e => setCitySearch(e.target.value)}
+                autoFocus
+              />
+              <div className="cp-cities-grid">
+                {oblastCities.map(c => (
+                  <div key={c.id}
+                    className={`cp-city${cityId===c.id?" sel":""}`}
+                    onClick={() => { setCityId(c.id); setSelOblast(null); setCitySearch(""); }}>
+                    <div className="cp-city-name">{c.name}</div>
+                    <div className="cp-city-type">{c.type}</div>
+                  </div>
+                ))}
+                {oblastCities.length === 0 && (
+                  <div style={{fontSize:".78rem",color:"var(--muted)",gridColumn:"1/-1",textAlign:"center",padding:"20px 0"}}>Ничего не найдено</div>
+                )}
+              </div>
+            </>
+          )}
+
+          {/* Nav */}
+          <div className="ob-nav" style={{maxWidth:"100%",marginTop:8}}>
+            <button className="ob-back" onClick={goBack}>← Назад</button>
+            <button className="bgold" style={{flex:1,maxWidth:340}} onClick={() => goTo("profile")}>
+              {cityId ? `Продолжить с ${CITIES.find(c=>c.id===cityId)?.name} →` : "Пропустить →"}
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+    /* ─── ШАГ 2: ПРОФИЛЬ ─── */
   if (step === "profile") {
     let badge = null;
     if (pct === 100)     badge = { icon:"🏆", label:"Профиль заполнен!", color:"var(--gold)" };
@@ -1219,152 +1474,111 @@ function OnboardingFlow({ onEnter }) {
             </div>
           </div>
 
-          {/* 3-col layout: личный профиль | ру+город | 7 ата */}
-          <div style={{display:"grid",gridTemplateColumns:"220px 1fr 1fr",gap:14,width:"100%",alignItems:"start"}}>
+          {/* 2-col layout: личный профиль + 7 ата */}
+          <div style={{display:"grid",gridTemplateColumns:"280px 1fr",gap:16,width:"100%",alignItems:"start"}}>
 
             {/* COL 1: ЛИЧНЫЙ ПРОФИЛЬ */}
             <div style={{background:"linear-gradient(160deg,rgba(0,63,37,.22) 0%,rgba(14,18,16,.9) 100%)",border:"1px solid rgba(198,165,92,.2)",borderRadius:16,padding:20,display:"flex",flexDirection:"column",alignItems:"center",gap:14,position:"relative",overflow:"hidden"}}>
-              {/* decorative top line */}
               <div style={{position:"absolute",top:0,left:0,right:0,height:2,background:"linear-gradient(90deg,transparent,var(--gold),transparent)",opacity:.5}}/>
 
               {/* Avatar */}
               <div style={{position:"relative"}}>
                 <input ref={fileRef} type="file" accept="image/*" style={{display:"none"}} onChange={e => {
-                  const f=e.target.files?.[0]; if(!f) return;
-                  setPhoto(URL.createObjectURL(f));
+                  const f=e.target.files?.[0]; if(!f) return; setPhoto(URL.createObjectURL(f));
                 }}/>
-                <div onClick={() => fileRef.current?.click()} style={{width:90,height:90,borderRadius:"50%",border:"2px solid rgba(198,165,92,.35)",background:"linear-gradient(135deg,var(--green3),var(--green2))",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",overflow:"hidden",position:"relative",transition:"border-color .2s"}}>
+                <div onClick={() => fileRef.current?.click()} style={{width:96,height:96,borderRadius:"50%",border:"2px solid rgba(198,165,92,.35)",background:"linear-gradient(135deg,var(--green3),var(--green2))",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",overflow:"hidden",position:"relative"}}>
                   {photo
                     ? <img src={photo} alt="" style={{width:"100%",height:"100%",objectFit:"cover"}}/>
-                    : <span style={{fontFamily:"'Playfair Display',serif",fontSize:"2rem",color:"var(--gold)",opacity:.8}}>{name?.[0]?.toUpperCase()||"?"}</span>
+                    : <span style={{fontFamily:"'Playfair Display',serif",fontSize:"2.2rem",color:"var(--gold)",opacity:.8}}>{name?.[0]?.toUpperCase()||"?"}</span>
                   }
-                  <div style={{position:"absolute",inset:0,background:"rgba(0,0,0,.45)",display:"flex",alignItems:"center",justifyContent:"center",opacity:0,transition:"opacity .2s",borderRadius:"50%",fontSize:".6rem",letterSpacing:".08em",color:"rgba(240,235,210,.8)",textAlign:"center"}}
+                  <div style={{position:"absolute",inset:0,background:"rgba(0,0,0,.5)",display:"flex",alignItems:"center",justifyContent:"center",opacity:0,transition:"opacity .2s",borderRadius:"50%",fontSize:".6rem",color:"rgba(240,235,210,.8)"}}
                     onMouseEnter={e=>e.currentTarget.style.opacity=1}
-                    onMouseLeave={e=>e.currentTarget.style.opacity=0}>
-                    Изменить
-                  </div>
+                    onMouseLeave={e=>e.currentTarget.style.opacity=0}>Изменить</div>
                 </div>
-                {/* gold ring pulse */}
                 <div style={{position:"absolute",inset:-5,borderRadius:"50%",border:"1px solid rgba(198,165,92,.15)",animation:"npulse 2.5s ease-in-out infinite",pointerEvents:"none"}}/>
               </div>
 
               {/* Name */}
               <div style={{textAlign:"center"}}>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.15rem",fontWeight:700,color:"var(--gold)",letterSpacing:"-.01em"}}>{name||"Путник"}</div>
-                <div style={{fontSize:".6rem",letterSpacing:".14em",textTransform:"uppercase",color:"rgba(240,235,210,.3)",marginTop:3}}>Участник ABYZ</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.2rem",fontWeight:700,color:"var(--gold)"}}>{name||"Путник"}</div>
+                <div style={{fontSize:".6rem",letterSpacing:".14em",textTransform:"uppercase",color:"rgba(240,235,210,.28)",marginTop:3}}>Участник ABYZ</div>
               </div>
 
-              {/* Divider */}
               <div style={{width:"100%",height:1,background:"rgba(198,165,92,.1)"}}/>
 
-              {/* Date of birth */}
+              {/* DOB */}
               <div style={{width:"100%"}}>
                 <div style={{fontSize:".55rem",letterSpacing:".16em",textTransform:"uppercase",color:"rgba(198,165,92,.45)",marginBottom:6}}>Дата рождения</div>
-                <input
-                  type="date"
-                  style={{width:"100%",background:"rgba(255,255,255,.04)",border:"1px solid rgba(198,165,92,.15)",borderRadius:8,padding:"8px 10px",fontFamily:"'Inter',sans-serif",fontSize:".8rem",color:"var(--text)",outline:"none",colorScheme:"dark"}}
-                  value={dob} onChange={e => setDob(e.target.value)}
-                />
+                <input type="date" style={{width:"100%",background:"rgba(255,255,255,.04)",border:"1px solid rgba(198,165,92,.15)",borderRadius:8,padding:"8px 10px",fontFamily:"'Inter',sans-serif",fontSize:".8rem",color:"var(--text)",outline:"none",colorScheme:"dark"}}
+                  value={dob} onChange={e=>setDob(e.target.value)}/>
               </div>
 
               {/* Bio */}
               <div style={{width:"100%"}}>
                 <div style={{fontSize:".55rem",letterSpacing:".16em",textTransform:"uppercase",color:"rgba(198,165,92,.45)",marginBottom:6}}>О себе</div>
-                <textarea
-                  rows={3}
-                  placeholder="Несколько слов о себе…"
+                <textarea rows={3} placeholder="Несколько слов о себе…"
                   style={{width:"100%",background:"rgba(255,255,255,.04)",border:"1px solid rgba(198,165,92,.15)",borderRadius:8,padding:"8px 10px",fontFamily:"'Inter',sans-serif",fontSize:".78rem",color:"var(--text)",outline:"none",resize:"none",lineHeight:1.55,colorScheme:"dark"}}
-                  value={bio} onChange={e => setBio(e.target.value)}
-                />
+                  value={bio} onChange={e=>setBio(e.target.value)}/>
               </div>
 
-              {/* Selected badges */}
-              {(tribe||city) && (
-                <div style={{width:"100%",display:"flex",flexDirection:"column",gap:6}}>
-                  {tribe && (
-                    <div style={{display:"flex",alignItems:"center",gap:8,background:"rgba(0,63,37,.2)",border:"1px solid rgba(198,165,92,.18)",borderRadius:8,padding:"7px 10px"}}>
-                      
-                      <div>
-                        <div style={{fontSize:".6rem",color:"rgba(198,165,92,.5)",letterSpacing:".1em",textTransform:"uppercase"}}>Ру</div>
-                        <div style={{fontSize:".82rem",fontWeight:500,color:"var(--gold)"}}>{tribe.name}</div>
-                      </div>
-                    </div>
-                  )}
-                  {city && (
-                    <div style={{display:"flex",alignItems:"center",gap:8,background:"rgba(0,63,37,.15)",border:"1px solid rgba(198,165,92,.12)",borderRadius:8,padding:"7px 10px"}}>
-                      
-                      <div>
-                        <div style={{fontSize:".6rem",color:"rgba(198,165,92,.5)",letterSpacing:".1em",textTransform:"uppercase"}}>Город</div>
-                        <div style={{fontSize:".82rem",fontWeight:500}}>{city.name}</div>
-                      </div>
-                    </div>
-                  )}
-                  {filledAnc.length > 0 && (
-                    <div style={{display:"flex",alignItems:"center",gap:8,background:"rgba(0,63,37,.12)",border:"1px solid rgba(198,165,92,.1)",borderRadius:8,padding:"7px 10px"}}>
-                      <span style={{fontSize:"1rem"}}>👤</span>
-                      <div>
-                        <div style={{fontSize:".6rem",color:"rgba(198,165,92,.5)",letterSpacing:".1em",textTransform:"uppercase"}}>7 Ата</div>
-                        <div style={{fontSize:".82rem",color:"var(--text)"}}>{filledAnc.length} из 7 заполнено</div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
+              <div style={{width:"100%",height:1,background:"rgba(198,165,92,.1)"}}/>
 
-            {/* COL 2: РУ + ГОРОД */}
-            <div style={{display:"flex",flexDirection:"column",gap:12}}>
-              {/* РУ — grouped by zhuz */}
-              <div style={{background:"rgba(255,255,255,.025)",border:"1px solid rgba(198,165,92,.1)",borderRadius:14,padding:14}}>
-                <div style={{fontSize:".58rem",letterSpacing:".18em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:9}}>🏔 Ру (Род)</div>
-                <div style={{maxHeight:220,overflowY:"auto",paddingRight:2,display:"flex",flexDirection:"column",gap:10}}>
-                  {["Ұлы жүз","Орта жүз","Кіші жүз · Алимулы","Кіші жүз · Байулы","Кіші жүз · Жетіру","Жүзден тыс"].map(zhuz => {
-                    const group = TRIBES.filter(t => t.zhuz === zhuz);
-                    if (!group.length) return null;
-                    return (
-                      <div key={zhuz}>
-                        <div style={{fontSize:".54rem",letterSpacing:".14em",textTransform:"uppercase",color:"rgba(198,165,92,.38)",marginBottom:5,paddingLeft:2}}>{zhuz}</div>
-                        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:4}}>
-                          {group.map(t => (
-                            <button key={t.id}
-                              style={{background:tribeId===t.id?"rgba(26,107,68,.35)":"rgba(255,255,255,.03)",border:`1.5px solid ${tribeId===t.id?"var(--gold)":"rgba(198,165,92,.1)"}`,borderRadius:8,padding:"7px 9px",cursor:"pointer",color:"var(--text)",fontFamily:"inherit",textAlign:"left",transition:"all .18s",display:"flex",alignItems:"center",gap:6}}
-                              onClick={() => setTribeId(tribeId===t.id?null:t.id)}>
-                              <span style={{fontSize:".9rem",color:"var(--gold)",fontFamily:"'Playfair Display',serif",fontWeight:700}}>{t.name[0]}</span>
-                              <div>
-                                <div style={{fontSize:".74rem",fontWeight:500}}>{t.name}</div>
-                                <div style={{fontSize:".55rem",color:"var(--muted)",marginTop:1}}>{t.region}</div>
-                              </div>
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                {!tribeId && <div style={{fontSize:".65rem",color:"rgba(240,235,210,.2)",marginTop:7,textAlign:"center"}}>Не знаю — пропущу</div>}
-              </div>
-
-              {/* ГОРОД */}
-              <div style={{background:"rgba(255,255,255,.025)",border:"1px solid rgba(198,165,92,.1)",borderRadius:14,padding:14}}>
-                <div style={{fontSize:".58rem",letterSpacing:".18em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:8}}>Туған қала / Елді мекен</div>
-                <CityPicker cityId={cityId} setCityId={setCityId}/>
+              {/* Ру и Город — только здесь, компактно */}
+              <div style={{width:"100%",display:"flex",flexDirection:"column",gap:7}}>
+                {/* РУ */}
+                {tribe ? (
+                  <div style={{display:"flex",alignItems:"center",gap:10,background:"rgba(0,63,37,.2)",border:"1px solid rgba(198,165,92,.2)",borderRadius:10,padding:"9px 12px",cursor:"pointer"}} onClick={()=>goTo("pick_tribe")}>
+                    <div style={{width:34,height:34,borderRadius:8,background:"rgba(198,165,92,.12)",border:"1px solid rgba(198,165,92,.2)",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Playfair Display',serif",fontSize:".95rem",color:"var(--gold)",fontWeight:700,flexShrink:0}}>{tribe.name[0]}</div>
+                    <div style={{flex:1,minWidth:0}}>
+                      <div style={{fontSize:".55rem",letterSpacing:".12em",textTransform:"uppercase",color:"rgba(198,165,92,.45)"}}>Ру</div>
+                      <div style={{fontFamily:"'Playfair Display',serif",fontSize:".88rem",fontWeight:600,color:"var(--gold)",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{tribe.name}</div>
+                    </div>
+                    <span style={{fontSize:".65rem",color:"rgba(198,165,92,.4)"}}>›</span>
+                  </div>
+                ) : (
+                  <button onClick={()=>goTo("pick_tribe")} style={{width:"100%",background:"none",border:"1.5px dashed rgba(198,165,92,.18)",borderRadius:10,padding:"10px",color:"rgba(240,235,210,.28)",fontSize:".78rem",cursor:"pointer",fontFamily:"inherit",display:"flex",alignItems:"center",justifyContent:"center",gap:6}}>
+                    🏔 Добавить ру →
+                  </button>
+                )}
+                {/* Город */}
+                {city ? (
+                  <div style={{display:"flex",alignItems:"center",gap:10,background:"rgba(0,63,37,.14)",border:"1px solid rgba(198,165,92,.15)",borderRadius:10,padding:"9px 12px",cursor:"pointer"}} onClick={()=>goTo("pick_city")}>
+                    <div style={{width:34,height:34,borderRadius:8,background:"rgba(198,165,92,.08)",border:"1px solid rgba(198,165,92,.15)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"1rem",flexShrink:0}}>🏙</div>
+                    <div style={{flex:1,minWidth:0}}>
+                      <div style={{fontSize:".55rem",letterSpacing:".12em",textTransform:"uppercase",color:"rgba(198,165,92,.45)"}}>Город</div>
+                      <div style={{fontFamily:"'Playfair Display',serif",fontSize:".88rem",fontWeight:600,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{city.name}</div>
+                    </div>
+                    <span style={{fontSize:".65rem",color:"rgba(198,165,92,.4)"}}>›</span>
+                  </div>
+                ) : (
+                  <button onClick={()=>goTo("pick_city")} style={{width:"100%",background:"none",border:"1.5px dashed rgba(198,165,92,.18)",borderRadius:10,padding:"10px",color:"rgba(240,235,210,.28)",fontSize:".78rem",cursor:"pointer",fontFamily:"inherit",display:"flex",alignItems:"center",justifyContent:"center",gap:6}}>
+                    🏙 Добавить город →
+                  </button>
+                )}
               </div>
             </div>
 
-            {/* COL 3: 7 АТА */}
-            <div style={{background:"rgba(255,255,255,.025)",border:"1px solid rgba(198,165,92,.1)",borderRadius:14,padding:14,display:"flex",flexDirection:"column"}}>
-              <div style={{fontSize:".58rem",letterSpacing:".18em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:4}}>👤 7 Ата — предки</div>
-              <div style={{fontSize:".67rem",color:"rgba(240,235,210,.22)",marginBottom:10,lineHeight:1.5}}>Казахская традиция — знать 7 поколений</div>
-              <div style={{display:"flex",flexDirection:"column",gap:7,flex:1}}>
+            {/* COL 2: 7 АТА */}
+            <div style={{background:"rgba(255,255,255,.025)",border:"1px solid rgba(198,165,92,.1)",borderRadius:14,padding:18,display:"flex",flexDirection:"column"}}>
+              <div style={{display:"flex",alignItems:"baseline",justifyContent:"space-between",marginBottom:4}}>
+                <div style={{fontSize:".6rem",letterSpacing:".18em",textTransform:"uppercase",color:"rgba(198,165,92,.5)"}}>👤 7 Ата — предки</div>
+                <div style={{fontSize:".65rem",color:"rgba(198,165,92,.45)"}}>{filledAnc.length}/7</div>
+              </div>
+              <div style={{fontSize:".68rem",color:"rgba(240,235,210,.22)",marginBottom:14,lineHeight:1.5}}>Казахская традиция — знать 7 поколений предков по отцу</div>
+              <div style={{display:"flex",flexDirection:"column",gap:8,flex:1}}>
                 {ANC_GENS.map((gen, i) => (
-                  <div key={i} style={{display:"flex",alignItems:"center",gap:7}}>
-                    <span style={{fontFamily:"'Playfair Display',serif",fontSize:".82rem",color:"var(--gold)",opacity:.6,width:14,textAlign:"right",flexShrink:0}}>{i+1}</span>
-                    <span style={{fontSize:".58rem",color:"var(--muted)",width:80,flexShrink:0,lineHeight:1.2}}>{gen}</span>
+                  <div key={i} style={{display:"flex",alignItems:"center",gap:8}}>
+                    <div style={{width:22,height:22,borderRadius:"50%",background:ancestors[i]?"rgba(198,165,92,.18)":"rgba(255,255,255,.04)",border:`1px solid ${ancestors[i]?"rgba(198,165,92,.4)":"rgba(198,165,92,.12)"}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,transition:"all .18s"}}>
+                      <span style={{fontFamily:"'Playfair Display',serif",fontSize:".68rem",color:"var(--gold)",opacity:ancestors[i]?.8:.4}}>{i+1}</span>
+                    </div>
+                    <span style={{fontSize:".6rem",color:"var(--muted)",width:90,flexShrink:0,lineHeight:1.2}}>{gen}</span>
                     <input
-                      style={{flex:1,background:"rgba(255,255,255,.04)",border:`1px solid ${ancestors[i]?"rgba(198,165,92,.32)":"rgba(198,165,92,.1)"}`,borderRadius:7,padding:"6px 9px",fontFamily:"'Playfair Display',serif",fontSize:".8rem",color:"var(--text)",outline:"none",transition:"all .18s"}}
-                      placeholder="Имя…"
+                      style={{flex:1,background:"rgba(255,255,255,.04)",border:`1.5px solid ${ancestors[i]?"rgba(198,165,92,.35)":"rgba(198,165,92,.1)"}`,borderRadius:8,padding:"8px 11px",fontFamily:"'Playfair Display',serif",fontSize:".82rem",color:"var(--text)",outline:"none",transition:"all .18s"}}
+                      placeholder="Имя предка…"
                       value={ancestors[i]}
                       onChange={e => { const a=[...ancestors]; a[i]=e.target.value; setAncestors(a); }}
+                      onFocus={e=>e.target.style.borderColor="var(--gold)"}
+                      onBlur={e=>e.target.style.borderColor=ancestors[i]?"rgba(198,165,92,.35)":"rgba(198,165,92,.1)"}
                     />
                   </div>
                 ))}
@@ -1488,7 +1702,7 @@ function LandingPage({ onEnter }) {
 /* ═══════════════════════════════════════════════════════════
    HEADER
 ═══════════════════════════════════════════════════════════ */
-function Header({ page, setPage, dark, setDark }) {
+function Header({ page, setPage }) {
   const nav = [
     {id:"personal", label:"Моя страница"},
     {id:"list",     label:"Личности"},
@@ -1508,12 +1722,7 @@ function Header({ page, setPage, dark, setDark }) {
             onClick={() => setPage({id:n.id})}>{n.label}</button>
         ))}
       </nav>
-      <button
-        onClick={() => setDark(d => !d)}
-        style={{background:"none",border:"1px solid var(--border)",borderRadius:20,padding:"5px 13px",cursor:"pointer",fontSize:".72rem",color:"var(--gold)",fontFamily:"'Inter',sans-serif",transition:"all .2s",letterSpacing:".04em",flexShrink:0}}
-        title="Сменить тему">
-        {dark ? "☀️ Светлая" : "🌙 Тёмная"}
-      </button>
+
     </header>
   );
 }
@@ -2418,12 +2627,6 @@ export default function App() {
   const [userName, setUserName] = useState(null);
   const [profile,  setProfile]  = useState({ tribeId: null, cityId: null });
   const [page,     setPage]     = useState({ id: "personal" });
-  const [dark,     setDark]     = useState(true);
-
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
-    document.body.style.background = dark ? "#0e1210" : "#f7f4ee";
-  }, [dark]);
 
   const handleEnter = useCallback((name, obData) => {
     setUserName(name);
@@ -2440,9 +2643,7 @@ export default function App() {
     return (
       <>
         <style>{CSS}</style>
-        <button onClick={() => setDark(d=>!d)} style={{position:"fixed",top:14,right:20,zIndex:999,background:"none",border:"1px solid var(--border)",borderRadius:20,padding:"5px 12px",cursor:"pointer",fontSize:".75rem",color:"var(--gold)",fontFamily:"'Inter',sans-serif",backdropFilter:"blur(8px)",background:"rgba(247,244,238,.7)",transition:"all .2s"}}>
-          {dark ? "☀️ Светлая" : "🌙 Тёмная"}
-        </button>
+
         <LandingPage onEnter={handleEnter}/>
       </>
     );
@@ -2464,7 +2665,7 @@ export default function App() {
   return (
     <>
       <style>{CSS}</style>
-      <Header page={page} setPage={setPage} dark={dark} setDark={setDark}/>
+      <Header page={page} setPage={setPage}/>
       {render()}
     </>
   );

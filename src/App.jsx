@@ -302,236 +302,314 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .tab.on{background:rgba(26,107,68,.12);color:var(--gold);border:1px solid var(--border)}
 [data-theme="light"] .tab.on{background:rgba(26,107,68,.12)}
 
-/* MOBILE */
-@media(max-width:700px){
-  .pper{grid-template-columns:1fr;gap:24px;padding:32px 16px}
-  .pside{display:none}
-  .comm-stats{grid-template-columns:repeat(2,1fr)}
-}
-
 /* ══════════════════════════════
    ONBOARDING FLOW
 ══════════════════════════════ */
 .ob-wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:80px 24px 60px;background:var(--bg)}
-.ob-fade{animation:obfade .45s cubic-bezier(.4,0,.2,1) both}
-@keyframes obfade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-.ob-fade-out{animation:obfadeout .3s cubic-bezier(.4,0,.2,1) both}
-@keyframes obfadeout{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-12px)}}
-
-/* Progress bar */
-.ob-progress{position:fixed;top:0;left:0;right:0;z-index:400;display:flex;align-items:center;justify-content:space-between;padding:14px 28px;background:rgba(247,244,238,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);transition:background .3s}
+.ob-fade{animation:obfade .5s cubic-bezier(.4,0,.2,1) both}
+@keyframes obfade{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.ob-fade-out{animation:obfadeout .28s cubic-bezier(.4,0,.2,1) both}
+@keyframes obfadeout{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-14px)}}
+.ob-progress{position:fixed;top:0;left:0;right:0;z-index:400;display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:52px;background:rgba(14,18,16,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:background .3s}
 [data-theme="light"] .ob-progress{background:rgba(247,244,238,.92)}
-.ob-prog-label{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(198,165,92,.5)}
-.ob-prog-track{width:180px;height:3px;background:rgba(198,165,92,.1);border-radius:2px;overflow:hidden}
-.ob-prog-fill{height:100%;background:linear-gradient(90deg,var(--gold2),var(--gold3));border-radius:2px;transition:width .5s cubic-bezier(.4,0,.2,1)}
-.ob-logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--gold);letter-spacing:.02em}
-
-/* Tribe grid */
-.tribe-grid-ob{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:8px;width:100%;max-width:500px;margin-bottom:18px;max-height:280px;overflow-y:auto;padding-right:4px}
-.tribe-btn{background:rgba(255,255,255,.03);border:1.5px solid rgba(198,165,92,.12);border-radius:12px;padding:12px 14px;cursor:pointer;transition:var(--tr);text-align:left;font-family:inherit;color:var(--text);display:flex;align-items:center;gap:9px}
-.tribe-btn:hover{background:rgba(0,63,37,.18);border-color:rgba(198,165,92,.35)}
-.tribe-btn.sel{background:rgba(0,63,37,.28);border-color:var(--gold);box-shadow:0 0 0 2px rgba(198,165,92,.12)}
+.ob-prog-label{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(198,165,92,.5)}
+.ob-prog-track{width:160px;height:2px;background:rgba(198,165,92,.1);border-radius:2px;overflow:hidden;margin-top:5px}
+.ob-prog-fill{height:100%;background:linear-gradient(90deg,var(--gold2),var(--gold3));border-radius:2px;transition:width .6s cubic-bezier(.4,0,.2,1)}
+.ob-logo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--gold);letter-spacing:.02em}
+.ob-dots{display:flex;gap:6px;align-items:center}
+.ob-dot{width:6px;height:6px;border-radius:50%;background:rgba(198,165,92,.2);transition:all .3s}
+.ob-dot.active{background:var(--gold);width:18px;border-radius:3px}
+.ob-dot.done{background:rgba(198,165,92,.5)}
+.intro-tagline{font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(198,165,92,.5);margin-bottom:6px;text-align:center}
+.intro-title{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;color:var(--text);text-align:center;line-height:1.15;letter-spacing:-.02em;margin-bottom:6px}
+.intro-title em{color:var(--gold);font-style:normal}
+.intro-sub{font-size:.82rem;color:var(--muted);text-align:center;max-width:340px;line-height:1.65;margin-bottom:28px}
+.tribe-grid-ob{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:8px;width:100%;max-width:520px;margin-bottom:18px;max-height:300px;overflow-y:auto;padding-right:4px}
+.tribe-btn{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;cursor:pointer;transition:var(--tr);text-align:left;font-family:inherit;color:var(--text);display:flex;align-items:center;gap:9px}
+.tribe-btn:hover{background:rgba(26,107,68,.12);border-color:rgba(198,165,92,.38)}
+.tribe-btn.sel{background:rgba(26,107,68,.18);border-color:var(--gold);box-shadow:0 0 0 3px rgba(198,165,92,.1)}
 .tribe-btn .tb-icon{font-size:1.2rem;flex-shrink:0}
-.tribe-btn .tb-name{font-size:.82rem;font-weight:500;line-height:1.2}
-.tribe-btn .tb-reg{font-size:.65rem;color:var(--muted);margin-top:2px}
-.tribe-unknown{background:none;border:1px dashed rgba(198,165,92,.2);color:rgba(240,235,210,.35);font-size:.8rem;padding:11px 20px;border-radius:10px;cursor:pointer;font-family:inherit;transition:var(--tr);display:block;width:100%;max-width:500px;margin-bottom:6px;text-align:center}
-.tribe-unknown:hover{border-color:rgba(198,165,92,.4);color:rgba(240,235,210,.6)}
-
-/* Ancestor fields */
-.anc-list{display:flex;flex-direction:column;gap:10px;width:100%;max-width:400px;margin-bottom:18px}
-.anc-row{display:flex;align-items:center;gap:10px}
-.anc-num{font-family:'Playfair Display',serif;font-size:.9rem;color:var(--gold);opacity:.7;width:20px;flex-shrink:0;text-align:right}
-.anc-gen{font-size:.62rem;color:var(--muted);width:110px;flex-shrink:0;line-height:1.3}
-.anc-inp{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(198,165,92,.14);border-radius:9px;padding:10px 14px;font-family:'Playfair Display',serif;font-size:.87rem;color:var(--text);outline:none;transition:var(--tr)}
-.anc-inp:focus{border-color:rgba(198,165,92,.42);background:rgba(255,255,255,.06)}
-.anc-inp::placeholder{font-family:'Inter',sans-serif;font-size:.78rem;color:rgba(240,235,210,.18)}
-.anc-inp.filled{border-color:rgba(198,165,92,.32)}
-
-/* Nav row */
-.ob-nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;width:100%;max-width:400px}
-.ob-back{background:none;border:1px solid rgba(240,235,210,.1);color:rgba(240,235,210,.3);padding:11px 22px;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:.8rem;cursor:pointer;transition:var(--tr)}
-.ob-back:hover{border-color:rgba(198,165,92,.3);color:rgba(198,165,92,.7)}
-
-/* Tree reveal */
-.tree-reveal{animation:treeReveal .8s cubic-bezier(.4,0,.2,1) both}
-@keyframes treeReveal{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
-
-/* ══════════════════════════════
-   SHOW MATCHES STEP
-══════════════════════════════ */
+.tribe-btn .tb-name{font-size:.82rem;font-weight:500;line-height:1.2;color:var(--text)}
+.tribe-btn .tb-reg{font-size:.62rem;color:var(--muted);margin-top:2px}
+.tribe-unknown{background:none;border:1px dashed rgba(198,165,92,.18);color:var(--muted);font-size:.78rem;padding:11px 20px;border-radius:10px;cursor:pointer;font-family:inherit;transition:var(--tr);display:block;width:100%;max-width:520px;margin-bottom:6px;text-align:center}
+.tribe-unknown:hover{border-color:rgba(198,165,92,.4);color:var(--gold)}
+.anc-list{display:flex;flex-direction:column;gap:8px;width:100%;max-width:420px;margin-bottom:18px}
+.anc-row{display:flex;align-items:center;gap:10px;padding:4px 0}
+.anc-num{font-family:'Playfair Display',serif;font-size:.88rem;color:var(--gold);opacity:.6;width:18px;flex-shrink:0;text-align:right}
+.anc-gen{font-size:.62rem;color:var(--muted);width:105px;flex-shrink:0;line-height:1.3}
+.anc-inp{flex:1;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:9px 14px;font-family:'Playfair Display',serif;font-size:.87rem;color:var(--text);outline:none;transition:var(--tr)}
+.anc-inp:focus{border-color:rgba(198,165,92,.5);background:rgba(255,255,255,.07)}
+.anc-inp::placeholder{font-family:'Inter',sans-serif;font-size:.78rem;color:var(--muted);opacity:.5}
+.anc-inp.filled{border-color:rgba(198,165,92,.35);background:rgba(26,107,68,.06)}
+.ob-nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;width:100%;max-width:420px}
+.ob-back{background:none;border:1px solid var(--border);color:var(--muted);padding:11px 22px;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:.8rem;cursor:pointer;transition:var(--tr)}
+.ob-back:hover{border-color:var(--gold);color:var(--gold)}
+.tree-reveal{animation:treeReveal .8s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes treeReveal{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
 .matches-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;width:100%;max-width:860px;margin-bottom:20px}
 .match-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;position:relative;overflow:hidden;transition:var(--tr);box-shadow:var(--shadow)}
-.match-card:not(.blurred):hover{background:rgba(0,63,37,.12);border-color:rgba(198,165,92,.28);transform:translateY(-2px)}
+.match-card:not(.blurred):hover{background:rgba(26,107,68,.08);border-color:rgba(198,165,92,.3);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
 .match-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:var(--tr)}
-.match-card:not(.blurred):hover::before{opacity:.7}
-
-.match-card.blurred .mc-body{filter:blur(6px);user-select:none;pointer-events:none}
-.match-card.blurred{border-color:rgba(198,165,92,.07);cursor:default}
-.mc-lock{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;z-index:2;background:rgba(10,16,12,.55);backdrop-filter:blur(1px);border-radius:16px}
-.mc-lock-icon{font-size:1.4rem;opacity:.6}
-.mc-lock-text{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(198,165,92,.45)}
-
+.match-card:not(.blurred):hover::before{opacity:.8}
+.match-card.blurred .mc-body{filter:blur(5px);user-select:none;pointer-events:none}
+.match-card.blurred{border-color:var(--border);cursor:default;opacity:.75}
+.mc-lock{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;z-index:2;background:rgba(10,16,12,.5);backdrop-filter:blur(2px);border-radius:16px}
+.mc-lock-icon{font-size:1.4rem;opacity:.55}
+.mc-lock-text{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(198,165,92,.4)}
 .mc-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.mc-icon{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green2));border:1.5px solid rgba(198,165,92,.25);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.mc-icon{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green2));border:1.5px solid rgba(198,165,92,.28);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
 .mc-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;line-height:1.2;margin-bottom:2px}
-.mc-era{font-size:.65rem;color:var(--muted);letter-spacing:.05em}
-
-.mc-type-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(0,63,37,.2);border:1px solid rgba(198,165,92,.15);border-radius:20px;padding:4px 10px;font-size:.63rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(198,165,92,.7);margin-bottom:10px}
-
-.mc-relation{font-size:.78rem;color:rgba(240,235,210,.55);line-height:1.5;margin-bottom:10px}
-.mc-detail{font-size:.74rem;color:rgba(240,235,210,.3);line-height:1.55;margin-bottom:12px;font-style:italic}
-
+.mc-era{font-size:.64rem;color:var(--muted);letter-spacing:.05em}
+.mc-type-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(26,107,68,.15);border:1px solid rgba(198,165,92,.15);border-radius:20px;padding:4px 10px;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(198,165,92,.7);margin-bottom:10px}
+.mc-relation{font-size:.78rem;color:var(--muted);line-height:1.55;margin-bottom:10px}
+.mc-detail{font-size:.73rem;color:rgba(240,235,210,.28);line-height:1.6;margin-bottom:12px;font-style:italic}
 .mc-strength{display:flex;align-items:center;gap:8px}
-.mc-strength-label{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(198,165,92,.4);flex-shrink:0}
-.mc-strength-track{flex:1;height:3px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
-.mc-strength-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--gold2),var(--gold3));transition:width 1s cubic-bezier(.4,0,.2,1)}
-.mc-strength-pct{font-size:.65rem;color:var(--gold2);flex-shrink:0;font-family:'Playfair Display',serif}
-
-/* Unlock banner */
-.unlock-banner{width:100%;max-width:860px;background:linear-gradient(135deg,rgba(26,107,68,.1) 0%,rgba(154,111,30,.06) 100%);border:1px solid var(--border);border-radius:16px;padding:22px 28px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:20px}
-[data-theme="light"] .unlock-banner{background:linear-gradient(135deg,rgba(26,107,68,.1) 0%,rgba(154,111,30,.06) 100%)}
+.mc-strength-label{font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(198,165,92,.38);flex-shrink:0}
+.mc-strength-track{flex:1;height:3px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden}
+.mc-strength-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--gold2),var(--gold3));transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+.mc-strength-pct{font-size:.65rem;color:var(--gold2);flex-shrink:0;font-family:'Playfair Display',serif;font-weight:700}
+.unlock-banner{width:100%;max-width:860px;background:linear-gradient(135deg,rgba(26,107,68,.12),rgba(154,111,30,.07));border:1px solid var(--border);border-radius:16px;padding:20px 26px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:20px;position:relative;overflow:hidden}
+.unlock-banner::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.4}
+[data-theme="light"] .unlock-banner{background:linear-gradient(135deg,rgba(26,107,68,.08),rgba(154,111,30,.05))}
 .unlock-left{display:flex;align-items:center;gap:14px}
-.unlock-sparkle{font-size:1.8rem;flex-shrink:0}
+.unlock-sparkle{font-size:1.6rem;flex-shrink:0}
 .unlock-title{font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:3px}
-.unlock-sub{font-size:.74rem;color:rgba(240,235,210,.4);line-height:1.5}
-.unlock-btn{background:var(--gold);color:var(--dark);border:none;padding:12px 24px;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:var(--tr);white-space:nowrap;flex-shrink:0}
-.unlock-btn:hover{background:var(--gold3);transform:translateY(-1px);box-shadow:0 4px 18px rgba(198,165,92,.25)}
-
-/* Matches count header */
+.unlock-sub{font-size:.73rem;color:var(--muted);line-height:1.5}
+.unlock-btn{background:var(--gold);color:#0e1210;border:none;padding:11px 22px;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:var(--tr);white-space:nowrap;flex-shrink:0}
+.unlock-btn:hover{background:var(--gold3);transform:translateY(-1px);box-shadow:0 6px 20px rgba(198,165,92,.3)}
 .matches-header{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:860px;margin-bottom:16px;flex-wrap:wrap;gap:8px}
-.matches-title{font-family:'Playfair Display',serif;font-size:1.1rem}
-.matches-count{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(198,165,92,.5)}
-.matches-hint{font-size:.72rem;color:rgba(240,235,210,.25);display:flex;align-items:center;gap:5px}
-
-/* ══════════════════════════════
-   PROFILE STEP
-══════════════════════════════ */
-.prof-layout{width:100%;max-width:860px;display:grid;grid-template-columns:280px 1fr;gap:28px;align-items:start}
-@media(max-width:680px){.prof-layout{grid-template-columns:1fr}}
-
-/* Avatar upload */
-.prof-avatar-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;position:relative}
-.prof-avatar{width:110px;height:110px;border-radius:50%;border:2px solid rgba(198,165,92,.3);overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--green3),var(--green2));transition:var(--tr);position:relative}
+.matches-title{font-family:'Playfair Display',serif;font-size:1.15rem}
+.matches-count{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(198,165,92,.45)}
+.matches-hint{font-size:.71rem;color:rgba(240,235,210,.22);display:flex;align-items:center;gap:5px;margin-top:3px}
+.prof-layout{width:100%;max-width:860px;display:grid;grid-template-columns:240px 1fr;gap:20px;align-items:start}
+@media(max-width:720px){.prof-layout{grid-template-columns:1fr}}
+.prof-sidebar{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px;display:flex;flex-direction:column;align-items:center;gap:14px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.prof-sidebar::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.45}
+.prof-avatar-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer}
+.prof-avatar{width:96px;height:96px;border-radius:50%;border:2px solid rgba(198,165,92,.3);overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--green3),var(--green2));transition:border-color .2s;position:relative}
 .prof-avatar:hover{border-color:var(--gold)}
 .prof-avatar img{width:100%;height:100%;object-fit:cover}
-.prof-avatar-placeholder{font-family:'Playfair Display',serif;font-size:2.4rem;color:var(--gold);opacity:.7}
-.prof-avatar-overlay{position:absolute;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;opacity:0;transition:var(--tr);border-radius:50%;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(240,235,210,.8)}
+.prof-avatar-placeholder{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--gold);opacity:.75}
+.prof-avatar-overlay{position:absolute;inset:0;background:rgba(0,0,0,.48);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;border-radius:50%;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(240,235,210,.85)}
 .prof-avatar-wrap:hover .prof-avatar-overlay{opacity:1}
-.prof-avatar-hint{font-size:.62rem;color:rgba(240,235,210,.25);letter-spacing:.06em}
-
-/* Left sidebar card */
-.prof-sidebar{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px;display:flex;flex-direction:column;align-items:center;gap:16px;box-shadow:var(--shadow)}
-.prof-name-big{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--text);text-align:center}
-.prof-tribe-badge{display:flex;align-items:center;gap:7px;background:rgba(0,63,37,.2);border:1px solid rgba(198,165,92,.18);border-radius:20px;padding:6px 14px;font-size:.78rem;cursor:pointer;transition:var(--tr);width:100%;justify-content:center}
-.prof-tribe-badge:hover{background:rgba(0,63,37,.32);border-color:var(--gold)}
+.prof-avatar-hint{font-size:.6rem;color:var(--muted);opacity:.6}
+.prof-name-big{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--text);text-align:center;line-height:1.2}
+.prof-tribe-badge{display:flex;align-items:center;gap:7px;background:rgba(26,107,68,.15);border:1px solid rgba(198,165,92,.2);border-radius:20px;padding:7px 14px;font-size:.77rem;cursor:pointer;transition:var(--tr);width:100%;justify-content:center}
+.prof-tribe-badge:hover{background:rgba(26,107,68,.25);border-color:var(--gold)}
 .prof-tribe-badge .ptb-val{color:var(--gold);font-weight:500}
-.prof-tribe-badge .ptb-lbl{color:rgba(240,235,210,.38);font-size:.65rem}
-.prof-empty-tribe{width:100%;border:1px dashed rgba(198,165,92,.18);border-radius:10px;padding:12px;text-align:center;font-size:.78rem;color:rgba(240,235,210,.28);cursor:pointer;transition:var(--tr);background:none;font-family:inherit}
-.prof-empty-tribe:hover{border-color:rgba(198,165,92,.38);color:rgba(240,235,210,.55)}
-
-/* Right content */
-.prof-content{display:flex;flex-direction:column;gap:16px}
+.prof-tribe-badge .ptb-lbl{color:var(--muted);font-size:.63rem}
+.prof-empty-tribe{width:100%;border:1.5px dashed rgba(198,165,92,.18);border-radius:10px;padding:11px;text-align:center;font-size:.77rem;color:var(--muted);cursor:pointer;transition:var(--tr);background:none;font-family:inherit}
+.prof-empty-tribe:hover{border-color:rgba(198,165,92,.4);color:var(--gold)}
+.prof-content{display:flex;flex-direction:column;gap:14px}
 .prof-section{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
 .prof-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.prof-section-title{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(198,165,92,.55)}
-.prof-section-action{font-size:.72rem;color:var(--gold2);cursor:pointer;background:none;border:none;font-family:inherit;transition:var(--tr);padding:3px 8px;border-radius:6px}
+.prof-section-title{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(198,165,92,.5)}
+.prof-section-action{font-size:.72rem;color:var(--gold2);cursor:pointer;background:none;border:none;font-family:inherit;transition:var(--tr);padding:3px 8px;border-radius:6px;letter-spacing:.03em}
 .prof-section-action:hover{color:var(--gold);background:rgba(198,165,92,.08)}
-
-/* Tree placeholder */
-.prof-tree-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:110px;gap:8px;border:1px dashed rgba(198,165,92,.13);border-radius:10px;cursor:pointer;transition:var(--tr)}
-.prof-tree-ph:hover{border-color:rgba(198,165,92,.3);background:rgba(0,63,37,.08)}
-.prof-tree-ph-icon{font-size:2rem;opacity:.3}
-.prof-tree-ph-text{font-size:.78rem;color:rgba(240,235,210,.28)}
-.prof-tree-ph-sub{font-size:.66rem;color:rgba(198,165,92,.35)}
-
-/* Tree mini preview (when has ancestors) */
-.prof-tree-mini{display:flex;flex-wrap:wrap;gap:6px;min-height:80px;align-items:center}
-.ptm-node{background:rgba(0,63,37,.18);border:1px solid rgba(198,165,92,.18);border-radius:8px;padding:5px 10px;font-size:.74rem;font-family:'Playfair Display',serif;color:var(--text);position:relative}
-.ptm-node.root-node{border-color:rgba(198,165,92,.45);color:var(--gold);background:rgba(0,63,37,.3)}
-.ptm-node .ptm-gen{font-size:.52rem;color:rgba(198,165,92,.4);display:block;margin-bottom:1px;letter-spacing:.08em}
-
-/* Ancestors mini list */
-.anc-mini-list{display:flex;flex-direction:column;gap:7px}
-.anc-mini-row{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:8px;background:var(--bg2)}
-.anc-mini-num{font-size:.65rem;color:var(--gold2);opacity:.6;width:16px;text-align:right;flex-shrink:0}
-.anc-mini-gen{font-size:.67rem;color:var(--muted);width:100px;flex-shrink:0}
-.anc-mini-val{font-size:.8rem;font-family:'Playfair Display',serif;color:var(--text)}
-.anc-mini-empty{font-size:.75rem;color:rgba(240,235,210,.18);font-style:italic}
-
-/* CTA row */
+.prof-tree-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100px;gap:7px;border:1.5px dashed rgba(198,165,92,.12);border-radius:10px;cursor:pointer;transition:var(--tr)}
+.prof-tree-ph:hover{border-color:rgba(198,165,92,.28);background:rgba(26,107,68,.05)}
+.prof-tree-ph-icon{font-size:1.8rem;opacity:.28}
+.prof-tree-ph-text{font-size:.78rem;color:var(--muted)}
+.prof-tree-ph-sub{font-size:.65rem;color:rgba(198,165,92,.35)}
 .prof-cta-row{display:flex;gap:10px;flex-wrap:wrap}
-
-/* ══════════════════════════════
-   SHEJIRE TREE COMPONENT
-══════════════════════════════ */
+.anc-mini-list{display:flex;flex-direction:column;gap:6px}
+.anc-mini-row{display:flex;align-items:center;gap:9px;padding:6px 10px;border-radius:8px;background:var(--bg2)}
+.anc-mini-num{font-size:.63rem;color:var(--gold2);opacity:.55;width:16px;text-align:right;flex-shrink:0}
+.anc-mini-gen{font-size:.65rem;color:var(--muted);width:98px;flex-shrink:0}
+.anc-mini-val{font-size:.8rem;font-family:'Playfair Display',serif;color:var(--text)}
+.anc-mini-empty{font-size:.74rem;color:rgba(240,235,210,.18);font-style:italic}
 .sj-tree{display:flex;flex-direction:column;align-items:center;padding:12px 0}
-.sj-level{display:flex;flex-direction:column;align-items:center;opacity:0;transform:translateY(12px);animation:sj-appear .45s cubic-bezier(.4,0,.2,1) forwards}
+.sj-level{display:flex;flex-direction:column;align-items:center;opacity:0;transform:translateY(14px);animation:sj-appear .5s cubic-bezier(.34,1.2,.64,1) forwards}
 @keyframes sj-appear{to{opacity:1;transform:translateY(0)}}
-
-/* Node card */
-.sj-node{position:relative;min-width:160px;max-width:200px;border-radius:12px;padding:12px 16px;text-align:center;cursor:default;transition:var(--tr)}
-.sj-node.sj-user{background:linear-gradient(135deg,rgba(26,107,68,.18),rgba(26,107,68,.08));border:2px solid var(--gold);box-shadow:0 0 16px rgba(26,107,68,.15)}
-[data-theme="light"] .sj-node.sj-user{background:linear-gradient(135deg,rgba(26,107,68,.18),rgba(26,107,68,.08));box-shadow:0 0 16px rgba(26,107,68,.15)}
-.sj-node.sj-user:hover{border-color:var(--gold)}
-.sj-node.sj-ancestor{background:var(--card);border:1.5px solid var(--border)}
-.sj-node.sj-ancestor:hover{background:rgba(0,63,37,.15);border-color:rgba(198,165,92,.38)}
+.sj-node{position:relative;min-width:160px;max-width:210px;border-radius:12px;padding:12px 16px;text-align:center;cursor:default;transition:var(--tr)}
+.sj-node.sj-user{background:linear-gradient(135deg,rgba(26,107,68,.22),rgba(26,107,68,.1));border:2px solid var(--gold);box-shadow:0 0 20px rgba(26,107,68,.2),0 2px 8px rgba(0,0,0,.2)}
+.sj-node.sj-user:hover{border-color:var(--gold3);box-shadow:0 0 28px rgba(26,107,68,.3)}
+.sj-node.sj-ancestor{background:var(--card);border:1.5px solid var(--border);box-shadow:var(--shadow)}
+.sj-node.sj-ancestor:hover{background:rgba(26,107,68,.1);border-color:rgba(198,165,92,.4)}
 .sj-node.sj-empty{background:var(--bg2);border:1.5px dashed var(--border);cursor:pointer}
-.sj-node.sj-empty:hover{background:rgba(0,63,37,.1);border-color:rgba(198,165,92,.32)}
-
+.sj-node.sj-empty:hover{background:rgba(26,107,68,.08);border-color:rgba(198,165,92,.35)}
 .sj-gen-label{font-size:.52rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:5px}
 .sj-user .sj-gen-label{color:rgba(198,165,92,.65)}
-.sj-ancestor .sj-gen-label{color:rgba(240,235,210,.28)}
+.sj-ancestor .sj-gen-label{color:var(--muted)}
 .sj-empty .sj-gen-label{color:rgba(240,235,210,.2)}
-
 .sj-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:600;color:var(--text);line-height:1.25}
 .sj-user .sj-name{color:var(--gold);font-size:1.05rem}
-.sj-empty .sj-name{font-size:.8rem;color:rgba(240,235,210,.3);font-family:'Inter',sans-serif;font-weight:400;font-style:italic}
-
-/* User glow pulse */
-.sj-node.sj-user::after{content:'';position:absolute;inset:-4px;border-radius:15px;border:1px solid rgba(198,165,92,.18);animation:npulse 2.5s ease-in-out infinite;pointer-events:none}
-
-/* Connector line */
-.sj-connector{width:2px;height:28px;background:linear-gradient(180deg,rgba(198,165,92,.12),rgba(198,165,92,.35));flex-shrink:0}
-.sj-connector.sj-conn-top{background:linear-gradient(180deg,rgba(198,165,92,.35),rgba(198,165,92,.12))}
+.sj-empty .sj-name{font-size:.8rem;color:var(--muted);font-family:'Inter',sans-serif;font-weight:400;font-style:italic}
+.sj-node.sj-user::after{content:'';position:absolute;inset:-5px;border-radius:16px;border:1px solid rgba(198,165,92,.15);animation:npulse 2.5s ease-in-out infinite;pointer-events:none}
+.sj-connector{width:2px;height:26px;background:linear-gradient(180deg,rgba(198,165,92,.15),rgba(198,165,92,.4));flex-shrink:0}
+@media(max-width:700px){
+  .pper{grid-template-columns:1fr;gap:24px;padding:32px 16px}
+  .pside{display:none}
+  .comm-stats{grid-template-columns:repeat(2,1fr)}
+  .ob-progress{padding:0 16px}
+  .ob-prog-track{width:100px}
+  .matches-grid{grid-template-columns:1fr}
+  .unlock-banner{flex-direction:column;align-items:flex-start}
+}
 `;
-
-
 
 /* ═══════════════════════════════════════════════════════════
    DATA
 ═══════════════════════════════════════════════════════════ */
 const TRIBES = [
-  { id:"argyn",   name:"Арғын",    icon:"🏔", desc:"Один қаласынан крупнейших ру Среднего жуза", region:"Орталық Қазақстан", members:1240 },
-  { id:"naiman",  name:"Найман",   icon:"🦅", desc:"Орта жүздің ежелгі қуатты руы", region:"Шығыс Қазақстан", members:980 },
-  { id:"kipchak", name:"Қыпшақ",   icon:"⚔️", desc:"Орта жүздің тарихи маңызды руы", region:"Солтүстік Қазақстан", members:870 },
-  { id:"kerey",   name:"Керей",    icon:"🌿", desc:"Один қаласынан основателей Казахского ханства", region:"Шығыс Қазақстан", members:760 },
-  { id:"kongrat", name:"Қоңырат",  icon:"🌊", desc:"Ұлы жүздің ықпалды руы", region:"Батыс Қазақстан", members:650 },
-  { id:"uysun",   name:"Үйсін",    icon:"🌞", desc:"Ұлы жүздің ең ежелгі руы", region:"Оңтүстік Қазақстан", members:920 },
-  { id:"kerei2",  name:"Жалайыр",  icon:"🌺", desc:"Бай тарихы бар Ұлы жүз руы", region:"Жамбыл облысы", members:540 },
-  { id:"alban",   name:"Албан",    icon:"🏕", desc:"Ұлы жүздің батыр руы", region:"Алматы облысы", members:680 },
-  { id:"tabyn",   name:"Табын",    icon:"🐎", desc:"Кіші жүз руы, атақты малшылар", region:"Батыс Қазақстан", members:490 },
-  { id:"adai",    name:"Адай",     icon:"🌊", desc:"Кіші жүздің аңызға айналған мойымас руы", region:"Маңғыстау", members:720 },
-  { id:"shapyrashty", name:"Шапырашты", icon:"🌲", desc:"Ұлы жүздің ежелгі руы", region:"Алматы облысы", members:410 },
-  { id:"sieyt",   name:"Сіергелі", icon:"🏞", desc:"Род Старшего жуза блқаласынан Алматы", region:"Алматы облысы", members:380 },
+  /* ── Ұлы жүз · Старший жуз ── */
+  { id:"dulat",       name:"Дулат", zhuz:"Ұлы жүз",  desc:"Ұлы жүздің ең ірі және ықпалды руларының бірі", region:"Оңтүстік Қазақстан", members:1840 },
+  { id:"jalayir",     name:"Жалайыр", zhuz:"Ұлы жүз",  desc:"Бай тарихы мен дәстүрі бар Ұлы жүз руы", region:"Жамбыл облысы",         members:920 },
+  { id:"shapyrashty", name:"Шапырашты", zhuz:"Ұлы жүз",  desc:"Алматы маңында орналасқан Ұлы жүздің ежелгі руы", region:"Алматы облысы",  members:680 },
+  { id:"alban",       name:"Албан", zhuz:"Ұлы жүз",  desc:"Тянь-Шань баурайын мекендеген Ұлы жүздің батыр руы", region:"Алматы облысы", members:750 },
+  { id:"suan",        name:"Суан", zhuz:"Ұлы жүз",  desc:"Іле өзені алқабын мекендеген ру", region:"Алматы облысы",                   members:320 },
+  { id:"kanly",       name:"Қаңлы", zhuz:"Ұлы жүз",  desc:"Сырдарья бойын мекендеген ежелгі ру", region:"Оңтүстік Қазақстан",          members:480 },
+  { id:"saryuysun",   name:"Сарыүйсін", zhuz:"Ұлы жүз",  desc:"Үйсін тайпасының тармағы, оңтүстік жерлерді мекендеген", region:"Оңтүстік Қазақстан", members:410 },
+  { id:"sirgeli",     name:"Сіргелі", zhuz:"Ұлы жүз",  desc:"Алматы маңындағы Ұлы жүз руы", region:"Алматы облысы",                    members:290 },
+  { id:"oshakty",     name:"Ошақты", zhuz:"Ұлы жүз",  desc:"Шу өзені алқабын мекендеген ру", region:"Жамбыл облысы",                   members:260 },
+  { id:"ysty",        name:"Ысты", zhuz:"Ұлы жүз",  desc:"Оңтүстік Қазақстанды мекендеген ру", region:"Оңтүстік Қазақстан",           members:310 },
+  { id:"shanyskhaly", name:"Шаңышқылы", zhuz:"Ұлы жүз",  desc:"Ұлы жүздің батыс шекарасын мекендеген ру", region:"Жамбыл облысы",         members:230 },
+
+  /* ── Орта жүз · Средний жуз ── */
+  { id:"argyn",   name:"Арғын", zhuz:"Орта жүз", desc:"Орта жүздің ең ірі және ықпалды тайпасы", region:"Орталық Қазақстан",          members:2400 },
+  { id:"naiman",  name:"Найман", zhuz:"Орта жүз", desc:"Орта жүздің ежелгі қуатты тайпасы", region:"Шығыс Қазақстан",                 members:1820 },
+  { id:"kipchak", name:"Қыпшақ", zhuz:"Орта жүз", desc:"Еуразия далаларының тарихи ықпалды тайпасы", region:"Солтүстік Қазақстан",    members:1560 },
+  { id:"kongrat", name:"Қоңырат", zhuz:"Орта жүз", desc:"Орта жүздің ықпалды тайпасы, шығыс жерлерді мекендеген", region:"Шығыс Қазақстан", members:980 },
+  { id:"kerey",   name:"Керей", zhuz:"Орта жүз", desc:"Қазақ хандығының негізін қалаушылардың бірі", region:"Шығыс Қазақстан",         members:870 },
+  { id:"uak",     name:"Уақ", zhuz:"Орта жүз", desc:"Орта жүздің солтүстік-шығыс аймақтарын мекендеген ру", region:"Солтүстік Қазақстан", members:640 },
+
+  /* ── Кіші жүз · Младший жуз ── */
+  /* Алимулы */
+  { id:"shekty",    name:"Шекті", zhuz:"Кіші жүз · Алимулы", desc:"Алимулы бірлестігінің ірі руы", region:"Батыс Қазақстан",          members:540 },
+  { id:"karakesek", name:"Қаракесек", zhuz:"Кіші жүз · Алимулы", desc:"Алимулы бірлестігіне кіретін ру", region:"Батыс Қазақстан",         members:460 },
+  { id:"kete",      name:"Кете", zhuz:"Кіші жүз · Алимулы", desc:"Сырдарья алқабын мекендеген ру", region:"Қызылорда облысы",         members:380 },
+  { id:"tortkara",  name:"Төртқара", zhuz:"Кіші жүз · Алимулы", desc:"Батыс Қазақстан далаларын мекендеген ру", region:"Батыс Қазақстан", members:290 },
+  { id:"shomekei",  name:"Шөмекей", zhuz:"Кіші жүз · Алимулы", desc:"Алимулы бірлестігінің руы", region:"Батыс Қазақстан",               members:310 },
+  /* Байулы */
+  { id:"adai",    name:"Адай", zhuz:"Кіші жүз · Байулы", desc:"Маңғыстауды мекендеген аңызға айналған мойымас ру", region:"Маңғыстау", members:1240 },
+  { id:"berish",  name:"Беріш", zhuz:"Кіші жүз · Байулы", desc:"Байулы бірлестігінің ірі руы", region:"Атырау облысы",                 members:560 },
+  { id:"taz",     name:"Таз", zhuz:"Кіші жүз · Байулы", desc:"Байулы бірлестігіне кіретін ру", region:"Батыс Қазақстан",              members:280 },
+  /* Жетыру */
+  { id:"tabyn",   name:"Табын", zhuz:"Кіші жүз · Жетіру", desc:"Жетіру бірлестігінің атақты руы, малшылар", region:"Батыс Қазақстан", members:720 },
+  { id:"tama",    name:"Тама", zhuz:"Кіші жүз · Жетіру", desc:"Жетіру бірлестігінің руы", region:"Батыс Қазақстан",                   members:380 },
+  { id:"jagalbayly", name:"Жағалбайлы", zhuz:"Кіші жүз · Жетіру", desc:"Орал өзені бойын мекендеген ру", region:"Батыс Қазақстан",        members:310 },
+
+  /* ── Жүзден тыс · Вне жузов ── */
+  { id:"tore",      name:"Төре", zhuz:"Жүзден тыс", desc:"Шыңғыс ханның ұрпақтары, хандар осы топтан сайланған", region:"Бүкіл Қазақстан", members:480 },
+  { id:"koja",      name:"Қожа", zhuz:"Жүзден тыс", desc:"Исламды таратқан миссионерлердің ұрпақтары", region:"Оңтүстік Қазақстан",     members:360 },
+  { id:"tolengit",  name:"Төленгіт", zhuz:"Жүзден тыс", desc:"Хандар мен сұлтандарға қызмет еткен сословие", region:"Бүкіл Қазақстан",    members:220 },
 ];
 
 const CITIES = [
-  { id:"almaty",   name:"Алматы",       icon:"🏙", region:"Алматы",  pop:"2.1М", desc:"Қазақстанның оңтүстік астанасы, мәдени орталық" },
-  { id:"astana",   name:"Астана",        icon:"🏛", region:"Астана",  pop:"1.4М", desc:"Қазақстан астанасы, болашақ қаласы" },
-  { id:"shymkent", name:"Шымкент",       icon:"🌺", region:"Оңтүстік", pop:"1.2М", desc:"Елдегі үшінші ірі қала" },
-  { id:"karaganda", name:"Қарағанды",    icon:"⛏", region:"Орталық", pop:"490К", desc:"Қазақстанның өнеркәсіп жүрегі" },
-  { id:"aktobe",   name:"Ақтөбе",        icon:"🌅", region:"Батыс",  pop:"380К", desc:"Батыс Қазақстанның мұнай астанасы" },
-  { id:"taraz",    name:"Тараз",         icon:"🏺", region:"Жамбыл", pop:"320К", desc:"Один қаласынан древнейших қала Средней Азии" },
-  { id:"pavlodar", name:"Павлодар",      icon:"🏭", region:"Солтүстік", pop:"310К", desc:"Солтүстіктің өнеркәсіп орталығы" },
-  { id:"ust-kamenogorsk", name:"Өскемен", icon:"🏔", region:"Шығыс", pop:"295К", desc:"Шығыс Қазақстан астанасы" },
-  { id:"semey",    name:"Семей",         icon:"📚", region:"Шығыс",  pop:"270К", desc:"Абайдың туған жері, шығыстың мәдени астанасы" },
-  { id:"atyrau",   name:"Атырау",        icon:"🛢", region:"Батыс",  pop:"265К", desc:"Қазақстанның мұнай астанасы" },
-  { id:"kostanay", name:"Қостанай",      icon:"🌾", region:"Солтүстік", pop:"245К", desc:"Қазақстанның астық астанасы" },
-  { id:"kyzylorda", name:"Қызылорда",    icon:"🍉", region:"Оңтүстік", pop:"220К", desc:"Қазақстанның күріш астанасы" },
-  { id:"oral",     name:"Орал",          icon:"🌿", region:"Батыс",  pop:"195К", desc:"Батыс Қазақстан облысының орталығы" },
-  { id:"petropavlovsk", name:"Петропавл", icon:"❄️", region:"Солтүстік", pop:"185К", desc:"Қазақстанның солтүстік бекінісі" },
-  { id:"aktau",    name:"Ақтау",         icon:"🌊", region:"Маңғыстау", pop:"178К", desc:"Қазақстанның Каспий порты" },
+  /* Алматы қаласы */
+  { id:"almaty",          name:"Алматы",           region:"Алматы қаласы",           type:"қала",    pop:"2 100 000", desc:"Қазақстанның оңтүстік астанасы, мәдени орталық" },
+
+  /* Астана қаласы */
+  { id:"astana",          name:"Астана",            region:"Астана қаласы",            type:"қала",    pop:"1 400 000", desc:"Қазақстан Республикасының астанасы" },
+
+  /* Шымкент қаласы */
+  { id:"shymkent",        name:"Шымкент",           region:"Шымкент қаласы",           type:"қала",    pop:"1 200 000", desc:"Елдегі үшінші ірі қала" },
+
+  /* Абай облысы */
+  { id:"semey",           name:"Семей",             region:"Абай облысы",              type:"қала",    pop:"345 000", desc:"Абайдың туған жері, мәдени орталық" },
+  { id:"kurchatov",       name:"Курчатов",          region:"Абай облысы",              type:"қала",    pop:"12 000",  desc:"Бывший Семипалатинский ядерный полигон" },
+  { id:"ayagoz",          name:"Аягөз",             region:"Абай облысы",              type:"қала",    pop:"43 000",  desc:"Абай облысының қаласы" },
+  { id:"zhangiztobe",     name:"Жаңғызтөбе",        region:"Абай облысы",              type:"кент",    pop:"11 000",  desc:"Абай облысының кенті" },
+
+  /* Акмола облысы */
+  { id:"kokshetau",       name:"Көкшетау",          region:"Ақмола облысы",            type:"қала",    pop:"149 000", desc:"Ақмола облысының орталығы" },
+  { id:"stepnogorsk",     name:"Степногорск",       region:"Ақмола облысы",            type:"қала",    pop:"60 000",  desc:"Ақмола облысының өнеркәсіп қаласы" },
+  { id:"atbasar",         name:"Атбасар",           region:"Ақмола облысы",            type:"қала",    pop:"32 000",  desc:"Ақмола облысының қаласы" },
+  { id:"esil_akm",        name:"Есіл",              region:"Ақмола облысы",            type:"қала",    pop:"10 000",  desc:"Ақмола облысының қаласы" },
+  { id:"makinsk",         name:"Макінск",           region:"Ақмола облысы",            type:"қала",    pop:"17 000",  desc:"Ақмола облысының қаласы" },
+  { id:"shchuchinsk",     name:"Щучинск",           region:"Ақмола облысы",            type:"қала",    pop:"43 000",  desc:"Бурабай курорттық аймағы" },
+
+  /* Актобе облысы */
+  { id:"aktobe",          name:"Ақтөбе",            region:"Ақтөбе облысы",            type:"қала",    pop:"526 000", desc:"Ақтөбе облысының орталығы" },
+  { id:"khromtau",        name:"Хромтау",           region:"Ақтөбе облысы",            type:"қала",    pop:"40 000",  desc:"Хром кен орындары бар қала" },
+  { id:"kandyagash",      name:"Қандыағаш",         region:"Ақтөбе облысы",            type:"қала",    pop:"21 000",  desc:"Ақтөбе облысының темір жол торабы" },
+  { id:"embi",            name:"Ембі",              region:"Ақтөбе облысы",            type:"қала",    pop:"10 000",  desc:"Ақтөбе облысының қаласы" },
+
+  /* Алматы облысы */
+  { id:"taldykorgan",     name:"Талдықорған",       region:"Алматы облысы",            type:"қала",    pop:"165 000", desc:"Алматы облысының орталығы" },
+  { id:"kapshagay",       name:"Қапшағай",          region:"Алматы облысы",            type:"қала",    pop:"57 000",  desc:"Қапшағай су қоймасы жағасындағы қала" },
+  { id:"tekeli",          name:"Текелі",            region:"Алматы облысы",            type:"қала",    pop:"24 000",  desc:"Алматы облысының тау қаласы" },
+  { id:"taldykorgan_aud", name:"Талдықорған ауданы",region:"Алматы облысы",            type:"аудан",   pop:"",        desc:"" },
+  { id:"kaskelen",        name:"Қасқелең",          region:"Алматы облысы",            type:"қала",    pop:"77 000",  desc:"Алматы маңындағы қала" },
+  { id:"esik",            name:"Есік",              region:"Алматы облысы",            type:"қала",    pop:"43 000",  desc:"Алматы облысының қаласы" },
+  { id:"sarkand",         name:"Саркан",            region:"Алматы облысы",            type:"қала",    pop:"21 000",  desc:"Алматы облысының қаласы" },
+  { id:"usharal",         name:"Ұшарал",            region:"Алматы облысы",            type:"қала",    pop:"14 000",  desc:"Алматы облысының шекара маңы қаласы" },
+
+  /* Атырау облысы */
+  { id:"atyrau",          name:"Атырау",            region:"Атырау облысы",            type:"қала",    pop:"290 000", desc:"Қазақстанның мұнай астанасы" },
+  { id:"kuryk",           name:"Құрық",             region:"Атырау облысы",            type:"кент",    pop:"8 000",   desc:"Каспий теңізі жағасындағы кент" },
+  { id:"makat",           name:"Мақат",             region:"Атырау облысы",            type:"кент",    pop:"9 000",   desc:"Атырау облысының кенті" },
+
+  /* Шығыс Қазақстан облысы */
+  { id:"oskemen",         name:"Өскемен",           region:"Шығыс Қазақстан облысы",   type:"қала",    pop:"310 000", desc:"Шығыс Қазақстан облысының орталығы" },
+  { id:"ridder",          name:"Риддер",            region:"Шығыс Қазақстан облысы",   type:"қала",    pop:"49 000",  desc:"Таулы кен өндіру қаласы" },
+  { id:"zyryanоvsk",      name:"Зыряновск",         region:"Шығыс Қазақстан облысы",   type:"қала",    pop:"23 000",  desc:"Шығыс Қазақстан облысының қаласы" },
+  { id:"shemonaikha",     name:"Шемонайха",         region:"Шығыс Қазақстан облысы",   type:"қала",    pop:"22 000",  desc:"Шығыс Қазақстан облысының қаласы" },
+  { id:"zyryanovsk",      name:"Серебрянск",        region:"Шығыс Қазақстан облысы",   type:"қала",    pop:"20 000",  desc:"Шығыс Қазақстан облысының қаласы" },
+  { id:"altay_vg",        name:"Алтай",             region:"Шығыс Қазақстан облысы",   type:"қала",    pop:"18 000",  desc:"Шығыс Қазақстан облысының қаласы" },
+
+  /* Жамбыл облысы */
+  { id:"taraz",           name:"Тараз",             region:"Жамбыл облысы",            type:"қала",    pop:"395 000", desc:"Орта Азияның ең ежелгі қалаларының бірі" },
+  { id:"karatau",         name:"Қаратау",           region:"Жамбыл облысы",            type:"қала",    pop:"34 000",  desc:"Жамбыл облысының қаласы" },
+  { id:"shu",             name:"Шу",                region:"Жамбыл облысы",            type:"қала",    pop:"60 000",  desc:"Жамбыл облысының теміржол торабы" },
+  { id:"zhanatas",        name:"Жаңатас",           region:"Жамбыл облысы",            type:"қала",    pop:"25 000",  desc:"Жамбыл облысының кен қаласы" },
+
+  /* Жетісу облысы */
+  { id:"taldykorgan2",    name:"Талдықорған",       region:"Жетісу облысы",            type:"қала",    pop:"165 000", desc:"Жетісу облысының орталығы" },
+  { id:"zharkent",        name:"Жаркент",           region:"Жетісу облысы",            type:"қала",    pop:"44 000",  desc:"Жетісу облысының шекара маңы қаласы" },
+  { id:"ushtobe",         name:"Үштөбе",            region:"Жетісу облысы",            type:"қала",    pop:"36 000",  desc:"Жетісу облысының қаласы" },
+
+  /* Батыс Қазақстан облысы */
+  { id:"oral",            name:"Орал",              region:"Батыс Қазақстан облысы",   type:"қала",    pop:"280 000", desc:"Батыс Қазақстан облысының орталығы" },
+  { id:"aksay_wk",        name:"Ақсай",             region:"Батыс Қазақстан облысы",   type:"қала",    pop:"39 000",  desc:"Батыс Қазақстан облысының қаласы" },
+
+  /* Қарағанды облысы */
+  { id:"karaganda",       name:"Қарағанды",         region:"Қарағанды облысы",         type:"қала",    pop:"510 000", desc:"Қазақстанның өнеркәсіп жүрегі" },
+  { id:"temirtau",        name:"Теміртау",          region:"Қарағанды облысы",         type:"қала",    pop:"188 000", desc:"Металлургия орталығы" },
+  { id:"zhezkazgan",      name:"Жезқазған",         region:"Қарағанды облысы",         type:"қала",    pop:"80 000",  desc:"Мыс кен орталығы" },
+  { id:"balkhash",        name:"Балқаш",            region:"Қарағанды облысы",         type:"қала",    pop:"74 000",  desc:"Балқаш көлі жағасындағы қала" },
+  { id:"saran",           name:"Саран",             region:"Қарағанды облысы",         type:"қала",    pop:"51 000",  desc:"Қарағанды облысының қаласы" },
+  { id:"shakhtinsk",      name:"Шахтинск",          region:"Қарағанды облысы",         type:"қала",    pop:"50 000",  desc:"Қарағанды облысының кен қаласы" },
+  { id:"abay_kg",         name:"Абай",              region:"Қарағанды облысы",         type:"қала",    pop:"36 000",  desc:"Қарағанды облысының қаласы" },
+  { id:"priozersk",       name:"Приозерск",         region:"Қарағанды облысы",         type:"қала",    pop:"9 000",   desc:"Қарағанды облысының қаласы" },
+  { id:"satpayev",        name:"Сәтпаев",           region:"Қарағанды облысы",         type:"қала",    pop:"44 000",  desc:"Академик Сәтпаевтың атымен аталған қала" },
+
+  /* Қостанай облысы */
+  { id:"kostanay",        name:"Қостанай",          region:"Қостанай облысы",          type:"қала",    pop:"245 000", desc:"Қазақстанның астық астанасы" },
+  { id:"rudny",           name:"Рудный",            region:"Қостанай облысы",          type:"қала",    pop:"108 000", desc:"Темір рудасы өндіру орталығы" },
+  { id:"lisakovsk",       name:"Лисаковск",         region:"Қостанай облысы",          type:"қала",    pop:"38 000",  desc:"Қостанай облысының қаласы" },
+  { id:"arkalyk",         name:"Арқалық",           region:"Қостанай облысы",          type:"қала",    pop:"28 000",  desc:"Қостанай облысының қаласы" },
+  { id:"zhitikara",       name:"Жітіқара",          region:"Қостанай облысы",          type:"қала",    pop:"24 000",  desc:"Қостанай облысының қаласы" },
+
+  /* Қызылорда облысы */
+  { id:"kyzylorda",       name:"Қызылорда",         region:"Қызылорда облысы",         type:"қала",    pop:"290 000", desc:"Қазақстанның күріш астанасы" },
+  { id:"baikonur",        name:"Байқоңыр",          region:"Қызылорда облысы",         type:"қала",    pop:"73 000",  desc:"Ғарышкер ұшыратын кешен орналасқан қала" },
+  { id:"turkestan_kz",    name:"Түркістан",         region:"Түркістан облысы",         type:"қала",    pop:"215 000", desc:"Қазақстанның рухани астанасы, Қожа Ахмет Яссауи кесенесі" },
+
+  /* Маңғыстау облысы */
+  { id:"aktau",           name:"Ақтау",             region:"Маңғыстау облысы",         type:"қала",    pop:"215 000", desc:"Қазақстанның Каспий порты" },
+  { id:"zhanaozen",       name:"Жаңаөзен",          region:"Маңғыстау облысы",         type:"қала",    pop:"130 000", desc:"Маңғыстау облысының мұнай қаласы" },
+
+  /* Павлодар облысы */
+  { id:"pavlodar",        name:"Павлодар",          region:"Павлодар облысы",          type:"қала",    pop:"340 000", desc:"Павлодар облысының орталығы" },
+  { id:"ekibastuz",       name:"Екібастұз",         region:"Павлодар облысы",          type:"қала",    pop:"124 000", desc:"Ірі жылу электр станциялары бар қала" },
+  { id:"aksu_pav",        name:"Ақсу",              region:"Павлодар облысы",          type:"қала",    pop:"40 000",  desc:"Павлодар облысының қаласы" },
+
+  /* Солтүстік Қазақстан облысы */
+  { id:"petropavl",       name:"Петропавл",         region:"Солтүстік Қазақстан облысы", type:"қала", pop:"215 000", desc:"Солтүстік Қазақстан облысының орталығы" },
+
+  /* Түркістан облысы */
+  { id:"shymkent_reg",    name:"Кентау",            region:"Түркістан облысы",         type:"қала",    pop:"63 000",  desc:"Түркістан облысының өнеркәсіп қаласы" },
+  { id:"arys",            name:"Арыс",              region:"Түркістан облысы",         type:"қала",    pop:"37 000",  desc:"Түркістан облысының теміржол торабы" },
+  { id:"lengersk",        name:"Леңгір",            region:"Түркістан облысы",         type:"қала",    pop:"23 000",  desc:"Түркістан облысының қаласы" },
+  { id:"saryagash",       name:"Сарыағаш",          region:"Түркістан облысы",         type:"қала",    pop:"33 000",  desc:"Түркістан облысының қаласы" },
+  { id:"zhetisay",        name:"Жетісай",           region:"Түркістан облысы",         type:"қала",    pop:"45 000",  desc:"Түркістан облысының шекара маңы қаласы" },
+
+  /* Ұлытау облысы */
+  { id:"zhezkazgan2",     name:"Жезқазған",         region:"Ұлытау облысы",            type:"қала",    pop:"80 000",  desc:"Ұлытау облысының орталығы" },
+  { id:"satpayev2",       name:"Сәтпаев",           region:"Ұлытау облысы",            type:"қала",    pop:"44 000",  desc:"Ұлытау облысының қаласы" },
 ];
+
 
 const PERSONS = [
   {id:1,  name:"Абылай хан",              era:"1711–1781", tribe:"argyn"},
@@ -654,7 +732,7 @@ function SelectModal({ title, subtitle, items, selected, onSelect, onClose, rend
             <div key={item.id}
               className={`modal-item${selected === item.id ? " sel" : ""}`}
               onClick={() => onSelect(item.id)}>
-              <div className="modal-item-icon">{item.icon}</div>
+              <div className="modal-item-icon" style={{fontFamily:"'Playfair Display',serif",fontSize:".9rem",color:"var(--gold)",fontWeight:700}}>{item.icon || item.name[0]}</div>
               <div>
                 <div className="modal-item-name">{item.name}</div>
                 <div className="modal-item-sub">{renderItem(item)}</div>
@@ -763,14 +841,76 @@ function ShejireTree({ userName, ancestors = [], onAddAnc, compact = false }) {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   CITY PICKER (reusable searchable dropdown)
+═══════════════════════════════════════════════════════════ */
+function CityPicker({ cityId, setCityId }) {
+  const [q, setQ] = useState("");
+  const city = CITIES.find(c => c.id === cityId);
+
+  const filtered = useMemo(() => {
+    if (!q) return [];
+    return CITIES.filter(c =>
+      c.name.toLowerCase().includes(q.toLowerCase()) ||
+      c.region.toLowerCase().includes(q.toLowerCase())
+    ).slice(0, 12);
+  }, [q]);
+
+  return (
+    <div style={{position:"relative"}}>
+      {/* Selected display */}
+      {city && !q && (
+        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",background:"rgba(26,107,68,.15)",border:"1px solid var(--gold)",borderRadius:8,padding:"8px 12px",marginBottom:6}}>
+          <div>
+            <div style={{fontSize:".82rem",fontWeight:500,color:"var(--gold)"}}>{city.name}</div>
+            <div style={{fontSize:".6rem",color:"var(--muted)"}}>{city.region}</div>
+          </div>
+          <button onClick={() => setCityId(null)} style={{background:"none",border:"none",color:"var(--muted)",cursor:"pointer",fontSize:".8rem",fontFamily:"inherit",padding:"2px 6px"}}>✕</button>
+        </div>
+      )}
+      {/* Search input */}
+      <input
+        style={{width:"100%",background:"rgba(255,255,255,.04)",border:"1px solid rgba(198,165,92,.2)",borderRadius:8,padding:"8px 12px",fontFamily:"'Inter',sans-serif",fontSize:".82rem",color:"var(--text)",outline:"none",transition:"border-color .18s"}}
+        placeholder={city ? "Өзгерту…" : "Қала немесе аудан іздеу…"}
+        value={q}
+        onChange={e => setQ(e.target.value)}
+        onFocus={e => e.target.style.borderColor="var(--gold)"}
+        onBlur={e => setTimeout(() => { setQ(""); e.target.style.borderColor="rgba(198,165,92,.2)"; }, 200)}
+      />
+      {/* Dropdown results */}
+      {filtered.length > 0 && (
+        <div style={{position:"absolute",top:"100%",left:0,right:0,zIndex:50,background:"var(--bg2)",border:"1px solid var(--border)",borderRadius:10,marginTop:4,maxHeight:200,overflowY:"auto",boxShadow:"0 8px 24px rgba(0,0,0,.25)"}}>
+          {filtered.map(c => (
+            <div key={c.id}
+              onMouseDown={() => { setCityId(c.id); setQ(""); }}
+              style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"9px 14px",cursor:"pointer",borderBottom:"1px solid rgba(198,165,92,.06)",transition:"background .15s"}}
+              onMouseEnter={e => e.currentTarget.style.background="rgba(26,107,68,.12)"}
+              onMouseLeave={e => e.currentTarget.style.background="transparent"}>
+              <div>
+                <div style={{fontSize:".83rem",fontWeight:500}}>{c.name}</div>
+                <div style={{fontSize:".6rem",color:"var(--muted)"}}>{c.type} · {c.region}</div>
+              </div>
+              {c.pop && <div style={{fontSize:".62rem",color:"rgba(198,165,92,.5)",flexShrink:0}}>{c.pop}</div>}
+            </div>
+          ))}
+        </div>
+      )}
+      {!city && !q && (
+        <div style={{fontSize:".65rem",color:"rgba(240,235,210,.2)",marginTop:6,textAlign:"center"}}>Белгісіз — өткізу</div>
+      )}
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
    ONBOARDING FLOW
 ═══════════════════════════════════════════════════════════ */
 
 /* Линейные шаги онбординга */
-const OB_STEPS       = ["ask_name","profile","show_matches"];
-const OB_STEPS_LABEL = ["Ваше имя","Ваш профиль","Связи рода"];
+const OB_STEPS       = ["intro","ask_name","profile","show_matches"];
+const OB_STEPS_LABEL = ["Начало","Ваше имя","Ваш профиль","Связи рода"];
 
 const OB_SPEECHES = {
+  intro:         "Я — Абыз. Хранитель родовой памяти. Я помогу тебе узнать историю твоего рода.",
   ask_name:      "Назови своё имя. Каждое имя — это нить, связывающая поколения.",
   profile:       "Это твоя история. Давай восстановим её вместе.",
   show_matches:  "Я нашёл связи в твоём роде... Нити времени тянутся сквозь века.",
@@ -865,9 +1005,13 @@ function ObProgress({ step }) {
   return (
     <div className="ob-progress">
       <div className="ob-logo">abyz</div>
-      <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:5}}>
-        <div className="ob-prog-label">Шаг {Math.max(1,idx+1)} из {OB_STEPS.length} · {OB_STEPS_LABEL[Math.max(0,idx)]}</div>
-        <div className="ob-prog-track"><div className="ob-prog-fill" style={{width:`${pct}%`}}/></div>
+      <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:4}}>
+        <div className="ob-prog-label">{OB_STEPS_LABEL[Math.max(0,idx)]}</div>
+        <div style={{display:"flex",gap:5,alignItems:"center"}}>
+          {OB_STEPS.map((s,i) => (
+            <div key={s} className={`ob-dot${i===idx?" active":i<idx?" done":""}`}/>
+          ))}
+        </div>
       </div>
       <div style={{width:60}}/>
     </div>
@@ -919,13 +1063,35 @@ function OnboardingFlow({ onEnter }) {
   const pct = Math.min(100, score);
   const canSearch = tribeId || cityId || filledAnc.length > 0;
 
+  /* ─── ШАГ 0: INTRO ─── */
+  if (step === "intro") return (
+    <div className="ob-wrap">
+      <div className="lbg"/><div className="ornament"/>
+      <ObProgress step={step}/>
+      <div className={exiting ? "ob-fade-out" : "ob-fade"} style={{display:"flex",flexDirection:"column",alignItems:"center",width:"100%"}}>
+        <ElderCircle size={200}/>
+        <div style={{marginBottom:16,marginTop:4}}>
+          <div className="intro-tagline">digital heritage · шежіре</div>
+          <div className="intro-title">Узнай историю<br/>своего <em>рода</em></div>
+          <div className="intro-sub">Абыз поможет тебе восстановить шежире — родословную твоего рода до седьмого поколения</div>
+        </div>
+        <ObSpeech text={OB_SPEECHES.intro} delay={600}/>
+        <div className="ob-nav" style={{maxWidth:320}}>
+          <button className="bgold" style={{flex:1}} onClick={() => goTo("ask_name")}>
+            Начать путь →
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
   /* ─── ШАГ 1: ИМЯ ─── */
   if (step === "ask_name") return (
     <div className="ob-wrap">
       <div className="lbg"/><div className="ornament"/>
       <ObProgress step={step}/>
       <div className={exiting ? "ob-fade-out" : "ob-fade"} style={{display:"flex",flexDirection:"column",alignItems:"center",width:"100%"}}>
-        <ElderCircle size={180}/>
+        <ElderCircle size={140}/>
         <ObSpeech text={OB_SPEECHES.ask_name} delay={300}/>
         <div className="oform">
           <div className="flabel">Ваше имя</div>
@@ -934,6 +1100,7 @@ function OnboardingFlow({ onEnter }) {
             onKeyDown={e => e.key==="Enter" && name.trim() && goTo("profile")}
             autoFocus/>
           <div className="ob-nav" style={{marginTop:4}}>
+            <button className="ob-back" onClick={goBack}>← Назад</button>
             <button className="bgold" style={{flex:1}} disabled={!name.trim()}
               onClick={() => goTo("profile")}>
               Далее →
@@ -1058,7 +1225,7 @@ function OnboardingFlow({ onEnter }) {
                 <div style={{width:"100%",display:"flex",flexDirection:"column",gap:6}}>
                   {tribe && (
                     <div style={{display:"flex",alignItems:"center",gap:8,background:"rgba(0,63,37,.2)",border:"1px solid rgba(198,165,92,.18)",borderRadius:8,padding:"7px 10px"}}>
-                      <span style={{fontSize:"1rem"}}>{tribe.icon}</span>
+                      
                       <div>
                         <div style={{fontSize:".6rem",color:"rgba(198,165,92,.5)",letterSpacing:".1em",textTransform:"uppercase"}}>Ру</div>
                         <div style={{fontSize:".82rem",fontWeight:500,color:"var(--gold)"}}>{tribe.name}</div>
@@ -1067,7 +1234,7 @@ function OnboardingFlow({ onEnter }) {
                   )}
                   {city && (
                     <div style={{display:"flex",alignItems:"center",gap:8,background:"rgba(0,63,37,.15)",border:"1px solid rgba(198,165,92,.12)",borderRadius:8,padding:"7px 10px"}}>
-                      <span style={{fontSize:"1rem"}}>{city.icon}</span>
+                      
                       <div>
                         <div style={{fontSize:".6rem",color:"rgba(198,165,92,.5)",letterSpacing:".1em",textTransform:"uppercase"}}>Город</div>
                         <div style={{fontSize:".82rem",fontWeight:500}}>{city.name}</div>
@@ -1089,41 +1256,40 @@ function OnboardingFlow({ onEnter }) {
 
             {/* COL 2: РУ + ГОРОД */}
             <div style={{display:"flex",flexDirection:"column",gap:12}}>
-              {/* РУ */}
+              {/* РУ — grouped by zhuz */}
               <div style={{background:"rgba(255,255,255,.025)",border:"1px solid rgba(198,165,92,.1)",borderRadius:14,padding:14}}>
                 <div style={{fontSize:".58rem",letterSpacing:".18em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:9}}>🏔 Ру (Род)</div>
-                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:5,maxHeight:190,overflowY:"auto",paddingRight:2}}>
-                  {TRIBES.map(t => (
-                    <button key={t.id}
-                      style={{background:tribeId===t.id?"rgba(0,63,37,.35)":"rgba(255,255,255,.03)",border:`1.5px solid ${tribeId===t.id?"var(--gold)":"rgba(198,165,92,.1)"}`,borderRadius:8,padding:"7px 9px",cursor:"pointer",color:"var(--text)",fontFamily:"inherit",textAlign:"left",transition:"all .18s",display:"flex",alignItems:"center",gap:6}}
-                      onClick={() => setTribeId(tribeId===t.id?null:t.id)}>
-                      <span style={{fontSize:".9rem"}}>{t.icon}</span>
-                      <div>
-                        <div style={{fontSize:".74rem",fontWeight:500}}>{t.name}</div>
-                        <div style={{fontSize:".57rem",color:"var(--muted)"}}>{t.region}</div>
+                <div style={{maxHeight:220,overflowY:"auto",paddingRight:2,display:"flex",flexDirection:"column",gap:10}}>
+                  {["Ұлы жүз","Орта жүз","Кіші жүз · Алимулы","Кіші жүз · Байулы","Кіші жүз · Жетіру","Жүзден тыс"].map(zhuz => {
+                    const group = TRIBES.filter(t => t.zhuz === zhuz);
+                    if (!group.length) return null;
+                    return (
+                      <div key={zhuz}>
+                        <div style={{fontSize:".54rem",letterSpacing:".14em",textTransform:"uppercase",color:"rgba(198,165,92,.38)",marginBottom:5,paddingLeft:2}}>{zhuz}</div>
+                        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:4}}>
+                          {group.map(t => (
+                            <button key={t.id}
+                              style={{background:tribeId===t.id?"rgba(26,107,68,.35)":"rgba(255,255,255,.03)",border:`1.5px solid ${tribeId===t.id?"var(--gold)":"rgba(198,165,92,.1)"}`,borderRadius:8,padding:"7px 9px",cursor:"pointer",color:"var(--text)",fontFamily:"inherit",textAlign:"left",transition:"all .18s",display:"flex",alignItems:"center",gap:6}}
+                              onClick={() => setTribeId(tribeId===t.id?null:t.id)}>
+                              <span style={{fontSize:".9rem",color:"var(--gold)",fontFamily:"'Playfair Display',serif",fontWeight:700}}>{t.name[0]}</span>
+                              <div>
+                                <div style={{fontSize:".74rem",fontWeight:500}}>{t.name}</div>
+                                <div style={{fontSize:".55rem",color:"var(--muted)",marginTop:1}}>{t.region}</div>
+                              </div>
+                            </button>
+                          ))}
+                        </div>
                       </div>
-                    </button>
-                  ))}
+                    );
+                  })}
                 </div>
                 {!tribeId && <div style={{fontSize:".65rem",color:"rgba(240,235,210,.2)",marginTop:7,textAlign:"center"}}>Не знаю — пропущу</div>}
               </div>
 
               {/* ГОРОД */}
               <div style={{background:"rgba(255,255,255,.025)",border:"1px solid rgba(198,165,92,.1)",borderRadius:14,padding:14}}>
-                <div style={{fontSize:".58rem",letterSpacing:".18em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:9}}>🏙 Город рождения</div>
-                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:5,maxHeight:170,overflowY:"auto",paddingRight:2}}>
-                  {CITIES.map(c => (
-                    <button key={c.id}
-                      style={{background:cityId===c.id?"rgba(0,63,37,.35)":"rgba(255,255,255,.03)",border:`1.5px solid ${cityId===c.id?"var(--gold)":"rgba(198,165,92,.1)"}`,borderRadius:8,padding:"7px 9px",cursor:"pointer",color:"var(--text)",fontFamily:"inherit",textAlign:"left",transition:"all .18s",display:"flex",alignItems:"center",gap:6}}
-                      onClick={() => setCityId(cityId===c.id?null:c.id)}>
-                      <span style={{fontSize:".9rem"}}>{c.icon}</span>
-                      <div>
-                        <div style={{fontSize:".74rem",fontWeight:500}}>{c.name}</div>
-                        <div style={{fontSize:".57rem",color:"var(--muted)"}}>{c.region}</div>
-                      </div>
-                    </button>
-                  ))}
-                </div>
+                <div style={{fontSize:".58rem",letterSpacing:".18em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:8}}>Туған қала / Елді мекен</div>
+                <CityPicker cityId={cityId} setCityId={setCityId}/>
               </div>
             </div>
 
@@ -1370,12 +1536,12 @@ function PersonalPage({ userName, profile, setProfile, setPage }) {
             <div style={{display:"flex",gap:8,flexWrap:"wrap",marginBottom:20}}>
               {tribe && (
                 <button className="bsmall" onClick={() => setPage({id:"community",data:{type:"tribe",itemId:tribe.id}})}>
-                  {tribe.icon} Страница рода {tribe.name} →
+                  Страница рода {tribe.name} →
                 </button>
               )}
               {city && (
                 <button className="bsmall" onClick={() => setPage({id:"community",data:{type:"city",itemId:city.id}})}>
-                  {city.icon} Страница {city.name} →
+                  Страница {city.name} →
                 </button>
               )}
             </div>
@@ -1408,8 +1574,7 @@ function PersonalPage({ userName, profile, setProfile, setPage }) {
           </div>
           {tribe && (
             <div style={{background:"rgba(0,63,37,.12)",border:"1px solid rgba(198,165,92,.15)",borderRadius:14,padding:"14px 16px",textAlign:"center",width:"100%"}}>
-              <div style={{fontSize:"1.8rem",marginBottom:6}}>{tribe.icon}</div>
-              <div style={{fontSize:".7rem",color:"var(--gold2)",letterSpacing:".1em",textTransform:"uppercase",marginBottom:4}}>Ваш род</div>
+                            <div style={{fontSize:".7rem",color:"var(--gold2)",letterSpacing:".1em",textTransform:"uppercase",marginBottom:4}}>Ваш род</div>
               <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.1rem"}}>{tribe.name}</div>
               <div style={{fontSize:".72rem",color:"var(--muted)",marginTop:4}}>{tribe.members.toLocaleString()} участников</div>
             </div>
@@ -1449,7 +1614,7 @@ function PersonalPage({ userName, profile, setProfile, setPage }) {
         {/* Vertical tree */}
         <div style={{background:"rgba(0,48,26,.07)",border:"1px solid rgba(198,165,92,.1)",borderRadius:20,padding:"32px 24px",display:"flex",flexDirection:"column",alignItems:"center",gap:0}}>
           {tribe && (
-            <div className="abadge" style={{marginBottom:20}}>{tribe.icon} Род: <strong>{tribe.name}</strong>{city && <> · {city.icon} {city.name}</>}</div>
+            <div className="abadge" style={{marginBottom:20}}>Род: <strong>{tribe.name}</strong>{city && <> · {city.name}</>}</div>
           )}
 
           {/* Render nodes top-to-bottom: gen6 → gen0 → you */}
@@ -1500,7 +1665,7 @@ function PersonalPage({ userName, profile, setProfile, setPage }) {
           selected={profile.tribeId}
           onSelect={id => setProfile(p => ({...p, tribeId: id}))}
           onClose={() => setShowTribeModal(false)}
-          renderItem={t => `${t.region} · ${t.members.toLocaleString()} уч.`}
+          renderItem={t => `${t.zhuz||t.region} · ${t.members.toLocaleString()} уч.`}
         />
       )}
       {showCityModal && (
@@ -1524,27 +1689,52 @@ function PersonalPage({ userName, profile, setProfile, setPage }) {
 ═══════════════════════════════════════════════════════════ */
 function ClansPage({ setPage }) {
   const [q, setQ] = useState("");
-  const list = useMemo(() => TRIBES.filter(t => t.name.toLowerCase().includes(q.toLowerCase())), [q]);
+  const [selZhuz, setSelZhuz] = useState("all");
+
+  const zhuzList = ["all","Ұлы жүз","Орта жүз","Кіші жүз · Алимулы","Кіші жүз · Байулы","Кіші жүз · Жетіру","Жүзден тыс"];
+  const zhuzLabels = {"all":"Барлығы","Ұлы жүз":"Ұлы жүз","Орта жүз":"Орта жүз","Кіші жүз · Алимулы":"Алимулы","Кіші жүз · Байулы":"Байулы","Кіші жүз · Жетіру":"Жетіру","Жүзден тыс":"Жүзден тыс"};
+
+  const list = useMemo(() => TRIBES.filter(t => {
+    const matchQ = t.name.toLowerCase().includes(q.toLowerCase());
+    const matchZ = selZhuz === "all" || t.zhuz === selZhuz;
+    return matchQ && matchZ;
+  }), [q, selZhuz]);
+
   return (
     <div className="shell pe">
       <div className="wrap">
         <div className="sh">
-          <h2>Рода Казахстана</h2>
-          <span className="sh-count">{list.length} родов</span>
+          <h2>Қазақ рулары</h2>
+          <span className="sh-count">{list.length} ру</span>
         </div>
-        <p className="sdesc">Казахские рода (ру) — основа шежире. Выберите род, чтобы увидеть историческую страницу и участников.</p>
-        <div className="swrap">
+        <p className="sdesc">Қазақ рулары (ру) — шежіренің негізі. Жүзді таңдап, руды іздеңіз.</p>
+
+        <div className="swrap" style={{marginBottom:10}}>
           <span className="sicon">⌕</span>
-          <input className="sinput" placeholder="Поиск рода…" value={q} onChange={e => setQ(e.target.value)}/>
+          <input className="sinput" placeholder="Ру іздеу…" value={q} onChange={e => setQ(e.target.value)}/>
         </div>
+
+        {/* Zhuz filter */}
+        <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:20}}>
+          {zhuzList.map(z => (
+            <button key={z}
+              onClick={() => setSelZhuz(z)}
+              style={{background:selZhuz===z?"rgba(26,107,68,.25)":"rgba(255,255,255,.03)",border:`1px solid ${selZhuz===z?"var(--gold)":"rgba(198,165,92,.12)"}`,borderRadius:20,padding:"5px 13px",fontSize:".71rem",color:selZhuz===z?"var(--gold)":"var(--muted)",cursor:"pointer",fontFamily:"inherit",transition:"all .18s",whiteSpace:"nowrap"}}>
+              {zhuzLabels[z]}
+            </button>
+          ))}
+        </div>
+
         <div className="tribes-grid">
           {list.map(t => (
             <div key={t.id} className="tribe-card" onClick={() => setPage({id:"community", data:{type:"tribe", itemId:t.id}})}>
-              <div className="tribe-icon">{t.icon}</div>
+              <div style={{width:40,height:40,borderRadius:10,background:"rgba(26,107,68,.15)",border:"1px solid rgba(198,165,92,.15)",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Playfair Display',serif",fontSize:"1.1rem",color:"var(--gold)",fontWeight:700,flexShrink:0}}>
+                {t.name[0]}
+              </div>
               <div>
                 <div className="tribe-name">{t.name}</div>
                 <div className="tribe-sub">{t.desc}</div>
-                <div className="tribe-count">👥 {t.members.toLocaleString()} уч. · {t.region}</div>
+                <div className="tribe-count">👥 {t.members.toLocaleString()} уч. · {t.zhuz}</div>
               </div>
             </div>
           ))}
@@ -1560,30 +1750,68 @@ function ClansPage({ setPage }) {
 ═══════════════════════════════════════════════════════════ */
 function CitiesPage({ setPage }) {
   const [q, setQ] = useState("");
-  const list = useMemo(() => CITIES.filter(c => c.name.toLowerCase().includes(q.toLowerCase())), [q]);
+  const [selOblast, setSelOblast] = useState("all");
+
+  const oblasts = useMemo(() => {
+    const set = new Set(CITIES.map(c => c.region));
+    return ["all", ...Array.from(set).sort()];
+  }, []);
+
+  const list = useMemo(() => CITIES.filter(c => {
+    const matchQ = c.name.toLowerCase().includes(q.toLowerCase()) ||
+                   c.region.toLowerCase().includes(q.toLowerCase());
+    const matchO = selOblast === "all" || c.region === selOblast;
+    return matchQ && matchO;
+  }), [q, selOblast]);
+
   return (
     <div className="shell pe">
       <div className="wrap">
         <div className="sh">
-          <h2>Города Казахстана</h2>
-          <span className="sh-count">{list.length} городов</span>
+          <h2>Қазақстан қалалары</h2>
+          <span className="sh-count">{list.length} елді мекен</span>
         </div>
-        <p className="sdesc">Выберите город, чтобы открыть его страницу — известные личности, история и участники сообщества.</p>
-        <div className="swrap">
+        <p className="sdesc">Туған жеріңізді таңдаңыз. Қала немесе ауданды іздеп, тарихи тұлғаларды ашыңыз.</p>
+
+        {/* Search */}
+        <div className="swrap" style={{marginBottom:10}}>
           <span className="sicon">⌕</span>
-          <input className="sinput" placeholder="Поиск города…" value={q} onChange={e => setQ(e.target.value)}/>
+          <input className="sinput" placeholder="Қала немесе облыс іздеу…" value={q} onChange={e => setQ(e.target.value)}/>
         </div>
-        <div className="tribes-grid">
+
+        {/* Oblast filter */}
+        <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:20}}>
+          {oblasts.map(o => (
+            <button key={o}
+              onClick={() => setSelOblast(o)}
+              style={{background:selOblast===o?"rgba(26,107,68,.25)":"rgba(255,255,255,.03)",border:`1px solid ${selOblast===o?"var(--gold)":"rgba(198,165,92,.12)"}`,borderRadius:20,padding:"5px 13px",fontSize:".71rem",color:selOblast===o?"var(--gold)":"var(--muted)",cursor:"pointer",fontFamily:"inherit",transition:"all .18s",whiteSpace:"nowrap"}}>
+              {o === "all" ? "Барлығы" : o}
+            </button>
+          ))}
+        </div>
+
+        {/* Grid */}
+        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(200px,1fr))",gap:8,paddingBottom:60}}>
           {list.map(c => (
-            <div key={c.id} className="tribe-card" onClick={() => setPage({id:"community", data:{type:"city", itemId:c.id}})}>
-              <div className="tribe-icon">{c.icon}</div>
-              <div>
-                <div className="tribe-name">{c.name}</div>
-                <div className="tribe-sub">{c.desc}</div>
-                <div className="tribe-count">👥 {c.pop} жит. · {c.region}</div>
+            <div key={c.id} className="tribe-card"
+              style={{padding:"12px 14px",gap:10}}
+              onClick={() => setPage({id:"community", data:{type:"city", itemId:c.id}})}>
+              <div style={{width:36,height:36,borderRadius:8,background:"rgba(26,107,68,.15)",border:"1px solid rgba(198,165,92,.15)",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Playfair Display',serif",fontSize:"1rem",color:"var(--gold)",fontWeight:700,flexShrink:0}}>
+                {c.name[0]}
+              </div>
+              <div style={{minWidth:0}}>
+                <div className="tribe-name" style={{fontSize:".85rem"}}>{c.name}</div>
+                <div style={{fontSize:".62rem",color:"rgba(198,165,92,.55)",marginTop:2}}>{c.type} · {c.region}</div>
+                {c.pop && <div className="tribe-count" style={{marginTop:3}}>👥 {c.pop}</div>}
               </div>
             </div>
           ))}
+          {list.length === 0 && (
+            <div className="empty" style={{gridColumn:"1/-1"}}>
+              <div className="empty-i">🔍</div>
+              <div className="empty-t">Табылмады — іздеу өрісін өзгертіңіз</div>
+            </div>
+          )}
         </div>
       </div>
       <Footer/>
@@ -1760,7 +1988,7 @@ function PersonPage({ person, setPage }) {
               <div className="pbigera">{person.era}</div>
               {tribe && (
                 <div style={{marginTop:6,fontSize:".75rem",color:"var(--gold2)"}}>
-                  {tribe.icon} <span style={{cursor:"pointer",textDecoration:"underline",textUnderlineOffset:3}}
+                  <span style={{cursor:"pointer",textDecoration:"underline",textUnderlineOffset:3}}
                     onClick={() => setPage({id:"community",data:{type:"tribe",itemId:tribe.id}})}>
                     {tribe.name}
                   </span>
@@ -1786,7 +2014,7 @@ function PersonPage({ person, setPage }) {
             </button>
             {tribe && (
               <button className="boutline" onClick={() => setPage({id:"community",data:{type:"tribe",itemId:tribe.id}})}>
-                {tribe.icon} Ру беті {tribe.name}
+                Ру беті {tribe.name}
               </button>
             )}
           </div>

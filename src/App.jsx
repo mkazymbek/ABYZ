@@ -473,11 +473,102 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .cp-search::placeholder{color:rgba(240,235,210,.3)}
 .cp-search:focus{border-color:var(--gold);background:rgba(255,255,255,.09);box-shadow:0 0 0 3px rgba(198,165,92,.1)}
 
+/* ══════════════════════════════
+   ДОСТИЖЕНИЯ / ACHIEVEMENTS
+══════════════════════════════ */
+.ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:8px}
+.ach-card{background:rgba(255,255,255,.03);border:1.5px solid rgba(198,165,92,.1);border-radius:14px;padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;position:relative;overflow:hidden;transition:all .22s}
+.ach-card.unlocked{background:rgba(0,63,37,.18);border-color:rgba(198,165,92,.35)}
+.ach-card.unlocked::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(198,165,92,.06),transparent);pointer-events:none}
+.ach-icon{font-size:2rem;filter:grayscale(1);opacity:.3;transition:all .3s}
+.ach-card.unlocked .ach-icon{filter:none;opacity:1}
+.ach-name{font-size:.78rem;font-weight:600;color:var(--muted);line-height:1.3}
+.ach-card.unlocked .ach-name{color:var(--gold)}
+.ach-desc{font-size:.65rem;color:rgba(240,235,210,.25);line-height:1.45}
+.ach-card.unlocked .ach-desc{color:rgba(240,235,210,.5)}
+.ach-badge{position:absolute;top:8px;right:8px;background:var(--gold);color:var(--dark);font-size:.5rem;font-weight:700;letter-spacing:.08em;padding:2px 6px;border-radius:20px;text-transform:uppercase}
+
+/* ══════════════════════════════
+   ИИ ИСТОРИЯ РОДА
+══════════════════════════════ */
+.ai-story-wrap{background:linear-gradient(135deg,rgba(0,48,26,.15) 0%,rgba(14,18,16,.8) 100%);border:1px solid rgba(198,165,92,.18);border-radius:18px;padding:28px;position:relative;overflow:hidden}
+.ai-story-wrap::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.4}
+.ai-story-title{font-family:"Playfair Display",serif;font-size:1.1rem;color:var(--gold);margin-bottom:4px}
+.ai-story-sub{font-size:.68rem;color:var(--muted);margin-bottom:18px;letter-spacing:.04em}
+.ai-story-text{font-family:"Playfair Display",serif;font-size:.95rem;line-height:1.85;color:rgba(240,235,210,.82);white-space:pre-wrap}
+.ai-story-cursor{display:inline-block;width:2px;height:.9em;background:var(--gold);margin-left:2px;vertical-align:text-bottom;animation:blink .85s step-end infinite}
+.ai-gen-btn{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--dark);border:none;padding:12px 24px;border-radius:var(--r);font-family:"Inter",sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.05em;cursor:pointer;transition:var(--tr)}
+.ai-gen-btn:hover{background:var(--gold3);transform:translateY(-1px)}
+.ai-gen-btn:disabled{opacity:.5;cursor:default;transform:none}
+
+/* ══════════════════════════════
+   ИСТОРИЧЕСКИЙ КОНТЕКСТ
+══════════════════════════════ */
+.hist-timeline{display:flex;flex-direction:column;gap:0;position:relative}
+.hist-timeline::before{content:"";position:absolute;left:20px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,rgba(198,165,92,.3),rgba(198,165,92,.05))}
+.hist-row{display:flex;gap:16px;padding:14px 0;position:relative}
+.hist-dot{width:41px;height:41px;border-radius:50%;background:rgba(0,63,37,.3);border:1.5px solid rgba(198,165,92,.25);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;z-index:1}
+.hist-row.filled .hist-dot{background:rgba(0,63,37,.5);border-color:rgba(198,165,92,.5)}
+.hist-content{flex:1}
+.hist-gen{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(198,165,92,.5);margin-bottom:3px}
+.hist-name{font-family:"Playfair Display",serif;font-size:.9rem;font-weight:600;color:var(--text);margin-bottom:4px}
+.hist-row.empty .hist-name{color:rgba(240,235,210,.28);font-style:italic}
+.hist-event{font-size:.72rem;color:rgba(240,235,210,.45);line-height:1.5;border-left:2px solid rgba(198,165,92,.15);padding-left:8px;margin-top:4px}
+.hist-year{font-size:.62rem;color:rgba(198,165,92,.4);margin-bottom:2px}
+
+/* ══════════════════════════════
+   СОВПАДЕНИЯ 7 АТА
+══════════════════════════════ */
+.match7-card{background:rgba(255,255,255,.03);border:1.5px solid rgba(198,165,92,.12);border-radius:14px;padding:16px;display:flex;align-items:center;gap:14px;transition:all .2s;cursor:default}
+.match7-card.strong{border-color:rgba(198,165,92,.35);background:rgba(0,63,37,.12)}
+.match7-av{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green2));border:1.5px solid rgba(198,165,92,.25);display:flex;align-items:center;justify-content:center;font-family:"Playfair Display",serif;font-size:1.1rem;color:var(--gold);flex-shrink:0}
+.match7-name{font-size:.88rem;font-weight:600;margin-bottom:2px}
+.match7-detail{font-size:.7rem;color:var(--muted);line-height:1.4}
+.match7-strength{display:flex;align-items:center;gap:8px;margin-top:6px}
+.match7-bar{flex:1;height:3px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.match7-fill{height:100%;background:linear-gradient(90deg,var(--gold2),var(--gold3));border-radius:2px}
+
 `;
 
 /* ═══════════════════════════════════════════════════════════
    DATA
 ═══════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════
+   ACHIEVEMENTS DATA
+═══════════════════════════════════════════════════════════ */
+const ACHIEVEMENTS = [
+  { id:"first_step",   icon:"🌱", name:"Первый шаг",        desc:"Зарегистрироваться в ABYZ",                  check: (p,n) => !!n },
+  { id:"ru_chosen",    icon:"🏔", name:"Знаю свой род",      desc:"Выбрать свой ру",                            check: (p) => !!p.tribeId },
+  { id:"city_chosen",  icon:"🏙", name:"Туған жер",          desc:"Указать город рождения",                     check: (p) => !!p.cityId },
+  { id:"one_ata",      icon:"👤", name:"Помню отца",         desc:"Записать хотя бы одного предка",             check: (p) => (p.ancestors||[]).filter(Boolean).length >= 1 },
+  { id:"three_ata",    icon:"👴", name:"Три поколения",      desc:"Записать 3 предков",                         check: (p) => (p.ancestors||[]).filter(Boolean).length >= 3 },
+  { id:"all_ata",      icon:"🏆", name:"Жеті ата",           desc:"Заполнить все 7 поколений",                  check: (p) => (p.ancestors||[]).filter(Boolean).length >= 7 },
+  { id:"rare_ru",      icon:"💎", name:"Редкий ру",          desc:"Ваш ру имеет менее 500 участников",          check: (p) => { const t=TRIBES.find(x=>x.id===p.tribeId); return t && t.members < 500; } },
+  { id:"full_profile", icon:"⭐", name:"Полный профиль",     desc:"Заполнить ру, город и всех 7 ата",           check: (p) => !!p.tribeId && !!p.cityId && (p.ancestors||[]).filter(Boolean).length>=7 },
+];
+
+/* ═══════════════════════════════════════════════════════════
+   HISTORICAL CONTEXT BY GENERATION
+   Approximate years: gen1≈1960s, gen2≈1930s, gen3≈1900s...
+═══════════════════════════════════════════════════════════ */
+const HIST_CONTEXT = [
+  { gen:1, period:"1950–1980-е", icon:"🏗", event:"Эпоха строительства советского Казахстана. Освоение целины, промышленный рост, урбанизация." },
+  { gen:2, period:"1920–1950-е", icon:"⚔️", event:"Коллективизация, голод 1931–1933, Великая Отечественная война. Тяжелейшее время для казахского народа." },
+  { gen:3, period:"1890–1920-е", icon:"📜", event:"Алаш Орда, движение за казахскую государственность. Революция 1917 года. Конец Российской империи." },
+  { gen:4, period:"1860–1890-е", icon:"🌾", event:"Присоединение казахских земель к России. Колонизация степи. Восстание Кенесары ещё в памяти." },
+  { gen:5, period:"1830–1860-е", icon:"🏇", event:"Последние годы независимости. Кенесары хан ведёт борьбу за свободу казахского народа (1837–1847)." },
+  { gen:6, period:"1790–1830-е", icon:"🕌", event:"Эпоха Трёх жузов. Абылай хан объединил казахов. Расцвет степной дипломатии и военного искусства." },
+  { gen:7, period:"1750–1790-е", icon:"🦅", event:"Анракайская битва (1730). Освобождение от джунгарского нашествия. Золотой век казахской государственности." },
+];
+
+/* Mock matches — в будущем заменить реальными данными из Supabase */
+const MOCK_ATA_MATCHES = [
+  { id:1, name:"Асхат Сейтқали",    city:"Алматы",    ru:"Арғын",   common:"Жақсыбек (3-е поколение)", strength:85 },
+  { id:2, name:"Нұрлан Бекұлы",     city:"Астана",    ru:"Арғын",   common:"Дүйсен (2-е поколение)",   strength:72 },
+  { id:3, name:"Гүлнәр Омарова",    city:"Шымкент",   ru:"Қыпшақ",  common:"Сейіт (4-е поколение)",    strength:61 },
+];
+
 const TRIBES = [
   /* ── Ұлы жүз · Старший жуз ── */
   { id:"dulat",       name:"Дулат", zhuz:"Ұлы жүз",  desc:"Ұлы жүздің ең ірі және ықпалды руларының бірі", region:"Оңтүстік Қазақстан", members:1840 },
@@ -991,8 +1082,8 @@ function CityPicker({ cityId, setCityId }) {
 ═══════════════════════════════════════════════════════════ */
 
 /* Линейные шаги онбординга */
-const OB_STEPS       = ["intro","ask_name","pick_tribe","pick_city","profile","show_matches"];
-const OB_STEPS_LABEL = ["Начало","Ваше имя","Ваш ру","Ваш город","Ваш профиль","Связи рода"];
+const OB_STEPS       = ["intro","ask_name","pick_tribe","pick_city"];
+const OB_STEPS_LABEL = ["Начало","Ваше имя","Ваш ру","Ваш город"];
 
 const OB_SPEECHES = {
   intro:         "Я — Абыз. Хранитель родовой памяти. Я помогу тебе узнать историю твоего рода.",
@@ -1415,8 +1506,8 @@ function OnboardingFlow({ onEnter }) {
           {/* Nav */}
           <div className="ob-nav" style={{maxWidth:"100%",marginTop:8}}>
             <button className="ob-back" onClick={goBack}>← Назад</button>
-            <button className="bgold" style={{flex:1,maxWidth:340}} onClick={() => goTo("profile")}>
-              {cityId ? `Продолжить с ${CITIES.find(c=>c.id===cityId)?.name} →` : "Пропустить →"}
+            <button className="bgold" style={{flex:1,maxWidth:340}} onClick={() => onEnter(name.trim()||"Путник", { tribeId, cityId, ancestors })}>
+              {cityId ? `Войти в ABYZ — ${CITIES.find(c=>c.id===cityId)?.name} →` : "Войти в ABYZ →"}
             </button>
           </div>
         </div>
@@ -1424,274 +1515,7 @@ function OnboardingFlow({ onEnter }) {
     );
   }
 
-    /* ─── ШАГ 2: ПРОФИЛЬ ─── */
-  if (step === "profile") {
-    let badge = null;
-    if (pct === 100)     badge = { icon:"🏆", label:"Профиль заполнен!", color:"var(--gold)" };
-    else if (pct >= 60)  badge = { icon:"🌳", label:"Отличный старт!", color:"#7ec87e" };
-    else if (pct >= 30)  badge = { icon:"🌱", label:"Продолжай!", color:"var(--gold2)" };
-
-    return (
-      <div className="ob-wrap" style={{justifyContent:"flex-start",paddingTop:90,paddingBottom:80}}>
-        <div className="lbg"/><div className="ornament"/>
-        <ObProgress step={step}/>
-        <div className={exiting ? "ob-fade-out" : "ob-fade"} style={{display:"flex",flexDirection:"column",alignItems:"center",width:"100%",gap:18,maxWidth:980}}>
-
-          {/* Elder + speech */}
-          <div style={{display:"flex",alignItems:"center",gap:14,width:"100%"}}>
-            <ElderCircle size={56}/>
-            <div className="speech" style={{margin:0,flex:1}}>
-              <div className="sbub" style={{padding:"11px 16px"}}>
-                <div className="sname">Абыз · Хранитель памяти</div>
-                <div className="stext" style={{fontSize:".85rem"}}>{OB_SPEECHES.profile}</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Gamification bar */}
-          <div style={{width:"100%",background:"rgba(255,255,255,.03)",border:"1px solid rgba(198,165,92,.15)",borderRadius:12,padding:"12px 18px"}}>
-            <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:7}}>
-              <div style={{fontSize:".6rem",letterSpacing:".16em",textTransform:"uppercase",color:"rgba(198,165,92,.5)"}}>Полнота профиля</div>
-              <div style={{display:"flex",alignItems:"center",gap:10}}>
-                {badge && <span style={{fontSize:".75rem",color:badge.color,fontWeight:600}}>{badge.icon} {badge.label}</span>}
-                <span style={{fontFamily:"'Playfair Display',serif",fontSize:"1.05rem",color:"var(--gold)",fontWeight:700}}>{pct}%</span>
-              </div>
-            </div>
-            <div style={{height:5,background:"rgba(255,255,255,.06)",borderRadius:3,overflow:"hidden"}}>
-              <div style={{height:"100%",width:`${pct}%`,background:"linear-gradient(90deg,var(--green),var(--gold))",borderRadius:3,transition:"width .6s cubic-bezier(.4,0,.2,1)"}}/>
-            </div>
-            <div style={{display:"flex",gap:14,marginTop:8,flexWrap:"wrap"}}>
-              {[
-                {ok:!!tribeId,   label:"Ру (+30)"},
-                {ok:!!cityId,    label:"Город (+30)"},
-                {ok:filledAnc.length>0, label:`7 Ата ${filledAnc.length}/7 (+${filledAnc.length*5}%)`},
-              ].map((it,i) => (
-                <span key={i} style={{fontSize:".68rem",color:it.ok?"var(--gold)":"rgba(240,235,210,.28)",display:"flex",alignItems:"center",gap:4}}>
-                  {it.ok?"✓":"○"} {it.label}
-                </span>
-              ))}
-              {canSearch && <span style={{fontSize:".68rem",color:"#7ec87e",fontWeight:600}}>🔓 Поиск связей доступен!</span>}
-            </div>
-          </div>
-
-          {/* 2-col layout: личный профиль + 7 ата */}
-          <div style={{display:"grid",gridTemplateColumns:"280px 1fr",gap:16,width:"100%",alignItems:"start"}}>
-
-            {/* COL 1: ЛИЧНЫЙ ПРОФИЛЬ */}
-            <div style={{background:"linear-gradient(160deg,rgba(0,63,37,.22) 0%,rgba(14,18,16,.9) 100%)",border:"1px solid rgba(198,165,92,.2)",borderRadius:16,padding:20,display:"flex",flexDirection:"column",alignItems:"center",gap:14,position:"relative",overflow:"hidden"}}>
-              <div style={{position:"absolute",top:0,left:0,right:0,height:2,background:"linear-gradient(90deg,transparent,var(--gold),transparent)",opacity:.5}}/>
-
-              {/* Avatar */}
-              <div style={{position:"relative"}}>
-                <input ref={fileRef} type="file" accept="image/*" style={{display:"none"}} onChange={e => {
-                  const f=e.target.files?.[0]; if(!f) return; setPhoto(URL.createObjectURL(f));
-                }}/>
-                <div onClick={() => fileRef.current?.click()} style={{width:96,height:96,borderRadius:"50%",border:"2px solid rgba(198,165,92,.35)",background:"linear-gradient(135deg,var(--green3),var(--green2))",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",overflow:"hidden",position:"relative"}}>
-                  {photo
-                    ? <img src={photo} alt="" style={{width:"100%",height:"100%",objectFit:"cover"}}/>
-                    : <span style={{fontFamily:"'Playfair Display',serif",fontSize:"2.2rem",color:"var(--gold)",opacity:.8}}>{name?.[0]?.toUpperCase()||"?"}</span>
-                  }
-                  <div style={{position:"absolute",inset:0,background:"rgba(0,0,0,.5)",display:"flex",alignItems:"center",justifyContent:"center",opacity:0,transition:"opacity .2s",borderRadius:"50%",fontSize:".6rem",color:"rgba(240,235,210,.8)"}}
-                    onMouseEnter={e=>e.currentTarget.style.opacity=1}
-                    onMouseLeave={e=>e.currentTarget.style.opacity=0}>Изменить</div>
-                </div>
-                <div style={{position:"absolute",inset:-5,borderRadius:"50%",border:"1px solid rgba(198,165,92,.15)",animation:"npulse 2.5s ease-in-out infinite",pointerEvents:"none"}}/>
-              </div>
-
-              {/* Name */}
-              <div style={{textAlign:"center"}}>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.2rem",fontWeight:700,color:"var(--gold)"}}>{name||"Путник"}</div>
-                <div style={{fontSize:".6rem",letterSpacing:".14em",textTransform:"uppercase",color:"rgba(240,235,210,.28)",marginTop:3}}>Участник ABYZ</div>
-              </div>
-
-              <div style={{width:"100%",height:1,background:"rgba(198,165,92,.1)"}}/>
-
-              {/* DOB */}
-              <div style={{width:"100%"}}>
-                <div style={{fontSize:".55rem",letterSpacing:".16em",textTransform:"uppercase",color:"rgba(198,165,92,.45)",marginBottom:6}}>Дата рождения</div>
-                <input type="date" style={{width:"100%",background:"rgba(255,255,255,.04)",border:"1px solid rgba(198,165,92,.15)",borderRadius:8,padding:"8px 10px",fontFamily:"'Inter',sans-serif",fontSize:".8rem",color:"var(--text)",outline:"none",colorScheme:"dark"}}
-                  value={dob} onChange={e=>setDob(e.target.value)}/>
-              </div>
-
-              {/* Bio */}
-              <div style={{width:"100%"}}>
-                <div style={{fontSize:".55rem",letterSpacing:".16em",textTransform:"uppercase",color:"rgba(198,165,92,.45)",marginBottom:6}}>О себе</div>
-                <textarea rows={3} placeholder="Несколько слов о себе…"
-                  style={{width:"100%",background:"rgba(255,255,255,.04)",border:"1px solid rgba(198,165,92,.15)",borderRadius:8,padding:"8px 10px",fontFamily:"'Inter',sans-serif",fontSize:".78rem",color:"var(--text)",outline:"none",resize:"none",lineHeight:1.55,colorScheme:"dark"}}
-                  value={bio} onChange={e=>setBio(e.target.value)}/>
-              </div>
-
-              <div style={{width:"100%",height:1,background:"rgba(198,165,92,.1)"}}/>
-
-              {/* Ру и Город — только здесь, компактно */}
-              <div style={{width:"100%",display:"flex",flexDirection:"column",gap:7}}>
-                {/* РУ */}
-                {tribe ? (
-                  <div style={{display:"flex",alignItems:"center",gap:10,background:"rgba(0,63,37,.2)",border:"1px solid rgba(198,165,92,.2)",borderRadius:10,padding:"9px 12px",cursor:"pointer"}} onClick={()=>goTo("pick_tribe")}>
-                    <div style={{width:34,height:34,borderRadius:8,background:"rgba(198,165,92,.12)",border:"1px solid rgba(198,165,92,.2)",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Playfair Display',serif",fontSize:".95rem",color:"var(--gold)",fontWeight:700,flexShrink:0}}>{tribe.name[0]}</div>
-                    <div style={{flex:1,minWidth:0}}>
-                      <div style={{fontSize:".55rem",letterSpacing:".12em",textTransform:"uppercase",color:"rgba(198,165,92,.45)"}}>Ру</div>
-                      <div style={{fontFamily:"'Playfair Display',serif",fontSize:".88rem",fontWeight:600,color:"var(--gold)",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{tribe.name}</div>
-                    </div>
-                    <span style={{fontSize:".65rem",color:"rgba(198,165,92,.4)"}}>›</span>
-                  </div>
-                ) : (
-                  <button onClick={()=>goTo("pick_tribe")} style={{width:"100%",background:"none",border:"1.5px dashed rgba(198,165,92,.18)",borderRadius:10,padding:"10px",color:"rgba(240,235,210,.28)",fontSize:".78rem",cursor:"pointer",fontFamily:"inherit",display:"flex",alignItems:"center",justifyContent:"center",gap:6}}>
-                    🏔 Добавить ру →
-                  </button>
-                )}
-                {/* Город */}
-                {city ? (
-                  <div style={{display:"flex",alignItems:"center",gap:10,background:"rgba(0,63,37,.14)",border:"1px solid rgba(198,165,92,.15)",borderRadius:10,padding:"9px 12px",cursor:"pointer"}} onClick={()=>goTo("pick_city")}>
-                    <div style={{width:34,height:34,borderRadius:8,background:"rgba(198,165,92,.08)",border:"1px solid rgba(198,165,92,.15)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"1rem",flexShrink:0}}>🏙</div>
-                    <div style={{flex:1,minWidth:0}}>
-                      <div style={{fontSize:".55rem",letterSpacing:".12em",textTransform:"uppercase",color:"rgba(198,165,92,.45)"}}>Город</div>
-                      <div style={{fontFamily:"'Playfair Display',serif",fontSize:".88rem",fontWeight:600,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{city.name}</div>
-                    </div>
-                    <span style={{fontSize:".65rem",color:"rgba(198,165,92,.4)"}}>›</span>
-                  </div>
-                ) : (
-                  <button onClick={()=>goTo("pick_city")} style={{width:"100%",background:"none",border:"1.5px dashed rgba(198,165,92,.18)",borderRadius:10,padding:"10px",color:"rgba(240,235,210,.28)",fontSize:".78rem",cursor:"pointer",fontFamily:"inherit",display:"flex",alignItems:"center",justifyContent:"center",gap:6}}>
-                    🏙 Добавить город →
-                  </button>
-                )}
-              </div>
-            </div>
-
-            {/* COL 2: 7 АТА */}
-            <div style={{background:"rgba(255,255,255,.025)",border:"1px solid rgba(198,165,92,.1)",borderRadius:14,padding:18,display:"flex",flexDirection:"column"}}>
-              <div style={{display:"flex",alignItems:"baseline",justifyContent:"space-between",marginBottom:4}}>
-                <div style={{fontSize:".6rem",letterSpacing:".18em",textTransform:"uppercase",color:"rgba(198,165,92,.5)"}}>👤 7 Ата — предки</div>
-                <div style={{fontSize:".65rem",color:"rgba(198,165,92,.45)"}}>{filledAnc.length}/7</div>
-              </div>
-              <div style={{fontSize:".68rem",color:"rgba(240,235,210,.22)",marginBottom:14,lineHeight:1.5}}>Казахская традиция — знать 7 поколений предков по отцу</div>
-              <div style={{display:"flex",flexDirection:"column",gap:8,flex:1}}>
-                {ANC_GENS.map((gen, i) => (
-                  <div key={i} style={{display:"flex",alignItems:"center",gap:8}}>
-                    <div style={{width:22,height:22,borderRadius:"50%",background:ancestors[i]?"rgba(198,165,92,.18)":"rgba(255,255,255,.04)",border:`1px solid ${ancestors[i]?"rgba(198,165,92,.4)":"rgba(198,165,92,.12)"}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,transition:"all .18s"}}>
-                      <span style={{fontFamily:"'Playfair Display',serif",fontSize:".68rem",color:"var(--gold)",opacity:ancestors[i]?.8:.4}}>{i+1}</span>
-                    </div>
-                    <span style={{fontSize:".6rem",color:"var(--muted)",width:90,flexShrink:0,lineHeight:1.2}}>{gen}</span>
-                    <input
-                      style={{flex:1,background:"rgba(255,255,255,.04)",border:`1.5px solid ${ancestors[i]?"rgba(198,165,92,.35)":"rgba(198,165,92,.1)"}`,borderRadius:8,padding:"8px 11px",fontFamily:"'Playfair Display',serif",fontSize:".82rem",color:"var(--text)",outline:"none",transition:"all .18s"}}
-                      placeholder="Имя предка…"
-                      value={ancestors[i]}
-                      onChange={e => { const a=[...ancestors]; a[i]=e.target.value; setAncestors(a); }}
-                      onFocus={e=>e.target.style.borderColor="var(--gold)"}
-                      onBlur={e=>e.target.style.borderColor=ancestors[i]?"rgba(198,165,92,.35)":"rgba(198,165,92,.1)"}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Nav */}
-          <div className="ob-nav" style={{maxWidth:"100%"}}>
-            <button className="ob-back" onClick={goBack}>← Назад</button>
-            {canSearch ? (
-              <button className="bgold" style={{flex:1,maxWidth:340}} onClick={() => goTo("show_matches")}>
-                🔍 Найти связи рода →
-              </button>
-            ) : (
-              <button className="bgold" style={{flex:1,maxWidth:340}}
-                onClick={() => onEnter(name.trim()||"Путник", { tribeId, cityId, ancestors })}>
-                Войти в ABYZ →
-              </button>
-            )}
-          </div>
-          <button style={{background:"none",border:"none",fontSize:".7rem",color:"rgba(240,235,210,.2)",cursor:"pointer",fontFamily:"inherit"}}
-            onClick={() => onEnter(name.trim()||"Путник", { tribeId, cityId, ancestors })}>
-            Пропустить →
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  /* ─── ШАГ 3: СВЯЗИ ─── */
-  if (step === "show_matches") {
-    const matches = tribeId
-      ? [...MOCK_MATCHES].sort((a,b) => (b.tribeId===tribeId?1:0)-(a.tribeId===tribeId?1:0))
-      : MOCK_MATCHES;
-    const visibleCount = matches.filter(m => !m.blurred).length;
-    const lockedCount  = matches.filter(m => m.blurred).length;
-    return (
-      <div className="ob-wrap" style={{justifyContent:"flex-start",paddingTop:110}}>
-        <div className="lbg"/><div className="ornament"/>
-        <ObProgress step={step}/>
-        <div className={exiting ? "ob-fade-out" : "ob-fade"} style={{display:"flex",flexDirection:"column",alignItems:"center",width:"100%",gap:0}}>
-          <ElderCircle size={100}/>
-          <ObSpeech text={OB_SPEECHES.show_matches} delay={200}/>
-
-          <div className="unlock-banner">
-            <div className="unlock-left">
-              <div className="unlock-sparkle">✨</div>
-              <div>
-                <div className="unlock-title">Открыть полную информацию</div>
-                <div className="unlock-sub">{lockedCount} связи скрыты · Узнай имена, эпохи и прямые линии рода</div>
-              </div>
-            </div>
-            <button className="unlock-btn" onClick={() => alert("Доступно в полной версии ABYZ!")}>
-              🔓 Открыть доступ
-            </button>
-          </div>
-
-          <div className="matches-header">
-            <div>
-              <div className="matches-title">Связи твоего рода</div>
-              {tribe && <div className="matches-hint">🏔 По роду {tribe.name} · {tribe.region}</div>}
-            </div>
-            <div className="matches-count">{visibleCount} открыто · {lockedCount} скрыто</div>
-          </div>
-
-          <div className="matches-grid">
-            {matches.map((m, i) => (
-              <div key={m.id} className={`match-card${m.blurred?" blurred":""}`}
-                style={{animationDelay:`${i*0.07}s`}}
-                onClick={() => !m.blurred && alert(`${m.name}\n\n${m.detail}`)}>
-                {m.blurred && (
-                  <div className="mc-lock">
-                    <div className="mc-lock-icon">🔒</div>
-                    <div className="mc-lock-text">Закрытая запись</div>
-                  </div>
-                )}
-                <div className="mc-body">
-                  <div className="mc-head">
-                    <div className="mc-icon">{m.icon}</div>
-                    <div>
-                      <div className="mc-name">{m.name}</div>
-                      <div className="mc-era">{m.era}</div>
-                    </div>
-                  </div>
-                  <div className="mc-type-badge"><span>⟡</span>{m.connectionType}</div>
-                  <div className="mc-relation">{m.relation}</div>
-                  <div className="mc-detail">{m.detail}</div>
-                  <div className="mc-strength">
-                    <span className="mc-strength-label">Совпадение</span>
-                    <div className="mc-strength-track">
-                      <div className="mc-strength-fill" style={{width:`${m.blurred?0:m.connectionStrength}%`}}/>
-                    </div>
-                    <span className="mc-strength-pct">{m.connectionStrength}%</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="ob-nav" style={{marginTop:8}}>
-            <button className="ob-back" onClick={goBack}>← Назад</button>
-            <button className="bgold" style={{flex:1,maxWidth:280}}
-              onClick={() => onEnter(name.trim()||"Путник", { tribeId, cityId, ancestors })}>
-              Войти в ABYZ →
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return null;
+    return null;
 }
 
 /* Keep LandingPage as alias (App uses it) */
@@ -1731,225 +1555,591 @@ function Footer() {
   return <footer className="footer">© 2025 ABYZ · digital heritage · abyz.kz</footer>;
 }
 
+
 /* ═══════════════════════════════════════════════════════════
-   PERSONAL PAGE
+   ACHIEVEMENTS COMPONENT
 ═══════════════════════════════════════════════════════════ */
-function PersonalPage({ userName, profile, setProfile, setPage }) {
-  const [showTribeModal, setShowTribeModal] = useState(false);
-  const [showCityModal,  setShowCityModal]  = useState(false);
-  const [treeNames,      setTreeNames]      = useState(() => {
-    const arr = Array(7).fill("");
-    arr[0] = userName || "";
-    return arr;
-  });
-  const [editingNode, setEditingNode]       = useState(null);
-  const [editVal,     setEditVal]           = useState("");
-  const editRef = useRef(null);
+function AchievementsSection({ profile, userName }) {
+  const unlocked = ACHIEVEMENTS.filter(a => a.check(profile, userName));
+  const newUnlocked = unlocked.length;
+  return (
+    <div style={{maxWidth:1060,margin:"0 auto",padding:"0 24px 48px"}}>
+      <div style={{borderTop:"1px solid rgba(198,165,92,.1)",paddingTop:44,marginBottom:24,display:"flex",alignItems:"baseline",justifyContent:"space-between",flexWrap:"wrap",gap:10}}>
+        <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"1.7rem",fontWeight:700,letterSpacing:"-.02em"}}>
+          🏆 Достижения
+        </h2>
+        <div style={{fontSize:".75rem",color:"rgba(198,165,92,.5)"}}>{newUnlocked} / {ACHIEVEMENTS.length} открыто</div>
+      </div>
+      <div className="ach-grid">
+        {ACHIEVEMENTS.map(a => {
+          const on = a.check(profile, userName);
+          return (
+            <div key={a.id} className={`ach-card${on?" unlocked":""}`}>
+              {on && <div className="ach-badge">✓</div>}
+              <div className="ach-icon">{a.icon}</div>
+              <div className="ach-name">{a.name}</div>
+              <div className="ach-desc">{a.desc}</div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
+   AI STORY COMPONENT
+═══════════════════════════════════════════════════════════ */
+function AIStorySection({ profile, userName }) {
+  const [story, setStory] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [done, setDone] = useState(false);
 
   const tribe = TRIBES.find(t => t.id === profile.tribeId);
   const city  = CITIES.find(c => c.id === profile.cityId);
+  const ancestors = (profile.ancestors||[]).filter(Boolean);
 
-  // Sync treeNames[0] when userName changes
-  useEffect(() => {
-    setTreeNames(prev => { const n=[...prev]; n[0]=userName||""; return n; });
-  }, [userName]);
+  const generate = async () => {
+    setLoading(true); setStory(""); setDone(false);
+    const prompt = `Ты — хранитель казахской родословной. Напиши красивую историю рода (3-4 абзаца, ~250 слов) на русском языке.
+Данные:
+- Имя: ${userName}
+- Ру (род): ${tribe?.name || "не указан"} ${tribe ? "("+tribe.zhuz+")" : ""}
+- Город: ${city?.name || "не указан"}
+- 7 Ата (предки по отцу): ${ancestors.length > 0 ? ancestors.join(", ") : "не указаны"}
 
-  const startEdit = (i) => {
-    if (i === 0) return;
-    setEditingNode(i);
-    setEditVal(treeNames[i]);
-    setTimeout(() => editRef.current?.focus(), 50);
-  };
-  const commitEdit = () => {
-    if (editingNode !== null) {
-      setTreeNames(prev => { const n=[...prev]; n[editingNode]=editVal; return n; });
-      setEditingNode(null);
+Пиши поэтично, с уважением к традициям. Упомяни исторический контекст эпохи предков. Не используй заголовки, пиши как единый текст.`;
+
+    try {
+      const res = await fetch("https://api.anthropic.com/v1/messages", {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+          model:"claude-sonnet-4-20250514",
+          max_tokens:1000,
+          messages:[{role:"user",content:prompt}]
+        })
+      });
+      const data = await res.json();
+      const text = data.content?.[0]?.text || "Не удалось получить ответ.";
+      // Typewriter effect
+      let i = 0;
+      const interval = setInterval(() => {
+        setStory(text.slice(0, i));
+        i += 3;
+        if (i > text.length) { setStory(text); clearInterval(interval); setDone(true); }
+      }, 16);
+    } catch(e) {
+      setStory("Ошибка соединения. Попробуйте позже.");
+      setDone(true);
     }
+    setLoading(false);
   };
 
-  const TREE_GENS = ["Вы","Отец","Дед","Прадед","Пра-прадед","Пра-пра-прадед","7-й дед"];
+  const hasData = tribe || city || ancestors.length > 0;
 
   return (
-    <div className="shell pe">
-      <div className="pper">
-        {/* LEFT */}
-        <div className="ptext">
-          <div className="eyebrow">Личная страница</div>
-          <h1>Сәлем,<br/><span>{userName}</span></h1>
-
-          {/* PROFILE CHIPS */}
-          <div className="profile-chips">
-            <div className="chip" onClick={() => setShowTribeModal(true)}>
-              <span className="chip-icon">🏔</span>
-              <div>
-                <div className="chip-lbl">Род / Ру</div>
-                {tribe ? <div className="chip-val">{tribe.name}</div>
-                       : <div className="chip-empty">Выбрать род</div>}
-              </div>
-              <span className="chip-arrow">›</span>
-            </div>
-            <div className="chip" onClick={() => setShowCityModal(true)}>
-              <span className="chip-icon">🏙</span>
-              <div>
-                <div className="chip-lbl">Город рождения</div>
-                {city ? <div className="chip-val">{city.name}</div>
-                      : <div className="chip-empty">Выбрать город</div>}
-              </div>
-              <span className="chip-arrow">›</span>
-            </div>
-          </div>
-
-          {(tribe || city) && (
-            <div style={{display:"flex",gap:8,flexWrap:"wrap",marginBottom:20}}>
-              {tribe && (
-                <button className="bsmall" onClick={() => setPage({id:"community",data:{type:"tribe",itemId:tribe.id}})}>
-                  Страница рода {tribe.name} →
-                </button>
-              )}
-              {city && (
-                <button className="bsmall" onClick={() => setPage({id:"community",data:{type:"city",itemId:city.id}})}>
-                  Страница {city.name} →
-                </button>
-              )}
-            </div>
-          )}
-
-          <p className="pdesc">Исследуйте базу исторических личностей, постройте шежире до 7 поколений и откройте связи вашего рода с историей.</p>
-
-          <div className="qactions">
-            <button className="bgold" onClick={() => setPage({id:"my-tree"})}>🌳 Моё шежире</button>
-            <button className="boutline" onClick={() => setPage({id:"list"})}>📜 Исторические личности</button>
-            <button className="bghost" onClick={() => setPage({id:"clans"})}>🏔 Все рода</button>
-          </div>
-
-          <div className="stats-row" style={{marginTop:24}}>
-            <div className="scard"><div className="snum">20</div><div className="slbl">Личностей</div></div>
-            <div className="scard"><div className="snum">12</div><div className="slbl">Родов</div></div>
-            <div className="scard"><div className="snum">15</div><div className="slbl">Городов</div></div>
-          </div>
-        </div>
-
-        {/* RIGHT SIDEBAR */}
-        <div className="pside">
-          <div className="elder-side">
-            <div className="elder-glow"/>
-            <div className="elder-ring"/>
-            <div className="elder-ring2"/>
-            <div className="elder-circle" style={{inset:18}}>
-              <ElderSVG size={210}/>
-            </div>
-          </div>
-          {tribe && (
-            <div style={{background:"rgba(0,63,37,.12)",border:"1px solid rgba(198,165,92,.15)",borderRadius:14,padding:"14px 16px",textAlign:"center",width:"100%"}}>
-                            <div style={{fontSize:".7rem",color:"var(--gold2)",letterSpacing:".1em",textTransform:"uppercase",marginBottom:4}}>Ваш род</div>
-              <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.1rem"}}>{tribe.name}</div>
-              <div style={{fontSize:".72rem",color:"var(--muted)",marginTop:4}}>{tribe.members.toLocaleString()} участников</div>
-            </div>
-          )}
-        </div>
+    <div style={{maxWidth:1060,margin:"0 auto",padding:"0 24px 48px"}}>
+      <div style={{borderTop:"1px solid rgba(198,165,92,.1)",paddingTop:44,marginBottom:24,display:"flex",alignItems:"baseline",justifyContent:"space-between",flexWrap:"wrap",gap:10}}>
+        <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"1.7rem",fontWeight:700,letterSpacing:"-.02em"}}>
+          📖 История рода
+        </h2>
+        <div style={{fontSize:".72rem",color:"rgba(240,235,210,.3)"}}>Генерируется ИИ на основе ваших данных</div>
       </div>
 
-      {/* ══════════════════════════════
-          СЕМЕЙНОЕ ДРЕВО — редактор
-      ══════════════════════════════ */}
-      <div style={{maxWidth:1060,margin:"0 auto",padding:"0 24px 80px"}}>
-        <div style={{borderTop:"1px solid rgba(198,165,92,.1)",paddingTop:44,marginBottom:24,display:"flex",alignItems:"baseline",justifyContent:"space-between",flexWrap:"wrap",gap:10}}>
-          <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"1.7rem",fontWeight:700,letterSpacing:"-.02em"}}>
-            🌳 Семейное древо
-          </h2>
-          <div style={{fontSize:".75rem",color:"rgba(240,235,210,.3)"}}>
-            Нажмите на узел для редактирования · {treeNames.filter(Boolean).length} / 7 заполнено
-          </div>
+      {!hasData ? (
+        <div style={{background:"rgba(255,255,255,.02)",border:"1px dashed rgba(198,165,92,.15)",borderRadius:16,padding:"32px",textAlign:"center"}}>
+          <div style={{fontSize:"2rem",marginBottom:12,opacity:.4}}>📜</div>
+          <div style={{fontSize:".85rem",color:"rgba(240,235,210,.35)",lineHeight:1.6}}>Заполните ру, город или предков — и ИИ напишет историю вашего рода</div>
         </div>
-
-        {/* Edit bar */}
-        {editingNode !== null && (
-          <div className="tree-editor" style={{marginBottom:16}}>
-            <div style={{flexShrink:0}}>
-              <div className="te-gen">{TREE_GENS[editingNode]}</div>
-              <div className="te-name">{treeNames[editingNode]||"Не указан"}</div>
-            </div>
-            <input ref={editRef} className="te-inp"
-              value={editVal} onChange={e => setEditVal(e.target.value)}
-              onKeyDown={e => { if(e.key==="Enter") commitEdit(); if(e.key==="Escape") setEditingNode(null); }}
-              placeholder="Имя предка…"/>
-            <button className="boutline" style={{padding:"8px 16px",flexShrink:0}} onClick={commitEdit}>✓ Сохранить</button>
-            <button className="bghost"   style={{padding:"8px 14px",flexShrink:0}} onClick={() => setEditingNode(null)}>✕</button>
-          </div>
-        )}
-
-        {/* Vertical tree */}
-        <div style={{background:"rgba(0,48,26,.07)",border:"1px solid rgba(198,165,92,.1)",borderRadius:20,padding:"32px 24px",display:"flex",flexDirection:"column",alignItems:"center",gap:0}}>
-          {tribe && (
-            <div className="abadge" style={{marginBottom:20}}>Род: <strong>{tribe.name}</strong>{city && <> · {city.name}</>}</div>
+      ) : story ? (
+        <div className="ai-story-wrap">
+          <div className="ai-story-title">История рода {tribe?.name || userName}</div>
+          <div className="ai-story-sub">Сгенерировано Абызом · {new Date().toLocaleDateString("ru")}</div>
+          <div className="ai-story-text">{story}{!done && <span className="ai-story-cursor"/>}</div>
+          {done && (
+            <button className="boutline" style={{marginTop:20,padding:"9px 20px",fontSize:".78rem"}} onClick={() => {setStory("");setDone(false);}}>
+              ↺ Сгенерировать заново
+            </button>
           )}
+        </div>
+      ) : (
+        <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:16,padding:"32px 0"}}>
+          <div style={{fontSize:".88rem",color:"rgba(240,235,210,.4)",textAlign:"center",maxWidth:480,lineHeight:1.65}}>
+            Абыз изучит ваш ру <strong style={{color:"var(--gold)"}}>{tribe?.name||"—"}</strong>, 
+            город <strong style={{color:"var(--gold)"}}>{city?.name||"—"}</strong> и имена предков, 
+            и напишет историю вашей линии.
+          </div>
+          <button className="ai-gen-btn" onClick={generate} disabled={loading}>
+            {loading ? "⏳ Пишу историю…" : "✨ Написать историю рода"}
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
 
-          {/* Render nodes top-to-bottom: gen6 → gen0 → you */}
-          {[...Array(7)].map((_, revI) => {
-            const i = 6 - revI; // 6,5,4,3,2,1,0 then user=0
-            const isUser = i === 0;
-            const filled = !!treeNames[i];
+/* ═══════════════════════════════════════════════════════════
+   HISTORICAL CONTEXT SECTION
+═══════════════════════════════════════════════════════════ */
+function HistoricalContextSection({ profile }) {
+  const ancestors = profile.ancestors || [];
+  const ANC_GENS = ["Отец","Дед","Прадед","Пра-прадед","Пра-пра-прадед","Пра-пра-пра-прадед","7-й дед"];
+
+  return (
+    <div style={{maxWidth:1060,margin:"0 auto",padding:"0 24px 48px"}}>
+      <div style={{borderTop:"1px solid rgba(198,165,92,.1)",paddingTop:44,marginBottom:24,display:"flex",alignItems:"baseline",justifyContent:"space-between",flexWrap:"wrap",gap:10}}>
+        <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"1.7rem",fontWeight:700,letterSpacing:"-.02em"}}>
+          📜 Эпоха предков
+        </h2>
+        <div style={{fontSize:".72rem",color:"rgba(240,235,210,.3)"}}>Что происходило когда жил каждый ата</div>
+      </div>
+      <div style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(198,165,92,.1)",borderRadius:18,padding:"24px 28px"}}>
+        <div className="hist-timeline">
+          {HIST_CONTEXT.map((h, i) => {
+            const name = ancestors[i];
             return (
-              <div key={i} style={{display:"flex",flexDirection:"column",alignItems:"center",animationDelay:`${revI*60}ms`}} className="sj-level">
-                {/* Node */}
-                <div
-                  className={`sj-node ${isUser?"sj-user":"sj-ancestor"}${!filled&&!isUser?" sj-empty":""}`}
-                  style={{minWidth:180,cursor:isUser?"default":"pointer"}}
-                  onClick={() => !isUser && startEdit(i)}>
-                  <div className="sj-gen-label">{TREE_GENS[i]}</div>
-                  {editingNode===i
-                    ? <div className="sj-name" style={{opacity:.5}}>✏️ редактирование…</div>
-                    : <div className="sj-name">{filled ? treeNames[i] : (isUser ? userName||"Вы" : "+ добавить")}</div>
-                  }
-                  {filled && !isUser && (
-                    <div style={{fontSize:".52rem",color:"rgba(198,165,92,.4)",marginTop:3,letterSpacing:".08em"}}>{i+1}-е поколение</div>
-                  )}
+              <div key={i} className={`hist-row${name?" filled":""}`}>
+                <div className="hist-dot">{h.icon}</div>
+                <div className="hist-content">
+                  <div className="hist-gen">{ANC_GENS[i]} · {h.period}</div>
+                  <div className="hist-name">{name || "— не указан —"}</div>
+                  <div className="hist-event">{h.event}</div>
                 </div>
-                {/* Connector down (not after last = user) */}
-                {revI < 7 && <div className="sj-connector"/>}
               </div>
             );
           })}
         </div>
+      </div>
+    </div>
+  );
+}
 
-        {/* Legend */}
-        <div className="tree-legend" style={{marginTop:16}}>
-          <div className="leg-item"><div className="leg-dot" style={{background:"var(--gold)"}}/> Заполнено</div>
-          <div className="leg-item"><div className="leg-dot" style={{background:"rgba(198,165,92,.15)"}}/> Нажмите чтобы добавить</div>
-          <div className="leg-item" style={{marginLeft:"auto"}}>
-            <button className="bghost" style={{fontSize:".72rem",padding:"5px 12px"}} onClick={() => setPage({id:"my-tree"})}>
-              Открыть полный редактор →
-            </button>
+/* ═══════════════════════════════════════════════════════════
+   MATCHES BY 7 ATA SECTION
+═══════════════════════════════════════════════════════════ */
+function AataMatchesSection({ profile, userName }) {
+  const ancestors = (profile.ancestors||[]).filter(Boolean);
+  const tribe = TRIBES.find(t => t.id === profile.tribeId);
+
+  // Filter mock matches to show only if user has ancestors
+  const matches = ancestors.length > 0
+    ? MOCK_ATA_MATCHES.filter(m => !tribe || m.ru === tribe.name || Math.random() > 0.3)
+    : [];
+
+  return (
+    <div style={{maxWidth:1060,margin:"0 auto",padding:"0 24px 48px"}}>
+      <div style={{borderTop:"1px solid rgba(198,165,92,.1)",paddingTop:44,marginBottom:24,display:"flex",alignItems:"baseline",justifyContent:"space-between",flexWrap:"wrap",gap:10}}>
+        <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"1.7rem",fontWeight:700,letterSpacing:"-.02em"}}>
+          🧬 Совпадения по 7 ата
+        </h2>
+        <div style={{fontSize:".72rem",color:"rgba(240,235,210,.3)"}}>Люди с общими предками</div>
+      </div>
+
+      {ancestors.length === 0 ? (
+        <div style={{background:"rgba(255,255,255,.02)",border:"1px dashed rgba(198,165,92,.15)",borderRadius:16,padding:"32px",textAlign:"center"}}>
+          <div style={{fontSize:"2rem",marginBottom:12,opacity:.4}}>🧬</div>
+          <div style={{fontSize:".85rem",color:"rgba(240,235,210,.35)",lineHeight:1.6,maxWidth:400,margin:"0 auto"}}>
+            Заполните имена предков в шежире — система найдёт людей с общими атами
+          </div>
+        </div>
+      ) : (
+        <div style={{display:"flex",flexDirection:"column",gap:10}}>
+          {matches.slice(0,3).map(m => (
+            <div key={m.id} className={`match7-card${m.strength>80?" strong":""}`}>
+              <div className="match7-av">{m.name[0]}</div>
+              <div style={{flex:1}}>
+                <div className="match7-name">{m.name}</div>
+                <div className="match7-detail">
+                  {m.ru} · {m.city}<br/>
+                  <span style={{color:"var(--gold)",fontWeight:500}}>Общий предок:</span> {m.common}
+                </div>
+                <div className="match7-strength">
+                  <div className="match7-bar"><div className="match7-fill" style={{width:`${m.strength}%`}}/></div>
+                  <span style={{fontSize:".65rem",color:"var(--gold2)",flexShrink:0}}>{m.strength}%</span>
+                </div>
+              </div>
+            </div>
+          ))}
+          <div style={{textAlign:"center",marginTop:8,fontSize:".75rem",color:"rgba(240,235,210,.25)"}}>
+            В будущей версии — реальные совпадения с другими пользователями через Supabase
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PERSONAL PAGE
+═══════════════════════════════════════════════════════════ */
+function PersonalPage({ userName, profile, setProfile, setPage }) {
+  const tribe = TRIBES.find(t => t.id === profile.tribeId);
+  const city  = CITIES.find(c => c.id === profile.cityId);
+  const ancestors = profile.ancestors || [];
+  const filledAnc = ancestors.filter(Boolean);
+
+  // ── AI Story state ──
+  const [aiStory, setAiStory]       = useState(null);
+  const [aiLoading, setAiLoading]   = useState(false);
+  const [aiError, setAiError]       = useState(null);
+  const [showEditTribe, setShowEditTribe] = useState(false);
+  const [showEditCity,  setShowEditCity]  = useState(false);
+  const [editingAta,    setEditingAta]    = useState(null);
+  const [ataEditVal,    setAtaEditVal]    = useState("");
+  const ataInputRef = useRef(null);
+
+  // ── 7 Ата inline edit ──
+  const ANC_GENS_SHORT = ["Отец","Дед","Прадед","Пра-прадед","Пра-пра-прадед","6-й дед","7-й дед"];
+  const [localAnc, setLocalAnc] = useState(() =>
+    ancestors.length ? [...ancestors] : Array(7).fill("")
+  );
+
+  const saveAnc = (i, val) => {
+    const a = [...localAnc]; a[i] = val; setLocalAnc(a);
+    setProfile(p => ({ ...p, ancestors: a }));
+  };
+
+  // ── Achievements ──
+  const ACHIEVEMENTS = [
+    { id:"first",    icon:"🌱", label:"Первый шаг",       desc:"Вошёл в ABYZ",                        done: true },
+    { id:"tribe",    icon:"🏔", label:"Знаток рода",       desc:"Выбрал свой ру",                      done: !!tribe },
+    { id:"city",     icon:"🏙", label:"Сын города",        desc:"Указал город рождения",               done: !!city },
+    { id:"ata1",     icon:"👤", label:"1 Ата",             desc:"Знаешь хотя бы одного предка",        done: filledAnc.length >= 1 },
+    { id:"ata7",     icon:"👑", label:"7 Ата",             desc:"Знаешь всех 7 предков",               done: filledAnc.length >= 7 },
+    { id:"story",    icon:"📖", label:"Летописец",         desc:"Сгенерировал историю рода",           done: !!aiStory },
+  ];
+
+  // ── Historical epochs per generation ──
+  const EPOCHS = [
+    { gen:"Отец",         years:"1950–1990-е", era:"Советский Казахстан", event:"Индустриализация, освоение целины, период расцвета КазССР." },
+    { gen:"Дед",          years:"1920–1950-е", era:"Ранний СССР",         event:"Коллективизация, репрессии 30-х годов, Великая Отечественная война." },
+    { gen:"Прадед",       years:"1890–1920-е", era:"Российская империя",  event:"Восстание 1916 года, революция, Алаш-Орда и борьба за автономию." },
+    { gen:"Пра-прадед",   years:"1860–1890-е", era:"Колонизация степи",   event:"Присоединение Казахстана к России, строительство городов и крепостей." },
+    { gen:"5-й дед",      years:"1800–1860-е", era:"Кенесары хан",        event:"Последнее крупное восстание казахов под руководством Кенесары Касымова." },
+    { gen:"6-й дед",      years:"1750–1800-е", era:"Абылай хан",          event:"Объединение трёх жузов, противостояние с джунгарами и укрепление ханства." },
+    { gen:"7-й дед",      years:"1700–1750-е", era:"Джунгарское нашествие", event:"Годы великого бедствия (Ақтабан шұбырынды) — самое тяжёлое испытание народа." },
+  ];
+
+  // ── Generate AI Story ──
+  const generateStory = async () => {
+    setAiLoading(true);
+    setAiError(null);
+    try {
+      const prompt = `Ты — мудрый казахский акын и историк. Напиши красивый, поэтичный рассказ об истории рода человека на русском языке. 
+
+Данные:
+- Имя: ${userName}
+- Ру (род): ${tribe ? tribe.name + " (" + tribe.zhuz + ")" : "неизвестен"}
+- Город: ${city ? city.name + ", " + city.oblast : "неизвестен"}
+- Известные предки: ${filledAnc.length > 0 ? localAnc.map((n,i)=>n?`${ANC_GENS_SHORT[i]}: ${n}`:"").filter(Boolean).join(", ") : "не указаны"}
+
+Напиши 3 абзаца (150-200 слов). Стиль — торжественный, тёплый, с казахскими традициями. Упоминай конкретный ру и его историческую роль. Заверши словами о связи поколений.`;
+
+      const res = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-20250514",
+          max_tokens: 1000,
+          messages: [{ role: "user", content: prompt }]
+        })
+      });
+      const data = await res.json();
+      const text = data.content?.map(b => b.text||"").join("") || "";
+      setAiStory(text);
+      setProfile(p => ({ ...p, aiStory: text }));
+    } catch(e) {
+      setAiError("Не удалось сгенерировать историю. Попробуйте ещё раз.");
+    }
+    setAiLoading(false);
+  };
+
+  // ── Mock matches ──
+  const MATCHES = [
+    { name:"Асхат Найманов",   tribe:"Найман",  city:"Алматы",  common:"Общий предок: Есенберген ата", strength:87 },
+    { name:"Гүлнар Арғынова",  tribe:"Арғын",   city:"Астана",  common:"Одна ветвь рода Атығай",       strength:74 },
+    { name:"███████ ████████", tribe:"██████",  city:"██████",  common:"████████████████",               strength:91, locked:true },
+    { name:"Бауыржан Керейов", tribe:"Керей",   city:"Семей",   common:"Жетінші ата по отцовской линии", strength:61 },
+  ];
+
+  return (
+    <div className="shell pe" style={{paddingBottom:80}}>
+
+      {/* ══ ШАПКА ══ */}
+      <div style={{background:"linear-gradient(180deg,rgba(0,63,37,.18) 0%,transparent 100%)",borderBottom:"1px solid rgba(198,165,92,.1)",padding:"40px 24px 32px",maxWidth:1060,margin:"0 auto"}}>
+        <div style={{display:"flex",alignItems:"center",gap:24,flexWrap:"wrap"}}>
+          {/* Avatar */}
+          <div style={{width:80,height:80,borderRadius:"50%",background:"linear-gradient(135deg,var(--green3),var(--green2))",border:"2px solid rgba(198,165,92,.4)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,boxShadow:"0 0 0 4px rgba(198,165,92,.08)"}}>
+            <span style={{fontFamily:"'Playfair Display',serif",fontSize:"2rem",color:"var(--gold)"}}>{userName?.[0]?.toUpperCase()||"?"}</span>
+          </div>
+          {/* Info */}
+          <div style={{flex:1,minWidth:200}}>
+            <div style={{fontSize:".6rem",letterSpacing:".2em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:4}}>Участник ABYZ</div>
+            <div style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.6rem,3vw,2.2rem)",fontWeight:700,color:"var(--text)",lineHeight:1.1,marginBottom:8}}>{userName}</div>
+
+          </div>
+          {/* Quick actions */}
+          <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+            <button className="boutline" onClick={() => setPage({id:"my-tree"})}>🌳 Шежире</button>
+            <button className="bghost" onClick={() => setPage({id:"list"})}>📜 Личности</button>
           </div>
         </div>
       </div>
 
-      {showTribeModal && (
-        <SelectModal
-          title="Выберите ваш род"
-          subtitle="Ру — родовая принадлежность по отцовской линии"
-          items={TRIBES}
-          selected={profile.tribeId}
-          onSelect={id => setProfile(p => ({...p, tribeId: id}))}
-          onClose={() => setShowTribeModal(false)}
-          renderItem={t => `${t.zhuz||t.region} · ${t.members.toLocaleString()} уч.`}
-        />
-      )}
-      {showCityModal && (
-        <SelectModal
-          title="Выберите город рождения"
-          subtitle="Туған қала — ваш родной город"
-          items={CITIES}
-          selected={profile.cityId}
-          onSelect={id => setProfile(p => ({...p, cityId: id}))}
-          onClose={() => setShowCityModal(false)}
-          renderItem={c => `${c.type} · ${c.oblast}`}
-        />
-      )}
+      <div style={{maxWidth:1060,margin:"0 auto",padding:"0 24px"}}>
+
+        {/* ══ РУ + ГОРОД + 7 АТА ══ */}
+        <section style={{marginTop:36}}>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 2fr",gap:12}}>
+
+            {/* РУ */}
+            <div onClick={()=>setShowEditTribe(true)} style={{background:"linear-gradient(135deg,rgba(0,63,37,.28) 0%,rgba(0,48,26,.15) 100%)",border:"1px solid rgba(198,165,92,.2)",borderRadius:16,padding:"20px 18px",cursor:"pointer",transition:"all .22s",position:"relative",overflow:"hidden"}}
+              onMouseEnter={e=>{e.currentTarget.style.borderColor="var(--gold)";e.currentTarget.style.transform="translateY(-2px)"}}
+              onMouseLeave={e=>{e.currentTarget.style.borderColor="rgba(198,165,92,.2)";e.currentTarget.style.transform="translateY(0)"}}>
+              <div style={{position:"absolute",top:0,right:0,width:80,height:80,background:"radial-gradient(circle,rgba(198,165,92,.08) 0%,transparent 70%)",borderRadius:"0 16px 0 0"}}/>
+              <div style={{fontSize:".55rem",letterSpacing:".2em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:10}}>Ру · Род</div>
+              {tribe ? (<>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.6rem",fontWeight:700,color:"var(--gold)",marginBottom:4,lineHeight:1}}>{tribe.name}</div>
+                <div style={{fontSize:".72rem",color:"rgba(240,235,210,.45)",lineHeight:1.5}}>{tribe.zhuz}</div>
+                <div style={{fontSize:".68rem",color:"rgba(240,235,210,.3)",marginTop:6}}>{tribe.region}</div>
+                <div style={{marginTop:12,display:"inline-flex",alignItems:"center",gap:6,background:"rgba(198,165,92,.1)",border:"1px solid rgba(198,165,92,.15)",borderRadius:8,padding:"4px 10px",fontSize:".65rem",color:"rgba(198,165,92,.7)"}}>
+                  👥 {tribe.members.toLocaleString()} уч.
+                </div>
+              </>) : (
+                <div style={{display:"flex",flexDirection:"column",alignItems:"flex-start",gap:8,paddingTop:4}}>
+                  <div style={{fontSize:"2rem",opacity:.25}}>🏔</div>
+                  <div style={{fontSize:".8rem",color:"rgba(240,235,210,.22)",fontStyle:"italic"}}>Ру не указан</div>
+                </div>
+              )}
+            </div>
+
+            {/* ГОРОД */}
+            <div onClick={()=>setShowEditCity(true)} style={{background:"linear-gradient(135deg,rgba(0,48,26,.2) 0%,rgba(14,18,16,.6) 100%)",border:"1px solid rgba(198,165,92,.15)",borderRadius:16,padding:"20px 18px",cursor:"pointer",transition:"all .22s",position:"relative",overflow:"hidden"}}
+              onMouseEnter={e=>{e.currentTarget.style.borderColor="var(--gold)";e.currentTarget.style.transform="translateY(-2px)"}}
+              onMouseLeave={e=>{e.currentTarget.style.borderColor="rgba(198,165,92,.15)";e.currentTarget.style.transform="translateY(0)"}}>
+              <div style={{position:"absolute",top:0,right:0,width:80,height:80,background:"radial-gradient(circle,rgba(198,165,92,.06) 0%,transparent 70%)",borderRadius:"0 16px 0 0"}}/>
+              <div style={{fontSize:".55rem",letterSpacing:".2em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:10}}>Город · Туған қала</div>
+              {city ? (<>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.6rem",fontWeight:700,color:"var(--text)",marginBottom:4,lineHeight:1}}>{city.name}</div>
+                <div style={{fontSize:".72rem",color:"rgba(240,235,210,.4)",lineHeight:1.5}}>{city.oblast}</div>
+                <div style={{fontSize:".68rem",color:"rgba(240,235,210,.28)",marginTop:6}}>{city.type}</div>
+              </>) : (
+                <div style={{display:"flex",flexDirection:"column",alignItems:"flex-start",gap:8,paddingTop:4}}>
+                  <div style={{fontSize:"2rem",opacity:.25}}>🏙</div>
+                  <div style={{fontSize:".8rem",color:"rgba(240,235,210,.22)",fontStyle:"italic"}}>Город не указан</div>
+                </div>
+              )}
+            </div>
+
+            {/* 7 АТА */}
+            <div style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(198,165,92,.12)",borderRadius:16,padding:"20px 18px"}}>
+              <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:14}}>
+                <div style={{fontSize:".55rem",letterSpacing:".2em",textTransform:"uppercase",color:"rgba(198,165,92,.5)"}}>7 Ата · Предки</div>
+                <div style={{display:"flex",alignItems:"center",gap:6}}>
+                  <div style={{height:4,width:80,background:"rgba(255,255,255,.06)",borderRadius:2,overflow:"hidden"}}>
+                    <div style={{height:"100%",width:`${(filledAnc.length/7)*100}%`,background:"linear-gradient(90deg,var(--green),var(--gold))",borderRadius:2,transition:"width .5s"}}/>
+                  </div>
+                  <span style={{fontSize:".65rem",color:"var(--gold)",fontWeight:600,fontFamily:"'Playfair Display',serif"}}>{filledAnc.length}/7</span>
+                </div>
+              </div>
+              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:6}}>
+                {["Отец","Дед","Прадед","Пра-прадед","5-й","6-й","7-й"].map((gen,i) => {
+                  const val = localAnc[i];
+                  const isEditing = editingAta === i;
+                  return (
+                    <div key={i}
+                      onClick={() => { if(!isEditing){ setEditingAta(i); setAtaEditVal(val||""); setTimeout(()=>ataInputRef.current?.focus(),50); } }}
+                      style={{display:"flex",alignItems:"center",gap:8,background:isEditing?"rgba(0,63,37,.28)":val?"rgba(0,63,37,.18)":"rgba(255,255,255,.02)",border:`1px solid ${isEditing?"var(--gold)":val?"rgba(198,165,92,.25)":"rgba(198,165,92,.07)"}`,borderRadius:9,padding:"7px 10px",transition:"all .18s",cursor:"pointer",boxShadow:isEditing?"0 0 0 2px rgba(198,165,92,.1)":"none"}}
+                      onMouseEnter={e=>{ if(!isEditing) e.currentTarget.style.borderColor="rgba(198,165,92,.3)"; }}
+                      onMouseLeave={e=>{ if(!isEditing) e.currentTarget.style.borderColor=val?"rgba(198,165,92,.25)":"rgba(198,165,92,.07)"; }}>
+                      <div style={{width:20,height:20,borderRadius:"50%",background:val?"rgba(198,165,92,.2)":"rgba(255,255,255,.04)",border:`1px solid ${val?"rgba(198,165,92,.4)":"rgba(198,165,92,.1)"}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+                        <span style={{fontFamily:"'Playfair Display',serif",fontSize:".6rem",color:"var(--gold)",opacity:val?1:.4}}>{i+1}</span>
+                      </div>
+                      <div style={{minWidth:0,flex:1}}>
+                        <div style={{fontSize:".55rem",color:"rgba(198,165,92,.4)",letterSpacing:".08em"}}>{gen}</div>
+                        {isEditing ? (
+                          <input
+                            ref={ataInputRef}
+                            value={ataEditVal}
+                            onChange={e=>setAtaEditVal(e.target.value)}
+                            onBlur={()=>{ saveAnc(i, ataEditVal); setEditingAta(null); }}
+                            onKeyDown={e=>{ if(e.key==="Enter"||e.key==="Tab"){ saveAnc(i,ataEditVal); setEditingAta(null); } if(e.key==="Escape") setEditingAta(null); }}
+                            onClick={e=>e.stopPropagation()}
+                            style={{width:"100%",background:"none",border:"none",outline:"none",fontFamily:"'Playfair Display',serif",fontSize:".78rem",color:"var(--text)",padding:0}}
+                            placeholder="Имя предка…"
+                          />
+                        ) : (
+                          <div style={{fontSize:".78rem",fontFamily:"'Playfair Display',serif",color:val?"var(--text)":"rgba(240,235,210,.25)",fontStyle:val?"normal":"italic",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{val||"не указан"}</div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ══ СЕКЦИЯ 1: ИИ-ИСТОРИЯ РОДА ══ */}
+        <section style={{marginTop:48}}>
+          <div style={{display:"flex",alignItems:"baseline",justifyContent:"space-between",marginBottom:20,flexWrap:"wrap",gap:10}}>
+            <div>
+              <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"1.6rem",fontWeight:700,letterSpacing:"-.02em"}}>📖 История рода</h2>
+              <p style={{fontSize:".8rem",color:"rgba(240,235,210,.35)",marginTop:4}}>ИИ генерирует рассказ о твоей линии на основе данных</p>
+            </div>
+            {!aiStory && !aiLoading && (
+              <button className="bgold" style={{padding:"10px 24px",fontSize:".82rem"}} onClick={generateStory}>
+                ✨ Сгенерировать историю
+              </button>
+            )}
+          </div>
+
+          {aiLoading && (
+            <div style={{background:"rgba(255,255,255,.03)",border:"1px solid rgba(198,165,92,.12)",borderRadius:16,padding:32,textAlign:"center"}}>
+              <div style={{fontSize:"2rem",marginBottom:12,animation:"gpulse 1.5s ease-in-out infinite"}}>📜</div>
+              <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1rem",color:"var(--gold)",marginBottom:6}}>Абыз изучает твой род...</div>
+              <div style={{fontSize:".78rem",color:"rgba(240,235,210,.35)"}}>Составляем историю поколений</div>
+            </div>
+          )}
+
+          {aiError && (
+            <div style={{background:"rgba(200,60,60,.08)",border:"1px solid rgba(200,60,60,.2)",borderRadius:12,padding:"16px 20px",color:"rgba(240,180,180,.8)",fontSize:".84rem",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+              {aiError}
+              <button className="boutline" style={{padding:"6px 14px",fontSize:".75rem"}} onClick={generateStory}>Повторить</button>
+            </div>
+          )}
+
+          {aiStory && (
+            <div style={{background:"linear-gradient(135deg,rgba(0,63,37,.15) 0%,rgba(198,165,92,.04) 100%)",border:"1px solid rgba(198,165,92,.18)",borderRadius:16,padding:"28px 32px",position:"relative",overflow:"hidden"}}>
+              <div style={{position:"absolute",top:0,left:0,right:0,height:2,background:"linear-gradient(90deg,transparent,var(--gold),transparent)",opacity:.5}}/>
+              <div style={{fontFamily:"'Playfair Display',serif",fontSize:".95rem",lineHeight:1.85,color:"rgba(240,235,210,.88)",whiteSpace:"pre-wrap"}}>{aiStory}</div>
+              <button style={{marginTop:20,background:"none",border:"none",fontSize:".72rem",color:"rgba(198,165,92,.4)",cursor:"pointer",fontFamily:"inherit"}} onClick={generateStory}>
+                ↺ Сгенерировать заново
+              </button>
+            </div>
+          )}
+
+          {!aiStory && !aiLoading && !aiError && (
+            <div style={{background:"rgba(255,255,255,.02)",border:"1.5px dashed rgba(198,165,92,.15)",borderRadius:16,padding:32,textAlign:"center",cursor:"pointer"}} onClick={generateStory}>
+              <div style={{fontSize:"2.5rem",marginBottom:12,opacity:.4}}>📖</div>
+              <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1rem",color:"rgba(240,235,210,.5)",marginBottom:6}}>История вашего рода ещё не написана</div>
+              <div style={{fontSize:".78rem",color:"rgba(240,235,210,.25)"}}>Нажмите «Сгенерировать» — ИИ составит рассказ о вашей линии</div>
+            </div>
+          )}
+        </section>
+
+        {/* ══ СЕКЦИЯ 2: 7 АТА + ЭПОХА ══ */}
+        <section style={{marginTop:56}}>
+          <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"1.6rem",fontWeight:700,letterSpacing:"-.02em",marginBottom:6}}>📜 Эпоха предков</h2>
+          <p style={{fontSize:".8rem",color:"rgba(240,235,210,.35)",marginBottom:24}}>Что происходило в мире, когда жил каждый из твоих атов</p>
+
+          <div style={{display:"flex",flexDirection:"column",gap:0}}>
+            {EPOCHS.map((ep, i) => {
+              const ancName = localAnc[i];
+              return (
+                <div key={i} style={{display:"grid",gridTemplateColumns:"1fr 3px 1fr",gap:"0 20px",marginBottom:i<6?32:0}}>
+                  {/* Left: ata input */}
+                  <div style={{display:"flex",flexDirection:"column",alignItems:"flex-end",paddingTop:4}}>
+                    <div style={{fontSize:".58rem",letterSpacing:".14em",textTransform:"uppercase",color:"rgba(198,165,92,.45)",marginBottom:5,textAlign:"right"}}>{ep.gen}</div>
+                    <input
+                      style={{width:"100%",maxWidth:220,background:"rgba(255,255,255,.92)",border:`1.5px solid ${ancName?"rgba(198,165,92,.5)":"rgba(198,165,92,.2)"}`,borderRadius:10,padding:"9px 14px",fontFamily:"'Playfair Display',serif",fontSize:".88rem",color:"#111",WebkitTextFillColor:"#111",caretColor:"#333",outline:"none",transition:"all .2s",textAlign:"right"}}
+                      placeholder="Имя предка…"
+                      value={ancName||""}
+                      onChange={e => saveAnc(i, e.target.value)}
+                      onFocus={e=>{e.target.style.borderColor="var(--gold)";e.target.style.background="#fff"}}
+                      onBlur={e=>{e.target.style.borderColor=localAnc[i]?"rgba(198,165,92,.5)":"rgba(198,165,92,.2)";e.target.style.background="rgba(255,255,255,.92)"}}
+                    />
+                    <div style={{fontSize:".62rem",color:"rgba(198,165,92,.35)",marginTop:5,textAlign:"right"}}>{ep.years}</div>
+                  </div>
+
+                  {/* Center: timeline */}
+                  <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+                    <div style={{width:12,height:12,borderRadius:"50%",background:ancName?"var(--gold)":"rgba(198,165,92,.2)",border:"2px solid rgba(198,165,92,.35)",marginTop:4,flexShrink:0,transition:"background .3s"}}/>
+                    {i < 6 && <div style={{flex:1,width:2,background:"linear-gradient(180deg,rgba(198,165,92,.3),rgba(198,165,92,.08))",marginTop:4}}/>}
+                  </div>
+
+                  {/* Right: epoch info */}
+                  <div style={{paddingTop:2}}>
+                    <div style={{fontFamily:"'Playfair Display',serif",fontSize:".9rem",fontWeight:600,color:ancName?"var(--gold)":"var(--text)",marginBottom:4}}>{ep.era}</div>
+                    <div style={{fontSize:".78rem",color:"rgba(240,235,210,.45)",lineHeight:1.6}}>{ep.event}</div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* ══ СЕКЦИЯ 3: СОВПАДЕНИЯ ══ */}
+        <section style={{marginTop:56}}>
+          <div style={{display:"flex",alignItems:"baseline",justifyContent:"space-between",marginBottom:20,flexWrap:"wrap",gap:10}}>
+            <div>
+              <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"1.6rem",fontWeight:700,letterSpacing:"-.02em"}}>🧬 Возможные родственники</h2>
+              <p style={{fontSize:".8rem",color:"rgba(240,235,210,.35)",marginTop:4}}>Люди с совпадающими именами в 7 ата или одного рода</p>
+            </div>
+            <div style={{fontSize:".7rem",color:"rgba(198,165,92,.45)",letterSpacing:".08em"}}>{MATCHES.filter(m=>!m.locked).length} открыто · {MATCHES.filter(m=>m.locked).length} скрыто</div>
+          </div>
+
+          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(260px,1fr))",gap:12}}>
+            {MATCHES.map((m,i) => (
+              <div key={i} style={{background:m.locked?"rgba(255,255,255,.02)":"rgba(255,255,255,.04)",border:`1px solid ${m.locked?"rgba(198,165,92,.07)":"rgba(198,165,92,.14)"}`,borderRadius:14,padding:18,position:"relative",overflow:"hidden",cursor:m.locked?"default":"pointer",transition:"all .2s"}}
+                onClick={()=>!m.locked&&alert(`${m.name}
+
+${m.common}
+Совпадение: ${m.strength}%`)}
+                onMouseEnter={e=>{if(!m.locked)e.currentTarget.style.borderColor="rgba(198,165,92,.3)"}}
+                onMouseLeave={e=>{if(!m.locked)e.currentTarget.style.borderColor="rgba(198,165,92,.14)"}}>
+                {m.locked && (
+                  <div style={{position:"absolute",inset:0,background:"rgba(14,18,16,.7)",backdropFilter:"blur(4px)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",borderRadius:14,zIndex:2}}>
+                    <div style={{fontSize:"1.4rem",marginBottom:6,opacity:.5}}>🔒</div>
+                    <div style={{fontSize:".68rem",letterSpacing:".1em",textTransform:"uppercase",color:"rgba(198,165,92,.4)"}}>Закрыто</div>
+                  </div>
+                )}
+                <div style={{filter:m.locked?"blur(4px)":"none"}}>
+                  <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
+                    <div style={{width:38,height:38,borderRadius:"50%",background:"linear-gradient(135deg,var(--green3),var(--green2))",border:"1px solid rgba(198,165,92,.2)",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Playfair Display',serif",fontSize:".95rem",color:"var(--gold)",flexShrink:0}}>{m.name[0]}</div>
+                    <div>
+                      <div style={{fontFamily:"'Playfair Display',serif",fontSize:".92rem",fontWeight:600}}>{m.name}</div>
+                      <div style={{fontSize:".65rem",color:"var(--muted)"}}>{m.tribe} · {m.city}</div>
+                    </div>
+                  </div>
+                  <div style={{fontSize:".75rem",color:"rgba(240,235,210,.5)",lineHeight:1.5,marginBottom:10}}>{m.common}</div>
+                  <div style={{display:"flex",alignItems:"center",gap:8}}>
+                    <div style={{flex:1,height:3,background:"rgba(255,255,255,.06)",borderRadius:2,overflow:"hidden"}}>
+                      <div style={{height:"100%",width:`${m.strength}%`,background:"linear-gradient(90deg,var(--gold2),var(--gold3))",borderRadius:2}}/>
+                    </div>
+                    <span style={{fontSize:".68rem",color:"var(--gold2)",fontFamily:"'Playfair Display',serif"}}>{m.strength}%</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ══ СЕКЦИЯ 4: ДОСТИЖЕНИЯ ══ */}
+        <section style={{marginTop:56,marginBottom:60}}>
+          <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"1.6rem",fontWeight:700,letterSpacing:"-.02em",marginBottom:6}}>🏆 Достижения</h2>
+          <p style={{fontSize:".8rem",color:"rgba(240,235,210,.35)",marginBottom:24}}>Открывай награды, исследуя свою историю</p>
+
+          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(200px,1fr))",gap:10}}>
+            {ACHIEVEMENTS.map(a => (
+              <div key={a.id} style={{background:a.done?"rgba(0,63,37,.2)":"rgba(255,255,255,.03)",border:`1.5px solid ${a.done?"rgba(198,165,92,.3)":"rgba(255,255,255,.06)"}`,borderRadius:14,padding:"16px 14px",display:"flex",flexDirection:"column",alignItems:"center",gap:8,textAlign:"center",transition:"all .3s",position:"relative",overflow:"hidden"}}>
+                {a.done && <div style={{position:"absolute",top:0,left:0,right:0,height:2,background:"linear-gradient(90deg,transparent,var(--gold),transparent)"}}/>}
+                <div style={{fontSize:"1.8rem",filter:a.done?"none":"grayscale(1)",opacity:a.done?1:.3,transition:"all .3s"}}>{a.icon}</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:".88rem",fontWeight:600,color:a.done?"var(--gold)":"rgba(240,235,210,.3)"}}>{a.label}</div>
+                <div style={{fontSize:".68rem",color:a.done?"rgba(240,235,210,.5)":"rgba(240,235,210,.2)",lineHeight:1.4}}>{a.desc}</div>
+                {a.done && <div style={{fontSize:".6rem",letterSpacing:".1em",textTransform:"uppercase",color:"rgba(198,165,92,.5)"}}>✓ Открыто</div>}
+              </div>
+            ))}
+          </div>
+        </section>
+
+      </div>
       <Footer/>
     </div>
   );
 }
+
 
 /* ═══════════════════════════════════════════════════════════
    CLANS LIST PAGE

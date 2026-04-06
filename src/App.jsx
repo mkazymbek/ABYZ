@@ -279,9 +279,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .footer{border-top:1px solid var(--border);padding:24px;text-align:center;font-size:.67rem;letter-spacing:.1em;color:var(--muted)}
 
 /* TAB BAR */
-.tabs{display:flex;gap:4px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:4px;margin-bottom:22px;width:fit-content}
-.tab{background:none;border:none;font-family:inherit;font-size:.78rem;color:var(--muted);padding:8px 16px;border-radius:9px;cursor:pointer;transition:var(--tr)}
-.tab.on{background:rgba(26,107,68,.12);color:var(--gold);border:1px solid var(--border)}
+.tabs{display:flex;gap:4px;background:rgba(255,255,255,.05);border:1px solid rgba(198,165,92,.18);border-radius:12px;padding:4px;margin-bottom:22px;width:fit-content}
+.tab{background:none;border:1px solid transparent;font-family:inherit;font-size:.78rem;color:rgba(240,235,210,.55);padding:8px 16px;border-radius:9px;cursor:pointer;transition:var(--tr)}
+.tab.on{background:rgba(0,63,37,.35);color:var(--gold);border:1px solid rgba(198,165,92,.3)}
 
 /* ══════════════════════════════
    ONBOARDING FLOW
@@ -2707,7 +2707,7 @@ function InteractiveTree({ rootName, ancestorName }) {
                   {isEdit
                     ? <div className="tn-name">✏️ редактирование…</div>
                     : <div className={`tn-name${filled?"":" empty"}`}>
-                        {filled ? names[i] : (isRoot ? "Сіз" : "— не указано —")}
+                        {filled ? names[i] : (isRoot ? "Вы" : "— не указано —")}
                       </div>
                   }
                   <div className="tn-num">{String(i+1).padStart(2,"0")} / {COUNT}</div>
@@ -2723,87 +2723,419 @@ function InteractiveTree({ rootName, ancestorName }) {
 
       {/* LEGEND */}
       <div className="tree-legend" style={{marginTop:16}}>
-        <div className="leg-item"><div className="leg-dot" style={{background:"var(--gold)"}}/> Толтырылған</div>
-        <div className="leg-item"><div className="leg-dot" style={{background:"rgba(198,165,92,.2)"}}/> Бос — өзгерту үшін басыңыз</div>
-        <div className="leg-item"><div style={{width:20,height:2,borderTop:"1.5px dashed rgba(198,165,92,.3)"}}/> Белгісіз байланыс</div>
+        <div className="leg-item"><div className="leg-dot" style={{background:"var(--gold)"}}/> Заполнено</div>
+        <div className="leg-item"><div className="leg-dot" style={{background:"rgba(198,165,92,.2)"}}/> Нажмите для редактирования</div>
+        <div className="leg-item"><div style={{width:20,height:2,borderTop:"1.5px dashed rgba(198,165,92,.3)"}}/> Неизвестная связь</div>
       </div>
     </div>
   );
 }
 
 /* ── MY TREE PAGE wrapper ── */
-function MyTreePage({ userName, initialData, setPage }) {
-  const [localName, setLocalName] = useState("");
-  const [treeRoot, setTreeRoot] = useState(null);
-
-  if (!treeRoot && initialData?.ancestor) {
-    return (
-      <div className="shell pe">
-        <div className="wrap">
-          <div className="mtc">
-            <h2>Ваше шежире</h2>
-            <p>Верхний предок: <strong style={{color:"var(--gold)"}}>{initialData.ancestor}</strong>.<br/>Введите своё имя, чтобы начать.</p>
-            <div style={{width:"100%",marginBottom:12}}>
-              <div className="flabel" style={{textAlign:"left"}}>Есіміңіз</div>
-              <input className="ninput" placeholder="Введите имя…" value={localName}
-                onChange={e => setLocalName(e.target.value)}
-                onKeyDown={e => e.key==="Enter" && setTreeRoot({user:localName.trim()||userName, ancestor:initialData.ancestor})}/>
-            </div>
-            <button className="bgold" onClick={() => setTreeRoot({user:localName.trim()||userName, ancestor:initialData.ancestor})}>Построить дерево</button>
-          </div>
-        </div>
-        <Footer/>
-      </div>
-    );
-  }
-
-  if (treeRoot) {
-    return (
-      <div className="shell pe">
-        <div className="wrap">
-          <div className="tree-page">
-            <div className="tree-header">
-              <div className="tree-title">🌳 Шежіре · {treeRoot.user}</div>
-              <div style={{display:"flex",gap:8}}>
-                <button className="bghost" onClick={() => setTreeRoot(null)}>← Изменить</button>
-                <button className="boutline" onClick={() => setPage({id:"list"})}>Найти предка</button>
-              </div>
-            </div>
-            {treeRoot.ancestor && (
-              <div className="abadge">
-                Исторический предок (7-е поколение): <strong>{treeRoot.ancestor}</strong>
-              </div>
-            )}
-            <InteractiveTree rootName={treeRoot.user} ancestorName={treeRoot.ancestor}/>
-          </div>
-        </div>
-        <Footer/>
-      </div>
-    );
-  }
+function MyTreePage({ userName, profile, initialData, setPage }) {
+  const [showExport, setShowExport] = useState(false);
+  const tribe = TRIBES.find(t => t.id === profile?.tribeId);
+  const ancestorName = initialData?.ancestor || null;
 
   return (
     <div className="shell pe">
       <div className="wrap">
-        <div className="mtc">
-          <h2>Моё шежире</h2>
-          <p>Постройте интерактивное родословное дерево до 7 поколений. Нажимайте на узлы, чтобы заполнить имена предков.</p>
-          <div style={{width:"100%",marginBottom:12}}>
-            <div className="flabel" style={{textAlign:"left"}}>Есіміңіз</div>
-            <input className="ninput" placeholder={userName} value={localName}
-              onChange={e => setLocalName(e.target.value)}
-              onKeyDown={e => e.key==="Enter" && setTreeRoot({user:localName.trim()||userName, ancestor:null})}/>
+        <div className="tree-page">
+          <div className="tree-header">
+            <div>
+              <div style={{fontSize:".6rem",letterSpacing:".2em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:4}}>Шежире</div>
+              <div className="tree-title">🌳 {userName || "Моё дерево"}</div>
+              {tribe && <div style={{fontSize:".75rem",color:"rgba(198,165,92,.55)",marginTop:3}}>🏔 {tribe.name} · {tribe.zhuz}</div>}
+            </div>
+            <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+              <button className="boutline" onClick={() => setPage({id:"list"})}>🔍 Найти предка</button>
+              <button className="bgold" style={{padding:"10px 20px"}} onClick={() => setShowExport(e => !e)}>
+                {showExport ? "✕ Закрыть" : "📤 Экспорт"}
+              </button>
+            </div>
           </div>
-          <button className="bgold" onClick={() => setTreeRoot({user:localName.trim()||userName, ancestor:null})}>
-            Шежіре жасау
-          </button>
-          <div style={{marginTop:28,fontSize:".75rem",color:"rgba(240,235,210,.28)"}}>
-            немесе{" "}
-            <span style={{color:"var(--gold)",cursor:"pointer"}} onClick={() => setPage({id:"list"})}>
-              найдите историческую личность
-            </span>{" "}и начните дерево от неё
-          </div>
+
+          {ancestorName && (
+            <div className="abadge" style={{marginBottom:16}}>
+              Исторический предок: <strong>{ancestorName}</strong>
+            </div>
+          )}
+
+          {showExport && <ExportPanel userName={userName} profile={profile}/>}
+
+          <InteractiveTree rootName={userName} ancestorName={ancestorName}/>
         </div>
+      </div>
+      <Footer/>
+    </div>
+  );
+}
+
+/* ── Inline export panel ── */
+function ExportPanel({ userName, profile }) {
+  const tribe = TRIBES.find(t => t.id === profile?.tribeId);
+  const city  = CITIES.find(c => c.id === profile?.cityId);
+  const ancs  = profile?.ancestors || [];
+  const ANC_GENS = ["Отец","Дед","Прадед","Пра-прадед","Пра-пра-прадед","Пра-пра-пра-прадед","7-й дед"];
+  const [tab, setTab]     = useState("pdf");
+  const [loading, setLoading] = useState(false);
+  const [done, setDone]   = useState("");
+  const pdfRef    = useRef(null);
+  const posterRef = useRef(null);
+  const filled = ancs.filter(Boolean);
+
+  const getH2C = async () => (await import("https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.esm.min.js")).default;
+
+  const downloadPDF = async () => {
+    setLoading(true);
+    try {
+      const html2canvas = await getH2C();
+      const { jsPDF } = await import("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js");
+      const canvas = await html2canvas(pdfRef.current, { scale:2, useCORS:true, backgroundColor:"#0e1210" });
+      const pdf = new jsPDF({ orientation:"portrait", unit:"mm", format:"a4" });
+      const w = pdf.internal.pageSize.getWidth();
+      pdf.addImage(canvas.toDataURL("image/jpeg",.92), "JPEG", 0, 0, w, (canvas.height*w)/canvas.width);
+      pdf.save(`${userName||"shejire"}_shejire.pdf`);
+      setDone("pdf");
+    } catch { alert("Ошибка PDF."); }
+    setLoading(false); setTimeout(() => setDone(""), 3000);
+  };
+
+  const downloadPoster = async () => {
+    setLoading(true);
+    try {
+      const html2canvas = await getH2C();
+      const canvas = await html2canvas(posterRef.current, { scale:3, useCORS:true, backgroundColor:"#0a1a0f" });
+      const a = document.createElement("a");
+      a.download = `${userName||"shejire"}_poster.png`;
+      a.href = canvas.toDataURL("image/png"); a.click();
+      setDone("poster");
+    } catch { alert("Ошибка постера."); }
+    setLoading(false); setTimeout(() => setDone(""), 3000);
+  };
+
+  const TreePreview = ({ refProp, isPoster }) => (
+    <div ref={refProp} style={{
+      background: isPoster ? "linear-gradient(160deg,#0a1a0f,#071209,#0e1a0a)" : "#0e1210",
+      border:"1px solid rgba(198,165,92,.18)", borderRadius:12,
+      padding: isPoster ? "28px 24px" : "28px 24px",
+      fontFamily:"'Playfair Display',serif", color:"#f0ebd2",
+      position:"relative", overflow:"hidden",
+      ...(isPoster ? {aspectRatio:"4/5", display:"flex", flexDirection:"column", justifyContent:"space-between"} : {})
+    }}>
+      <div style={{position:"absolute",top:0,left:0,right:0,height:2,background:"linear-gradient(90deg,transparent,#C6A55C,transparent)"}}/>
+      {isPoster && <div style={{position:"absolute",top:-30,right:-30,width:120,height:120,borderRadius:"50%",border:"1px solid rgba(198,165,92,.07)"}}/>}
+      <div style={{textAlign: isPoster?"left":"center", marginBottom:20, paddingBottom:16, borderBottom:"1px solid rgba(198,165,92,.1)"}}>
+        <div style={{fontSize:".45rem",letterSpacing:".25em",textTransform:"uppercase",color:"rgba(198,165,92,.4)",marginBottom:6}}>
+          {isPoster ? "ШЕЖІРЕ · РОДОСЛОВНОЕ ДЕРЕВО" : "Казахское родословное дерево"}
+        </div>
+        <div style={{fontSize: isPoster?"1.6rem":"1.5rem", fontWeight:700, color:"#C6A55C", lineHeight:1.1}}>{userName||"Шежире"}</div>
+        <div style={{display:"flex",gap:6,flexWrap:"wrap",marginTop:6}}>
+          {tribe && <span style={{background:"rgba(198,165,92,.1)",border:"1px solid rgba(198,165,92,.2)",borderRadius:20,padding:"2px 8px",fontSize:".55rem",color:"#C6A55C"}}>🏔 {tribe.name}</span>}
+          {city  && <span style={{background:"rgba(198,165,92,.06)",border:"1px solid rgba(198,165,92,.13)",borderRadius:20,padding:"2px 8px",fontSize:".55rem",color:"rgba(240,235,210,.55)"}}>🏙 {city.name}</span>}
+        </div>
+      </div>
+      <div style={{display:"flex",flexDirection:"column", gap: isPoster?4:0, alignItems: isPoster?"stretch":"center"}}>
+        {[...Array(7)].map((_,ri) => {
+          const i=6-ri; const nm=i===0?(userName||"Вы"):ancs[i]; const isYou=i===0;
+          return isPoster ? (
+            <div key={i} style={{display:"flex",alignItems:"center",gap:8,opacity:nm?1:0.2}}>
+              <div style={{width:20,height:20,borderRadius:"50%",background:isYou?"rgba(198,165,92,.15)":"rgba(255,255,255,.04)",border:`1px solid ${isYou?"rgba(198,165,92,.45)":"rgba(198,165,92,.12)"}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+                <span style={{fontSize:".5rem",color:isYou?"#C6A55C":"rgba(198,165,92,.45)"}}>{i+1}</span>
+              </div>
+              <div style={{flex:1,height:1,background:nm?"linear-gradient(90deg,rgba(198,165,92,.2),transparent)":"rgba(255,255,255,.04)"}}/>
+              <div style={{fontSize:isYou?".78rem":".68rem",fontWeight:isYou?700:400,color:isYou?"#C6A55C":nm?"#f0ebd2":"rgba(240,235,210,.18)",maxWidth:120,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{nm||"—"}</div>
+            </div>
+          ) : (
+            <div key={i} style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+              <div style={{minWidth:180,padding:"8px 14px",borderRadius:8,textAlign:"center",background:isYou?"linear-gradient(135deg,rgba(0,63,37,.4),rgba(0,48,26,.3))":nm?"rgba(255,255,255,.04)":"rgba(255,255,255,.02)",border:isYou?"2px solid rgba(198,165,92,.5)":nm?"1px solid rgba(198,165,92,.18)":"1px dashed rgba(198,165,92,.1)"}}>
+                <div style={{fontSize:".42rem",letterSpacing:".12em",textTransform:"uppercase",color:"rgba(198,165,92,.38)",marginBottom:2}}>{ANC_GENS[i]}</div>
+                <div style={{fontSize:isYou?".85rem":".78rem",fontWeight:700,color:isYou?"#C6A55C":nm?"#f0ebd2":"rgba(240,235,210,.18)"}}>{nm||"—"}</div>
+              </div>
+              {ri<7 && <div style={{width:1,height:14,background:"rgba(198,165,92,.18)"}}/>}
+            </div>
+          );
+        })}
+      </div>
+      {isPoster && <div style={{display:"flex",justifyContent:"space-between",marginTop:16}}>
+        <div style={{fontSize:".85rem",fontWeight:700,color:"rgba(198,165,92,.4)"}}>abyz</div>
+        <div style={{fontSize:".4rem",letterSpacing:".15em",textTransform:"uppercase",color:"rgba(198,165,92,.22)"}}>digital heritage · {new Date().getFullYear()}</div>
+      </div>}
+      {!isPoster && <div style={{textAlign:"center",marginTop:16,paddingTop:12,borderTop:"1px solid rgba(198,165,92,.08)",fontSize:".44rem",letterSpacing:".12em",textTransform:"uppercase",color:"rgba(198,165,92,.25)"}}>ABYZ · Digital Heritage · {new Date().getFullYear()}</div>}
+      <div style={{position:"absolute",bottom:0,left:0,right:0,height:2,background:"linear-gradient(90deg,transparent,#C6A55C,transparent)"}}/>
+    </div>
+  );
+
+  return (
+    <div style={{background:"rgba(255,255,255,.03)",border:"1px solid rgba(198,165,92,.18)",borderRadius:16,padding:24,marginBottom:28}}>
+      <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:18,flexWrap:"wrap"}}>
+        <div style={{flex:1}}>
+          <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.05rem",fontWeight:700,marginBottom:2}}>Сохранить шежире</div>
+          <div style={{fontSize:".74rem",color:"rgba(240,235,210,.38)"}}>PDF для печати или постер для Instagram</div>
+        </div>
+        <div className="tabs" style={{margin:0}}>
+          <button className={`tab${tab==="pdf"?" on":""}`} onClick={() => setTab("pdf")}>📄 PDF</button>
+          <button className={`tab${tab==="poster"?" on":""}`} onClick={() => setTab("poster")}>🖼️ Постер</button>
+        </div>
+      </div>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 180px",gap:20,alignItems:"start"}}>
+        <div style={{overflowX:"auto",maxWidth:"100%"}}>
+          {tab==="pdf"
+            ? <TreePreview refProp={pdfRef} isPoster={false}/>
+            : <TreePreview refProp={posterRef} isPoster={true}/>
+          }
+        </div>
+        <div style={{display:"flex",flexDirection:"column",gap:10}}>
+          <div style={{background:"rgba(255,255,255,.03)",border:"1px solid rgba(198,165,92,.1)",borderRadius:10,padding:"12px 14px"}}>
+            {tab==="pdf" ? (
+              <><div style={{fontSize:".58rem",color:"rgba(198,165,92,.45)",marginBottom:6,letterSpacing:".1em",textTransform:"uppercase"}}>PDF</div>
+              <div style={{fontSize:".72rem",color:"rgba(240,235,210,.4)",lineHeight:1.6}}>Формат A4<br/>Высокое качество<br/>{filled.length}/7 предков</div></>
+            ) : (
+              <><div style={{fontSize:".58rem",color:"rgba(198,165,92,.45)",marginBottom:6,letterSpacing:".1em",textTransform:"uppercase"}}>Постер</div>
+              <div style={{fontSize:".72rem",color:"rgba(240,235,210,.4)",lineHeight:1.6}}>1080×1350 px<br/>PNG · 3× резкость<br/>Instagram Ready</div></>
+            )}
+          </div>
+          <button className="bgold" onClick={tab==="pdf"?downloadPDF:downloadPoster} disabled={loading} style={{padding:"11px 0",fontSize:".8rem"}}>
+            {loading?"Создаётся…":done?"✓ Готово!":`⬇️ ${tab==="pdf"?"PDF":"Постер"}`}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   EXPORT PAGE — PDF + Постер
+═══════════════════════════════════════════════════════════ */
+function ExportPage({ userName, profile, setPage }) {
+  const tribe  = TRIBES.find(t => t.id === profile.tribeId);
+  const city   = CITIES.find(c => c.id === profile.cityId);
+  const ancs   = profile.ancestors || [];
+  const ANC_GENS = ["Отец (Әке)","Дед (Ата)","Прадед (Баба)","Пра-прадед","Пра-пра-прадед","Пра-пра-пра-прадед","7-й дед"];
+  const [tab, setTab] = useState("pdf");
+  const [loading, setLoading] = useState(false);
+  const [posterDone, setPosterDone] = useState(false);
+  const posterRef = useRef(null);
+  const pdfRef    = useRef(null);
+
+  const downloadPDF = async () => {
+    setLoading(true);
+    try {
+      const { default: html2canvas } = await import("https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.esm.min.js");
+      const { jsPDF } = await import("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js");
+      const canvas = await html2canvas(pdfRef.current, { scale:2, useCORS:true, backgroundColor:"#0e1210" });
+      const imgData = canvas.toDataURL("image/jpeg", 0.92);
+      const pdf = new jsPDF({ orientation:"portrait", unit:"mm", format:"a4" });
+      const w = pdf.internal.pageSize.getWidth();
+      const h = (canvas.height * w) / canvas.width;
+      pdf.addImage(imgData, "JPEG", 0, 0, w, h);
+      pdf.save(`${userName || "shejire"}_shejire.pdf`);
+    } catch(e) {
+      alert("Ошибка при создании PDF. Попробуйте ещё раз.");
+    }
+    setLoading(false);
+  };
+
+  const downloadPoster = async () => {
+    setLoading(true);
+    try {
+      const { default: html2canvas } = await import("https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.esm.min.js");
+      const canvas = await html2canvas(posterRef.current, { scale:3, useCORS:true, backgroundColor:"#0a1a0f" });
+      const link = document.createElement("a");
+      link.download = `${userName || "shejire"}_poster.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+      setPosterDone(true);
+      setTimeout(() => setPosterDone(false), 3000);
+    } catch(e) {
+      alert("Ошибка при создании постера.");
+    }
+    setLoading(false);
+  };
+
+  const filled = ancs.filter(Boolean);
+
+  return (
+    <div className="shell pe">
+      <div className="wrap">
+        <button className="back" onClick={() => setPage({id:"personal"})}>← Назад</button>
+
+        <div style={{marginBottom:28}}>
+          <div style={{fontSize:".6rem",letterSpacing:".22em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:6}}>Экспорт</div>
+          <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"2rem",fontWeight:700,letterSpacing:"-.02em",marginBottom:6}}>
+            Сохранить <span style={{color:"var(--gold)"}}>шежире</span>
+          </h1>
+          <p style={{fontSize:".85rem",color:"rgba(240,235,210,.4)",lineHeight:1.6}}>
+            Сохраните своё родословное дерево как PDF для печати или как постер для Instagram.
+          </p>
+        </div>
+
+        {/* Tabs */}
+        <div className="tabs" style={{marginBottom:28}}>
+          <button className={`tab${tab==="pdf"?" on":""}`} onClick={() => setTab("pdf")}>📄 PDF для печати</button>
+          <button className={`tab${tab==="poster"?" on":""}`} onClick={() => setTab("poster")}>🖼️ Постер Instagram</button>
+        </div>
+
+        {/* ── PDF TAB ── */}
+        {tab === "pdf" && (
+          <div style={{display:"grid",gridTemplateColumns:"1fr 340px",gap:24,alignItems:"start"}}>
+            {/* Preview */}
+            <div ref={pdfRef} style={{background:"#0e1210",border:"1px solid rgba(198,165,92,.2)",borderRadius:16,padding:"40px 36px",fontFamily:"'Playfair Display',serif",color:"#f0ebd2",position:"relative",overflow:"hidden"}}>
+              {/* Header ornament */}
+              <div style={{position:"absolute",top:0,left:0,right:0,height:3,background:"linear-gradient(90deg,transparent,#C6A55C 30%,#e8c97a 50%,#C6A55C 70%,transparent)"}}/>
+              <div style={{position:"absolute",bottom:0,left:0,right:0,height:3,background:"linear-gradient(90deg,transparent,#C6A55C 30%,#e8c97a 50%,#C6A55C 70%,transparent)"}}/>
+
+              {/* Title */}
+              <div style={{textAlign:"center",marginBottom:32,paddingBottom:24,borderBottom:"1px solid rgba(198,165,92,.15)"}}>
+                <div style={{fontSize:".55rem",letterSpacing:".3em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:8}}>Казахское родословное дерево</div>
+                <div style={{fontSize:"2.2rem",fontWeight:700,color:"#C6A55C",letterSpacing:"-.02em",marginBottom:4}}>{userName || "Шежире"}</div>
+                {tribe && <div style={{fontSize:".85rem",color:"rgba(240,235,210,.55)",marginBottom:2}}>Род: <span style={{color:"#C6A55C"}}>{tribe.name}</span> · {tribe.zhuz}</div>}
+                {city  && <div style={{fontSize:".78rem",color:"rgba(240,235,210,.4)"}}>Туған қала: {city.name}</div>}
+              </div>
+
+              {/* Tree */}
+              <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:0}}>
+                {/* Ancestors top to bottom */}
+                {[...Array(7)].map((_,ri) => {
+                  const i = 6 - ri;
+                  const name = ancs[i];
+                  const isYou = i === 0;
+                  return (
+                    <div key={i} style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+                      <div style={{
+                        minWidth:220,padding:"10px 18px",borderRadius:10,textAlign:"center",
+                        background: isYou ? "linear-gradient(135deg,rgba(0,63,37,.5),rgba(0,48,26,.3))" : name ? "rgba(255,255,255,.04)" : "rgba(255,255,255,.02)",
+                        border: isYou ? "2px solid rgba(198,165,92,.6)" : name ? "1px solid rgba(198,165,92,.22)" : "1px dashed rgba(198,165,92,.12)",
+                      }}>
+                        <div style={{fontSize:".5rem",letterSpacing:".15em",textTransform:"uppercase",color:"rgba(198,165,92,.45)",marginBottom:3}}>{ANC_GENS[i] || "Предок"}</div>
+                        <div style={{fontSize: isYou ? "1rem" : ".88rem",fontWeight:700,color: isYou ? "#C6A55C" : name ? "#f0ebd2" : "rgba(240,235,210,.2)"}}>{isYou ? (userName||"Вы") : (name || "— не указано —")}</div>
+                      </div>
+                      {ri < 7 && <div style={{width:1,height:20,background:"linear-gradient(180deg,rgba(198,165,92,.35),rgba(198,165,92,.1))"}}/>}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Footer */}
+              <div style={{textAlign:"center",marginTop:28,paddingTop:20,borderTop:"1px solid rgba(198,165,92,.1)",fontSize:".55rem",letterSpacing:".15em",textTransform:"uppercase",color:"rgba(198,165,92,.3)"}}>
+                ABYZ · Digital Heritage · abyz.kz · {new Date().getFullYear()}
+              </div>
+            </div>
+
+            {/* Controls */}
+            <div style={{display:"flex",flexDirection:"column",gap:14}}>
+              <div style={{background:"rgba(255,255,255,.03)",border:"1px solid rgba(198,165,92,.12)",borderRadius:14,padding:18}}>
+                <div style={{fontSize:".6rem",letterSpacing:".18em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:12}}>Информация</div>
+                <div style={{display:"flex",flexDirection:"column",gap:8}}>
+                  {[
+                    {label:"Формат",   val:"A4 (210×297 мм)"},
+                    {label:"Качество", val:"Высокое (2×)"},
+                    {label:"Язык",     val:"Русский / Казахский"},
+                    {label:"Заполнено", val:`${filled.length} из 7 предков`},
+                  ].map(({label,val}) => (
+                    <div key={label} style={{display:"flex",justifyContent:"space-between",fontSize:".78rem"}}>
+                      <span style={{color:"rgba(240,235,210,.4)"}}>{label}</span>
+                      <span style={{color:"var(--text)"}}>{val}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <button className="bgold" onClick={downloadPDF} disabled={loading}
+                style={{padding:"14px 0",fontSize:".85rem",letterSpacing:".06em"}}>
+                {loading ? "Создаётся…" : "⬇️ Скачать PDF"}
+              </button>
+
+              <div style={{fontSize:".7rem",color:"rgba(240,235,210,.22)",textAlign:"center",lineHeight:1.5}}>
+                PDF будет создан из текущего предпросмотра слева. Заполните больше предков для полного дерева.
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── POSTER TAB ── */}
+        {tab === "poster" && (
+          <div style={{display:"grid",gridTemplateColumns:"1fr 300px",gap:24,alignItems:"start"}}>
+            {/* Poster preview */}
+            <div ref={posterRef} style={{
+              width:540,background:"linear-gradient(160deg,#0a1a0f 0%,#071209 50%,#0e1a0a 100%)",
+              borderRadius:20,padding:"48px 40px",fontFamily:"'Playfair Display',serif",color:"#f0ebd2",
+              position:"relative",overflow:"hidden",aspectRatio:"4/5",display:"flex",flexDirection:"column",justifyContent:"space-between"
+            }}>
+              {/* bg ornament circles */}
+              <div style={{position:"absolute",top:-60,right:-60,width:220,height:220,borderRadius:"50%",border:"1px solid rgba(198,165,92,.06)"}}/>
+              <div style={{position:"absolute",top:-40,right:-40,width:160,height:160,borderRadius:"50%",border:"1px solid rgba(198,165,92,.1)"}}/>
+              <div style={{position:"absolute",bottom:-80,left:-80,width:280,height:280,borderRadius:"50%",background:"radial-gradient(circle,rgba(0,63,37,.25) 0%,transparent 70%)"}}/>
+
+              {/* Top label */}
+              <div>
+                <div style={{fontSize:".5rem",letterSpacing:".35em",textTransform:"uppercase",color:"rgba(198,165,92,.45)",marginBottom:16}}>ШЕЖІРЕ · РОДОСЛОВНОЕ ДЕРЕВО</div>
+                <div style={{fontSize:"2.8rem",fontWeight:700,color:"#C6A55C",lineHeight:1,letterSpacing:"-.03em",marginBottom:8}}>{userName||"Шежире"}</div>
+                <div style={{display:"flex",gap:8,flexWrap:"wrap",marginTop:10}}>
+                  {tribe && <span style={{background:"rgba(198,165,92,.1)",border:"1px solid rgba(198,165,92,.25)",borderRadius:20,padding:"4px 12px",fontSize:".65rem",color:"#C6A55C",letterSpacing:".06em"}}>🏔 {tribe.name}</span>}
+                  {city  && <span style={{background:"rgba(198,165,92,.07)",border:"1px solid rgba(198,165,92,.18)",borderRadius:20,padding:"4px 12px",fontSize:".65rem",color:"rgba(240,235,210,.65)",letterSpacing:".06em"}}>🏙 {city.name}</span>}
+                </div>
+              </div>
+
+              {/* Ancestors */}
+              <div style={{display:"flex",flexDirection:"column",gap:6,margin:"24px 0"}}>
+                {[...Array(7)].map((_,ri) => {
+                  const i = 6 - ri;
+                  const nm = i === 0 ? (userName||"Вы") : ancs[i];
+                  const isYou = i === 0;
+                  const hasName = !!nm;
+                  return (
+                    <div key={i} style={{display:"flex",alignItems:"center",gap:10,opacity: hasName ? 1 : 0.25}}>
+                      <div style={{width:28,height:28,borderRadius:"50%",background: isYou ? "rgba(198,165,92,.2)" : "rgba(255,255,255,.05)",border:`1px solid ${isYou?"rgba(198,165,92,.6)":"rgba(198,165,92,.2)"}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+                        <span style={{fontSize:".6rem",color:isYou?"#C6A55C":"rgba(198,165,92,.6)"}}>{i+1}</span>
+                      </div>
+                      <div style={{flex:1,height:1,background: hasName ? "linear-gradient(90deg,rgba(198,165,92,.3),transparent)" : "rgba(255,255,255,.05)"}}/>
+                      <div style={{fontFamily:"'Playfair Display',serif",fontSize: isYou ? ".95rem" : ".82rem",fontWeight: isYou ? 700 : 400,color: isYou ? "#C6A55C" : hasName ? "#f0ebd2" : "rgba(240,235,210,.25)",textAlign:"right",maxWidth:160,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>
+                        {nm || "—"}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Bottom */}
+              <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                <div style={{fontSize:"1.2rem",fontWeight:700,color:"rgba(198,165,92,.5)",letterSpacing:".08em",fontFamily:"'Playfair Display',serif"}}>abyz</div>
+                <div style={{fontSize:".48rem",letterSpacing:".2em",textTransform:"uppercase",color:"rgba(198,165,92,.3)"}}>digital heritage · {new Date().getFullYear()}</div>
+              </div>
+            </div>
+
+            {/* Controls */}
+            <div style={{display:"flex",flexDirection:"column",gap:14}}>
+              <div style={{background:"rgba(255,255,255,.03)",border:"1px solid rgba(198,165,92,.12)",borderRadius:14,padding:18}}>
+                <div style={{fontSize:".6rem",letterSpacing:".18em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:12}}>Формат</div>
+                <div style={{display:"flex",flexDirection:"column",gap:8}}>
+                  {[
+                    {label:"Размер",   val:"1080×1350 px"},
+                    {label:"Формат",   val:"PNG (прозрачный)"},
+                    {label:"Качество", val:"3× (ретина)"},
+                    {label:"Для",      val:"Instagram, печать"},
+                  ].map(({label,val}) => (
+                    <div key={label} style={{display:"flex",justifyContent:"space-between",fontSize:".78rem"}}>
+                      <span style={{color:"rgba(240,235,210,.4)"}}>{label}</span>
+                      <span style={{color:"var(--text)"}}>{val}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <button className="bgold" onClick={downloadPoster} disabled={loading}
+                style={{padding:"14px 0",fontSize:".85rem",letterSpacing:".06em"}}>
+                {loading ? "Создаётся…" : posterDone ? "✓ Сохранено!" : "⬇️ Скачать постер"}
+              </button>
+
+              <div style={{background:"rgba(0,63,37,.1)",border:"1px solid rgba(198,165,92,.12)",borderRadius:10,padding:"12px 14px",fontSize:".72rem",color:"rgba(240,235,210,.35)",lineHeight:1.6}}>
+                💡 Совет: загрузите постер в Instagram Stories или распечатайте как фото 15×20 см.
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       <Footer/>
     </div>
@@ -2847,7 +3179,8 @@ export default function App() {
       case "clans":     return <ClansPage setPage={setPage}/>;
       case "cities":    return <CitiesPage setPage={setPage}/>;
       case "community": return <CommunityPage data={page.data} setPage={setPage}/>;
-      case "my-tree":   return <MyTreePage userName={userName} initialData={page.data} setPage={setPage}/>;
+      case "my-tree":   return <MyTreePage userName={userName} profile={profile} initialData={page.data} setPage={setPage}/>;
+      case "export":    return <ExportPage userName={userName} profile={profile} setPage={setPage}/>;
       default:          return <PersonalPage userName={userName} profile={profile} setProfile={setProfile} setPage={setPage}/>;
     }
   };

@@ -41,7 +41,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--green);border-radius:3px}
 
 /* HEADER */
-.hdr{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(247,244,238,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);transition:background .3s,border-color .3s}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(10,16,12,.92);backdrop-filter:blur(18px);border-bottom:1px solid rgba(198,165,92,.12);gap:8px}
 .logo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--gold);cursor:pointer;letter-spacing:.02em;user-select:none}
 .logo-sub{font-size:.52rem;letter-spacing:.22em;color:rgba(198,165,92,.4);text-transform:uppercase;font-weight:300;margin-top:-3px}
 .nav{display:flex;gap:2px}
@@ -527,6 +527,24 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .match7-strength{display:flex;align-items:center;gap:8px;margin-top:6px}
 .match7-bar{flex:1;height:3px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
 .match7-fill{height:100%;background:linear-gradient(90deg,var(--gold2),var(--gold3));border-radius:2px}
+
+/* ══ LUNAR CALENDAR ══ */
+.lc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.lc-card{background:rgba(255,255,255,.03);border:1px solid rgba(198,165,92,.1);border-radius:14px;padding:18px;transition:all .22s;cursor:pointer;position:relative;overflow:hidden}
+.lc-card:hover{background:rgba(0,63,37,.15);border-color:rgba(198,165,92,.3);transform:translateY(-2px)}
+.lc-card.today{background:rgba(0,63,37,.25);border-color:var(--gold);box-shadow:0 0 0 2px rgba(198,165,92,.1)}
+.lc-month{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(198,165,92,.45);margin-bottom:6px}
+.lc-day{font-family:"Playfair Display",serif;font-size:2rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:4px}
+.lc-name{font-family:"Playfair Display",serif;font-size:.95rem;font-weight:600;color:var(--text);margin-bottom:6px}
+.lc-desc{font-size:.72rem;color:rgba(240,235,210,.45);line-height:1.55}
+.lc-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(198,165,92,.1);border:1px solid rgba(198,165,92,.2);border-radius:20px;padding:3px 8px;font-size:.6rem;color:rgba(198,165,92,.7);margin-top:8px}
+
+/* ══ SEARCH ANCESTOR ══ */
+.sa-result{background:rgba(255,255,255,.03);border:1px solid rgba(198,165,92,.1);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .18s}
+.sa-result:hover{background:rgba(0,63,37,.15);border-color:rgba(198,165,92,.28);transform:translateX(3px)}
+
+/* ══ INVITE ══ */
+.inv-card{background:linear-gradient(135deg,rgba(0,63,37,.25) 0%,rgba(198,165,92,.05) 100%);border:1px solid rgba(198,165,92,.2);border-radius:16px;padding:28px;text-align:center;position:relative;overflow:hidden}
 
 `;
 
@@ -1527,27 +1545,66 @@ function LandingPage({ onEnter }) {
    HEADER
 ═══════════════════════════════════════════════════════════ */
 function Header({ page, setPage }) {
-  const nav = [
-    {id:"personal", label:"Моя страница"},
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const mainNav = [
+    {id:"personal", label:"Главная"},
+    {id:"my-tree",  label:"Шежире"},
     {id:"list",     label:"Личности"},
     {id:"clans",    label:"Рода"},
-    {id:"cities",   label:"Города"},
-    {id:"my-tree",  label:"Шежире"},
   ];
-  return (
-    <header className="hdr">
-      <div onClick={() => setPage({id:"personal"})} style={{cursor:"pointer"}}>
-        <div className="logo">abyz</div>
-        <div className="logo-sub">digital heritage</div>
-      </div>
-      <nav className="nav">
-        {nav.map(n => (
-          <button key={n.id} className={`nbtn${page.id===n.id?" on":""}`}
-            onClick={() => setPage({id:n.id})}>{n.label}</button>
-        ))}
-      </nav>
+  const moreNav = [
+    {id:"cities",    label:"🏙 Города"},
+    {id:"calendar",  label:"🌙 Календарь"},
+    {id:"search-anc",label:"🔍 Поиск предка"},
+    {id:"invite",    label:"👨‍👩‍👧 Пригласить"},
+    {id:"export",    label:"📄 Экспорт"},
+  ];
 
-    </header>
+  const isMoreActive = moreNav.some(n => n.id === page.id);
+
+  return (
+    <>
+      <header className="hdr">
+        {/* Logo */}
+        <div onClick={() => { setPage({id:"personal"}); setMenuOpen(false); }} style={{cursor:"pointer",flexShrink:0}}>
+          <div className="logo">abyz</div>
+          <div className="logo-sub">digital heritage</div>
+        </div>
+
+        {/* Main nav */}
+        <nav className="nav" style={{flex:1,justifyContent:"center"}}>
+          {mainNav.map(n => (
+            <button key={n.id} className={`nbtn${page.id===n.id?" on":""}`}
+              onClick={() => { setPage({id:n.id}); setMenuOpen(false); }}>{n.label}</button>
+          ))}
+        </nav>
+
+        {/* More button */}
+        <button
+          className={`nbtn${isMoreActive||menuOpen?" on":""}`}
+          onClick={() => setMenuOpen(o => !o)}
+          style={{flexShrink:0,display:"flex",alignItems:"center",gap:5}}>
+          {menuOpen ? "✕" : "☰"} Ещё
+        </button>
+      </header>
+
+      {/* Dropdown menu */}
+      {menuOpen && (
+        <div style={{position:"fixed",top:54,right:0,zIndex:299,background:"rgba(10,16,12,.97)",border:"1px solid rgba(198,165,92,.15)",borderTop:"none",borderRadius:"0 0 14px 14px",padding:"8px 8px 12px",minWidth:220,backdropFilter:"blur(18px)",boxShadow:"0 8px 32px rgba(0,0,0,.4)"}}>
+          {moreNav.map(n => (
+            <button key={n.id}
+              onClick={() => { setPage({id:n.id}); setMenuOpen(false); }}
+              style={{width:"100%",background:page.id===n.id?"rgba(0,63,37,.3)":"none",border:"none",borderRadius:9,padding:"10px 14px",fontFamily:"inherit",fontSize:".82rem",color:page.id===n.id?"var(--gold)":"rgba(240,235,210,.6)",cursor:"pointer",textAlign:"left",transition:"all .15s",display:"block",letterSpacing:".02em"}}
+              onMouseEnter={e=>{e.currentTarget.style.background="rgba(198,165,92,.08)";e.currentTarget.style.color="var(--gold)"}}
+              onMouseLeave={e=>{e.currentTarget.style.background=page.id===n.id?"rgba(0,63,37,.3)":"none";e.currentTarget.style.color=page.id===n.id?"var(--gold)":"rgba(240,235,210,.6)"}}>
+              {n.label}
+            </button>
+          ))}
+        </div>
+      )}
+      {menuOpen && <div style={{position:"fixed",inset:0,zIndex:298}} onClick={() => setMenuOpen(false)}/>}
+    </>
   );
 }
 
@@ -2546,192 +2603,451 @@ function PersonPage({ person, setPage }) {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   INTERACTIVE TREE
+   FULL FAMILY TREE — паутинное дерево с drag/zoom
 ═══════════════════════════════════════════════════════════ */
 
-// Layout: generations from bottom (you) to top (ancestor)
-// Horizontal: each generation can have siblings in future, for now linear
-function computeLayout(count, nodeW, nodeH, hGap, vGap, canvasW) {
-  const positions = [];
-  const cx = canvasW / 2 - nodeW / 2;
-  for (let i = 0; i < count; i++) {
-    // slight horizontal offset for visual interest
-    const offset = i % 2 === 0 ? 0 : 16;
-    positions.push({
-      x: cx + offset,
-      y: (count - 1 - i) * (nodeH + vGap) + 20,
-    });
+/* ═══════════════════════════════════════════════════════════
+   DYNAMIC FAMILY TREE — узлы разветвляются влево/вправо
+   Каждый узел может иметь 2 родителей и N детей
+   Drag/zoom, add/edit/delete любого члена
+═══════════════════════════════════════════════════════════ */
+
+const NW = 170, NH = 68, HGAP = 40, VGAP = 80;
+
+// Вычислить x-координату поддерева (рекурсивно)
+function calcLayout(id, nodes, positions, colMap, x, y) {
+  const node = nodes[id];
+  if (!node) return x;
+  const children = Object.values(nodes).filter(n => n.parentId === id);
+  if (children.length === 0) {
+    positions[id] = { x, y };
+    return x + NW + HGAP;
   }
-  return positions;
+  const startX = x;
+  let cx = x;
+  for (const child of children) {
+    cx = calcLayout(child.id, nodes, positions, colMap, cx, y + NH + VGAP);
+  }
+  // center this node over its children
+  const firstChild = positions[children[0].id];
+  const lastChild  = positions[children[children.length-1].id];
+  const centerX = firstChild && lastChild ? (firstChild.x + lastChild.x) / 2 : x;
+  positions[id] = { x: centerX, y };
+  return cx;
 }
 
-function InteractiveTree({ rootName, ancestorName }) {
-  const NODE_W = 200, NODE_H = 76, V_GAP = 36;
-  const COUNT = 7;
-  const CANVAS_W = 560;
-  const CANVAS_H = COUNT * (NODE_H + V_GAP) + 60;
+function useTreeLayout(nodes, rootId) {
+  return useMemo(() => {
+    const positions = {};
+    calcLayout(rootId, nodes, positions, {}, 0, 0);
+    return positions;
+  }, [nodes, rootId]);
+}
 
-  const initNames = Array(COUNT).fill("").map((_, i) =>
-    i === 0 ? (rootName || "") : (i === COUNT - 1 && ancestorName ? ancestorName : "")
-  );
-  const [names, setNames] = useState(initNames);
-  const [editing, setEditing] = useState(null);
-  const [editVal, setEditVal] = useState("");
-  const [zoom, setZoom] = useState(1);
-  const inputRef = useRef(null);
+const COLORS = {
+  root:     { bg:"linear-gradient(135deg,rgba(0,63,37,.75),rgba(0,48,26,.55))", border:"rgba(198,165,92,.8)", text:"var(--gold)" },
+  parent:   { bg:"rgba(255,255,255,.05)",  border:"rgba(198,165,92,.35)", text:"var(--text)" },
+  spouse:   { bg:"rgba(80,30,80,.35)",     border:"rgba(180,80,180,.5)", text:"#d4a0d4" },
+  child:    { bg:"rgba(0,55,25,.3)",       border:"rgba(0,180,80,.3)",   text:"#7ec87e" },
+  sibling:  { bg:"rgba(20,40,80,.4)",      border:"rgba(80,140,220,.35)",text:"#8ab4e8" },
+  default:  { bg:"rgba(255,255,255,.04)",  border:"rgba(198,165,92,.2)", text:"var(--text)" },
+};
 
-  const positions = useMemo(() => computeLayout(COUNT, NODE_W, NODE_H, V_GAP, 0, CANVAS_W), []);
-
-  const startEdit = useCallback((i) => {
-    if (i === 0 && rootName) return; // root fixed
-    setEditing(i);
-    setEditVal(names[i]);
-    setTimeout(() => inputRef.current?.focus(), 50);
-  }, [names, rootName]);
-
-  const commitEdit = useCallback(() => {
-    if (editing !== null) {
-      setNames(prev => { const n = [...prev]; n[editing] = editVal; return n; });
-      setEditing(null);
-    }
-  }, [editing, editVal]);
-
-  const updateName = useCallback((i, v) => {
-    setNames(prev => { const n = [...prev]; n[i] = v; return n; });
-  }, []);
-
-  // Build connector paths between consecutive nodes
-  const connectors = useMemo(() => {
-    const paths = [];
-    for (let i = 0; i < COUNT - 1; i++) {
-      const from = positions[i];
-      const to = positions[i + 1];
-      const x1 = from.x + NODE_W / 2;
-      const y1 = from.y;
-      const x2 = to.x + NODE_W / 2;
-      const y2 = to.y + NODE_H;
-      // Bezier for slight curve
-      const cy = (y1 + y2) / 2;
-      paths.push({ d: `M${x1},${y1} C${x1},${cy} ${x2},${cy} ${x2},${y2}`, i });
-    }
-    return paths;
-  }, [positions]);
-
-  const progress = names.filter(n => n.trim()).length;
+function TNode({ node, pos, selected, onSelect, onDblClick, onAddChild, onAddParent }) {
+  const c = COLORS[node.type] || COLORS.default;
+  const isRoot = node.type === "root";
+  const sel = selected === node.id;
 
   return (
-    <div>
-      {/* PROGRESS */}
-      <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:16,flexWrap:"wrap"}}>
+    <g transform={`translate(${pos.x},${pos.y})`} style={{cursor:"pointer"}}>
+      {/* Shadow */}
+      <rect x={3} y={4} width={NW} height={NH} rx={12} fill="rgba(0,0,0,.25)"/>
+      {/* Card */}
+      <rect x={0} y={0} width={NW} height={NH} rx={12}
+        fill={isRoot ? "url(#rootGrad)" : c.bg.startsWith("linear") ? c.bg : c.bg}
+        stroke={sel ? "#C6A55C" : c.border}
+        strokeWidth={sel ? 2.5 : 1.5}
+        style={{transition:"all .15s"}}
+      />
+      {isRoot && <rect x={0} y={0} width={NW} height={3} rx={2} fill="rgba(198,165,92,.8)"/>}
+      {sel && <rect x={-2} y={-2} width={NW+4} height={NH+4} rx={14} fill="none" stroke="rgba(198,165,92,.3)" strokeWidth={1} strokeDasharray="4,3"/>}
+
+      {/* Role label */}
+      <text x={NW/2} y={20} textAnchor="middle" fontSize={9} letterSpacing={1.2}
+        fill="rgba(198,165,92,.55)" fontFamily="Inter,sans-serif" textTransform="uppercase">
+        {(node.role||"").toUpperCase().slice(0,22)}
+      </text>
+      {/* Name */}
+      <text x={NW/2} y={40} textAnchor="middle" fontSize={13} fontWeight={node.name?600:400}
+        fill={node.name ? c.text : "rgba(240,235,210,.25)"}
+        fontFamily="'Playfair Display',serif"
+        fontStyle={node.name?"normal":"italic"}>
+        {(node.name || "+ добавить").slice(0,18)}
+      </text>
+      {/* Years */}
+      {node.years && (
+        <text x={NW/2} y={56} textAnchor="middle" fontSize={9} fill="rgba(240,235,210,.35)" fontFamily="Inter,sans-serif">
+          {node.years}
+        </text>
+      )}
+
+      {/* Click targets */}
+      <rect x={0} y={0} width={NW} height={NH} rx={12} fill="transparent"
+        onClick={() => onSelect(node.id)}
+        onDoubleClick={() => onDblClick(node.id)}
+      />
+
+      {/* Add child button (below) */}
+      <g transform={`translate(${NW/2-10},${NH+8})`}
+        onClick={e=>{e.stopPropagation();onAddChild(node.id);}}
+        style={{cursor:"pointer",opacity:.5}}
+        onMouseEnter={e=>e.currentTarget.style.opacity=1}
+        onMouseLeave={e=>e.currentTarget.style.opacity=.5}>
+        <circle cx={10} cy={10} r={10} fill="rgba(0,63,37,.5)" stroke="rgba(198,165,92,.3)" strokeWidth={1}/>
+        <text x={10} y={15} textAnchor="middle" fontSize={14} fill="rgba(198,165,92,.8)" fontFamily="sans-serif">+</text>
+      </g>
+
+      {/* Add parent button (above) */}
+      {!isRoot && (
+        <g transform={`translate(${NW/2-10},-26)`}
+          onClick={e=>{e.stopPropagation();onAddParent(node.id);}}
+          style={{cursor:"pointer",opacity:.35}}
+          onMouseEnter={e=>e.currentTarget.style.opacity=.9}
+          onMouseLeave={e=>e.currentTarget.style.opacity=.35}>
+          <circle cx={10} cy={10} r={9} fill="rgba(198,165,92,.1)" stroke="rgba(198,165,92,.25)" strokeWidth={1} strokeDasharray="3,2"/>
+          <text x={10} y={15} textAnchor="middle" fontSize={12} fill="rgba(198,165,92,.6)" fontFamily="sans-serif">↑</text>
+        </g>
+      )}
+    </g>
+  );
+}
+
+function FullFamilyTree({ userName, profile }) {
+  const ROOT = "root";
+  const [nodes, setNodes] = useState({
+    root: { id:"root", name:userName||"", role:"Сіз / Вы", type:"root", parentId:null, years:"" },
+  });
+  const [nextId, setNextId] = useState(1);
+  const [selected, setSelected] = useState(null);
+  const [editId,   setEditId]   = useState(null);
+  const [editName, setEditName] = useState("");
+  const [editRole, setEditRole] = useState("");
+  const [editYears,setEditYears]= useState("");
+  const [editType, setEditType] = useState("default");
+  const editRef = useRef(null);
+
+  // Pan / zoom
+  const [pan,  setPan]  = useState({x:60,y:40});
+  const [zoom, setZoom] = useState(0.9);
+  const dragging = useRef(false);
+  const lastMouse= useRef({x:0,y:0});
+  const svgRef   = useRef(null);
+  const wrapRef  = useRef(null);
+
+  // Update root name when userName prop changes
+  useEffect(() => {
+    setNodes(prev => ({...prev, root:{...prev.root, name:userName||prev.root.name}}));
+  }, [userName]);
+
+  // Also pre-populate ancestors from profile
+  useEffect(() => {
+    const ancs = profile?.ancestors || [];
+    const ROLES = ["Отец (Әке)","Дед (Ата)","Прадед","Пра-прадед","Пра-пра-прадед","Пра-пра-пра-прадед","7-й предок"];
+    setNodes(prev => {
+      const next = {...prev};
+      let pid = "root";
+      for (let i=0; i<ancs.length; i++) {
+        if (!ancs[i]) break;
+        const aid = `anc_${i}`;
+        if (!next[aid]) {
+          next[aid] = { id:aid, name:ancs[i], role:ROLES[i]||`Ата ${i+1}`, type:"parent", parentId:null, years:"" };
+        }
+        // chain: each is parent of prev
+        if (i===0) { next[aid].parentId = null; next["root"] = {...next["root"], parentId:aid}; }
+        else { const prevId=`anc_${i-1}`; if(next[prevId]) next[prevId].parentId=aid; }
+      }
+      return next;
+    });
+  }, []);
+
+  const positions = useTreeLayout(nodes, ROOT);
+
+  // Canvas size
+  const allPos = Object.values(positions);
+  const minX = allPos.length ? Math.min(...allPos.map(p=>p.x)) - 40 : 0;
+  const maxX = allPos.length ? Math.max(...allPos.map(p=>p.x)) + NW + 60 : 500;
+  const minY = allPos.length ? Math.min(...allPos.map(p=>p.y)) - 60 : 0;
+  const maxY = allPos.length ? Math.max(...allPos.map(p=>p.y)) + NH + 80 : 400;
+  const SVG_W = Math.max(600, maxX - minX);
+  const SVG_H = Math.max(400, maxY - minY);
+  const OX = -minX; // offset
+  const OY = -minY;
+
+  // Pan events
+  const onMD = e => { if(e.button!==0) return; dragging.current=true; lastMouse.current={x:e.clientX,y:e.clientY}; };
+  const onMM = e => { if(!dragging.current) return; setPan(p=>({x:p.x+(e.clientX-lastMouse.current.x),y:p.y+(e.clientY-lastMouse.current.y)})); lastMouse.current={x:e.clientX,y:e.clientY}; };
+  const onMU = () => { dragging.current=false; };
+  const onWheel = e => { e.preventDefault(); const d=e.deltaY>0?-0.08:0.08; setZoom(z=>Math.max(.3,Math.min(2,z+d))); };
+
+  const genId = () => { const id=`n${nextId}`; setNextId(n=>n+1); return id; };
+
+  const addChild = (parentId) => {
+    const id = genId();
+    const parentNode = nodes[parentId];
+    const childType = parentNode?.type==="root"?"child":parentNode?.type==="child"?"child":"child";
+    setNodes(prev => ({...prev, [id]:{id, name:"", role:"Ұрпақ / Потомок", type:childType, parentId, years:""}}));
+    setEditId(id); setEditName(""); setEditRole("Ұрпақ / Потомок"); setEditYears(""); setEditType(childType);
+    setTimeout(()=>editRef.current?.focus(), 60);
+  };
+
+  const addParent = (childId) => {
+    const id = genId();
+    setNodes(prev => {
+      const child = prev[childId];
+      const newNode = {id, name:"", role:"Ата / Предок", type:"parent", parentId:child.parentId, years:""};
+      return {...prev, [id]:newNode, [childId]:{...child, parentId:id}};
+    });
+    setEditId(id); setEditName(""); setEditRole("Ата / Предок"); setEditYears(""); setEditType("parent");
+    setTimeout(()=>editRef.current?.focus(), 60);
+  };
+
+  const addSibling = (sibId) => {
+    const id = genId();
+    const sib = nodes[sibId];
+    setNodes(prev => ({...prev, [id]:{id, name:"", role:"Аға / Бауырым", type:"sibling", parentId:sib.parentId, years:""}}));
+    setEditId(id); setEditName(""); setEditRole("Аға / Бауырым"); setEditYears(""); setEditType("sibling");
+    setTimeout(()=>editRef.current?.focus(), 60);
+  };
+
+  const addSpouse = () => {
+    const id = genId();
+    setNodes(prev => ({...prev, [id]:{id, name:"", role:"Жар / Супруг(а)", type:"spouse", parentId:null, years:""}}));
+    setEditId(id); setEditName(""); setEditRole("Жар / Супруг(а)"); setEditYears(""); setEditType("spouse");
+    setTimeout(()=>editRef.current?.focus(), 60);
+  };
+
+  const deleteNode = (id) => {
+    if (id === ROOT) return;
+    setNodes(prev => {
+      const next = {...prev};
+      // re-parent children to deleted node's parent
+      const parentId = next[id]?.parentId;
+      Object.values(next).forEach(n => { if(n.parentId===id) n.parentId=parentId; });
+      delete next[id];
+      return next;
+    });
+    if (selected===id) setSelected(null);
+    if (editId===id) setEditId(null);
+  };
+
+  const openEdit = (id) => {
+    const n = nodes[id];
+    if (!n) return;
+    setEditId(id); setEditName(n.name); setEditRole(n.role); setEditYears(n.years||""); setEditType(n.type);
+    setSelected(id);
+    setTimeout(()=>editRef.current?.focus(), 40);
+  };
+
+  const saveEdit = () => {
+    if (!editId) return;
+    setNodes(prev=>({...prev,[editId]:{...prev[editId],name:editName.trim(),role:editRole.trim(),years:editYears.trim(),type:editType}}));
+    setEditId(null);
+  };
+
+  const progress = Object.values(nodes).filter(n=>n.name).length;
+  const total    = Object.keys(nodes).length;
+
+  const TYPE_OPTIONS = [
+    {v:"root",    l:"Вы"},
+    {v:"parent",  l:"Предок / Ата"},
+    {v:"child",   l:"Ребёнок / Ұрпақ"},
+    {v:"sibling", l:"Брат / Сестра"},
+    {v:"spouse",  l:"Супруг(а) / Жар"},
+    {v:"default", l:"Другой"},
+  ];
+
+  return (
+    <div style={{display:"flex",flexDirection:"column",gap:0}}>
+
+      {/* Top toolbar */}
+      <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:12,flexWrap:"wrap"}}>
+        {/* Progress */}
         <div style={{flex:1,minWidth:180}}>
-          <div style={{fontSize:".65rem",letterSpacing:".12em",textTransform:"uppercase",color:"var(--gold2)",opacity:.65,marginBottom:6}}>
-            Заполнено {progress} из {COUNT} поколений
+          <div style={{display:"flex",justifyContent:"space-between",marginBottom:4}}>
+            <span style={{fontSize:".6rem",letterSpacing:".12em",textTransform:"uppercase",color:"rgba(198,165,92,.5)"}}>Заполнено</span>
+            <span style={{fontSize:".7rem",color:"var(--gold)",fontFamily:"'Playfair Display',serif"}}>{progress}/{total}</span>
           </div>
-          <div style={{height:4,background:"rgba(255,255,255,.06)",borderRadius:4,overflow:"hidden"}}>
-            <div style={{height:"100%",width:`${(progress/COUNT)*100}%`,background:"var(--gold)",borderRadius:4,transition:"width .4s ease"}}/>
+          <div style={{height:4,background:"rgba(255,255,255,.06)",borderRadius:3,overflow:"hidden"}}>
+            <div style={{height:"100%",width:`${total?progress/total*100:0}%`,background:"linear-gradient(90deg,var(--green),var(--gold))",borderRadius:3,transition:"width .4s"}}/>
           </div>
         </div>
-        <div className="zoom-ctrls">
-          <button className="zbtn" onClick={() => setZoom(z => Math.min(z + .15, 1.6))}>+</button>
-          <button className="zbtn" onClick={() => setZoom(z => Math.max(z - .15, 0.5))}>{Math.round(zoom*100)}%</button>
-          <button className="zbtn" onClick={() => setZoom(1)}>↺</button>
+
+        {/* Quick add buttons */}
+        <button className="boutline" style={{padding:"7px 14px",fontSize:".75rem",gap:5,display:"flex",alignItems:"center"}}
+          onClick={()=>selected?addChild(selected):addChild(ROOT)}>
+          ＋ Ребёнок
+        </button>
+        <button className="boutline" style={{padding:"7px 14px",fontSize:".75rem"}}
+          onClick={()=>selected?addParent(selected):addParent(ROOT)}>
+          ↑ Предок
+        </button>
+        <button className="boutline" style={{padding:"7px 14px",fontSize:".75rem"}} onClick={addSpouse}>
+          ♥ Супруг(а)
+        </button>
+        {selected && selected!==ROOT && (
+          <button style={{padding:"7px 14px",fontSize:".75rem",background:"rgba(200,60,60,.1)",border:"1px solid rgba(200,60,60,.25)",borderRadius:"var(--r)",color:"rgba(240,180,180,.7)",cursor:"pointer",fontFamily:"inherit"}}
+            onClick={()=>deleteNode(selected)}>
+            🗑
+          </button>
+        )}
+
+        {/* Zoom */}
+        <div style={{display:"flex",gap:4}}>
+          <button className="zbtn" onClick={()=>setZoom(z=>Math.min(2,z+.12))}>+</button>
+          <button className="zbtn" onClick={()=>setZoom(z=>Math.max(.3,z-.12))}>{Math.round(zoom*100)}%</button>
+          <button className="zbtn" onClick={()=>{setZoom(.9);setPan({x:60,y:40});}}>↺</button>
         </div>
       </div>
 
-      {/* EDITOR PANEL */}
-      {editing !== null && (
-        <div className="tree-editor">
-          <div style={{flex:0}}>
-            <div className="te-gen">{GENS[editing]}</div>
-            <div className="te-name">Поколение {editing + 1}</div>
+      {/* Edit panel */}
+      {editId && (
+        <div style={{background:"rgba(0,63,37,.18)",border:"1px solid rgba(198,165,92,.25)",borderRadius:12,padding:"14px 18px",marginBottom:12,display:"flex",alignItems:"center",gap:10,flexWrap:"wrap"}}>
+          <div style={{display:"flex",flexDirection:"column",gap:6,flex:1,minWidth:280}}>
+            <div style={{display:"flex",gap:8}}>
+              <input ref={editRef} value={editName} onChange={e=>setEditName(e.target.value)}
+                onKeyDown={e=>{if(e.key==="Enter")saveEdit();if(e.key==="Escape")setEditId(null);}}
+                placeholder="Имя…"
+                style={{flex:1,background:"rgba(255,255,255,.92)",border:"1.5px solid rgba(198,165,92,.35)",borderRadius:8,padding:"8px 12px",fontFamily:"'Playfair Display',serif",fontSize:".9rem",color:"#111",WebkitTextFillColor:"#111",caretColor:"#333",outline:"none"}}
+              />
+              <input value={editYears} onChange={e=>setEditYears(e.target.value)}
+                placeholder="Годы (1940–2005)"
+                style={{width:150,background:"rgba(255,255,255,.06)",border:"1px solid rgba(198,165,92,.18)",borderRadius:8,padding:"8px 10px",fontFamily:"Inter,sans-serif",fontSize:".8rem",color:"var(--text)",outline:"none"}}
+              />
+            </div>
+            <div style={{display:"flex",gap:8}}>
+              <input value={editRole} onChange={e=>setEditRole(e.target.value)}
+                placeholder="Роль (Отец, Мать…)"
+                style={{flex:1,background:"rgba(255,255,255,.05)",border:"1px solid rgba(198,165,92,.15)",borderRadius:8,padding:"7px 10px",fontFamily:"Inter,sans-serif",fontSize:".78rem",color:"var(--text)",outline:"none"}}
+              />
+              <select value={editType} onChange={e=>setEditType(e.target.value)}
+                style={{background:"rgba(255,255,255,.06)",border:"1px solid rgba(198,165,92,.18)",borderRadius:8,padding:"7px 10px",fontFamily:"Inter,sans-serif",fontSize:".78rem",color:"var(--text)",outline:"none",cursor:"pointer"}}>
+                {TYPE_OPTIONS.map(o=><option key={o.v} value={o.v}>{o.l}</option>)}
+              </select>
+            </div>
           </div>
-          <input
-            ref={inputRef}
-            className="te-inp"
-            value={editVal}
-            onChange={e => setEditVal(e.target.value)}
-            onKeyDown={e => { if (e.key === "Enter") commitEdit(); if (e.key === "Escape") setEditing(null); }}
-            placeholder="Введите имя предка…"
-          />
-          <div style={{display:"flex",gap:8,flexShrink:0}}>
-            <button className="boutline" style={{padding:"8px 16px"}} onClick={commitEdit}>✓ Сохранить</button>
-            <button className="bghost" style={{padding:"8px 14px"}} onClick={() => setEditing(null)}>✕</button>
+          <div style={{display:"flex",gap:6,flexShrink:0}}>
+            <button className="bgold" style={{padding:"9px 18px"}} onClick={saveEdit}>✓</button>
+            <button className="bghost" style={{padding:"9px 12px"}} onClick={()=>setEditId(null)}>✕</button>
           </div>
         </div>
       )}
 
-      {/* CANVAS */}
-      <div className="tree-canvas-wrap">
-        <div className="tree-canvas" style={{width:CANVAS_W, height:CANVAS_H, transform:`scale(${zoom})`, transformOrigin:"top center", marginBottom: zoom < 1 ? `-${(1-zoom)*CANVAS_H}px` : 0}}>
+      {/* SVG canvas */}
+      <div ref={wrapRef}
+        style={{width:"100%",height:520,overflowX:"auto",overflowY:"auto",borderRadius:16,border:"1px solid rgba(198,165,92,.12)",background:"rgba(0,15,8,.5)",cursor:dragging.current?"grabbing":"grab",position:"relative",userSelect:"none"}}
+        onMouseDown={onMD} onMouseMove={onMM} onMouseUp={onMU} onMouseLeave={onMU}
+        onWheel={onWheel}>
 
-          {/* SVG CONNECTORS */}
-          <svg className="tree-svg" width={CANVAS_W} height={CANVAS_H}>
-            <defs>
-              <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#C6A55C" stopOpacity=".5"/>
-                <stop offset="100%" stopColor="#C6A55C" stopOpacity=".12"/>
-              </linearGradient>
-            </defs>
-            {connectors.map(c => (
-              <path key={c.i} d={c.d} fill="none" stroke="url(#lineGrad)" strokeWidth="1.5" strokeDasharray={names[c.i] && names[c.i+1] ? "none" : "5,4"}/>
-            ))}
-            {/* dots at joints */}
-            {positions.map((p, i) => (
-              <circle key={i} cx={p.x + NODE_W/2} cy={p.y + NODE_H - 1} r="3"
-                fill={names[i] ? "var(--gold)" : "rgba(198,165,92,.2)"}
-                style={{transition:"fill .3s"}}/>
-            ))}
-          </svg>
+        <svg width={SVG_W} height={SVG_H}
+          style={{display:"block",transform:`translate(${pan.x}px,${pan.y}px) scale(${zoom})`,transformOrigin:"0 0",minWidth:SVG_W}}>
+          <defs>
+            <linearGradient id="rootGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="rgba(0,80,40,.8)"/>
+              <stop offset="100%" stopColor="rgba(0,50,20,.6)"/>
+            </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="2" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+              <path d="M0,0 L6,3 L0,6 Z" fill="rgba(198,165,92,.3)"/>
+            </marker>
+          </defs>
 
-          {/* NODES */}
-          {positions.map((pos, i) => {
-            const isRoot  = i === 0;
-            const isAnc   = i === COUNT - 1 && ancestorName;
-            const filled  = !!names[i];
-            const isEdit  = editing === i;
+          {/* Edges: draw from each node to its parent */}
+          {Object.values(nodes).map(n => {
+            if (!n.parentId || !positions[n.id] || !positions[n.parentId]) return null;
+            const from = positions[n.id];
+            const to   = positions[n.parentId];
+            const x1 = from.x + OX + NW/2;
+            const y1 = from.y + OY;           // top of child
+            const x2 = to.x   + OX + NW/2;
+            const y2 = to.y   + OY + NH;      // bottom of parent
+            const my = (y1+y2)/2;
+            const c  = COLORS[n.type]||COLORS.default;
+            const strokeColor = n.type==="child" ? "rgba(0,180,80,.3)"
+              : n.type==="sibling" ? "rgba(80,140,220,.3)"
+              : "rgba(198,165,92,.3)";
             return (
-              <div
-                key={i}
-                className={`tn${isRoot?" root":""}${isEdit?" editing":""}`}
-                style={{
-                  left: pos.x,
-                  top:  pos.y,
-                  width: NODE_W,
-                  opacity: 1,
-                  animation: `fup .3s ${i * 0.04}s ease both`,
-                }}
-                onClick={() => !isEdit && startEdit(i)}
-              >
-                <div className="tn-inner" style={{minHeight:NODE_H}}>
-                  <div className="tn-gen">{GENS[i] || `Поколение ${i+1}`}</div>
-                  {isEdit
-                    ? <div className="tn-name">✏️ редактирование…</div>
-                    : <div className={`tn-name${filled?"":" empty"}`}>
-                        {filled ? names[i] : (isRoot ? "Вы" : "— не указано —")}
-                      </div>
-                  }
-                  <div className="tn-num">{String(i+1).padStart(2,"0")} / {COUNT}</div>
-                  {!isRoot && !isEdit && (
-                    <button className="tn-edit-btn" onClick={e => { e.stopPropagation(); startEdit(i); }}>✏</button>
-                  )}
-                </div>
-              </div>
+              <path key={n.id+"-edge"}
+                d={`M${x1},${y1} C${x1},${my} ${x2},${my} ${x2},${y2}`}
+                fill="none" stroke={strokeColor} strokeWidth={1.8}
+                strokeDasharray={n.type==="spouse"?"6,4":"none"}
+                opacity={.8}
+              />
             );
           })}
+
+          {/* Spouse connection (horizontal dashed) */}
+          {Object.values(nodes).filter(n=>n.type==="spouse").map(sp => {
+            const rootPos = positions[ROOT];
+            const spPos   = positions[sp.id];
+            if (!rootPos||!spPos) return null;
+            const y_ = rootPos.y + OY + NH/2;
+            return (
+              <line key={sp.id+"-sp"}
+                x1={rootPos.x+OX+NW} y1={y_}
+                x2={spPos.x+OX}      y2={y_}
+                stroke="rgba(180,80,180,.4)" strokeWidth={1.5} strokeDasharray="6,3"
+              />
+            );
+          })}
+
+          {/* Nodes */}
+          {Object.values(nodes).map(n => {
+            const pos = positions[n.id];
+            if (!pos) return null;
+            return (
+              <TNode key={n.id}
+                node={n}
+                pos={{x: pos.x+OX, y: pos.y+OY}}
+                selected={selected}
+                onSelect={id=>{setSelected(id===selected?null:id); setEditId(null);}}
+                onDblClick={openEdit}
+                onAddChild={addChild}
+                onAddParent={addParent}
+              />
+            );
+          })}
+        </svg>
+
+        {/* Hints */}
+        <div style={{position:"absolute",bottom:10,left:"50%",transform:"translateX(-50%)",fontSize:".62rem",color:"rgba(240,235,210,.18)",letterSpacing:".06em",pointerEvents:"none",whiteSpace:"nowrap"}}>
+          Тяните • Колесо — зум • 2×клик — редактировать • + добавить потомка • ↑ добавить предка
         </div>
       </div>
 
-      {/* LEGEND */}
-      <div className="tree-legend" style={{marginTop:16}}>
-        <div className="leg-item"><div className="leg-dot" style={{background:"var(--gold)"}}/> Заполнено</div>
-        <div className="leg-item"><div className="leg-dot" style={{background:"rgba(198,165,92,.2)"}}/> Нажмите для редактирования</div>
-        <div className="leg-item"><div style={{width:20,height:2,borderTop:"1.5px dashed rgba(198,165,92,.3)"}}/> Неизвестная связь</div>
+      {/* Legend */}
+      <div style={{display:"flex",gap:14,flexWrap:"wrap",marginTop:10,padding:"0 2px"}}>
+        {[
+          {c:"rgba(198,165,92,.7)", l:"Вы / Предки"},
+          {c:"rgba(0,180,80,.4)",  l:"Дети / Ұрпақ"},
+          {c:"rgba(80,140,220,.4)",l:"Братья / Сёстры"},
+          {c:"rgba(180,80,180,.5)",l:"Супруг(а)"},
+        ].map(l=>(
+          <div key={l.l} style={{display:"flex",alignItems:"center",gap:5,fontSize:".67rem",color:"rgba(240,235,210,.38)"}}>
+            <div style={{width:9,height:9,borderRadius:"50%",background:l.c,flexShrink:0}}/>
+            {l.l}
+          </div>
+        ))}
+        <div style={{marginLeft:"auto",fontSize:".66rem",color:"rgba(240,235,210,.2)"}}>
+          Выберите узел → кнопки появятся сверху
+        </div>
       </div>
     </div>
   );
 }
 
-/* ── MY TREE PAGE wrapper ── */
 function MyTreePage({ userName, profile, initialData, setPage }) {
   const [showExport, setShowExport] = useState(false);
   const tribe = TRIBES.find(t => t.id === profile?.tribeId);
@@ -2763,7 +3079,7 @@ function MyTreePage({ userName, profile, initialData, setPage }) {
 
           {showExport && <ExportPanel userName={userName} profile={profile}/>}
 
-          <InteractiveTree rootName={userName} ancestorName={ancestorName}/>
+          <FullFamilyTree userName={userName} profile={profile}/>
         </div>
       </div>
       <Footer/>
@@ -2818,13 +3134,12 @@ function ExportPanel({ userName, profile }) {
     <div ref={refProp} style={{
       background: isPoster ? "linear-gradient(160deg,#0a1a0f,#071209,#0e1a0a)" : "#0e1210",
       border:"1px solid rgba(198,165,92,.18)", borderRadius:12,
-      padding: isPoster ? "28px 24px" : "28px 24px",
+      padding:"28px 24px",
       fontFamily:"'Playfair Display',serif", color:"#f0ebd2",
       position:"relative", overflow:"hidden",
       ...(isPoster ? {aspectRatio:"4/5", display:"flex", flexDirection:"column", justifyContent:"space-between"} : {})
     }}>
       <div style={{position:"absolute",top:0,left:0,right:0,height:2,background:"linear-gradient(90deg,transparent,#C6A55C,transparent)"}}/>
-      {isPoster && <div style={{position:"absolute",top:-30,right:-30,width:120,height:120,borderRadius:"50%",border:"1px solid rgba(198,165,92,.07)"}}/>}
       <div style={{textAlign: isPoster?"left":"center", marginBottom:20, paddingBottom:16, borderBottom:"1px solid rgba(198,165,92,.1)"}}>
         <div style={{fontSize:".45rem",letterSpacing:".25em",textTransform:"uppercase",color:"rgba(198,165,92,.4)",marginBottom:6}}>
           {isPoster ? "ШЕЖІРЕ · РОДОСЛОВНОЕ ДЕРЕВО" : "Казахское родословное дерево"}
@@ -2903,7 +3218,6 @@ function ExportPanel({ userName, profile }) {
     </div>
   );
 }
-
 
 /* ═══════════════════════════════════════════════════════════
    EXPORT PAGE — PDF + Постер
@@ -3143,6 +3457,348 @@ function ExportPage({ userName, profile, setPage }) {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   LUNAR CALENDAR PAGE
+═══════════════════════════════════════════════════════════ */
+const KAZAKH_CALENDAR = [
+  { month:"Қаңтар", day:1,  name:"Жаңа жыл",           icon:"🎆", desc:"Григорианский Новый год. Начало года по западному календарю.", type:"праздник" },
+  { month:"Наурыз", day:21, name:"Наурыз мейрамы",      icon:"🌸", desc:"Главный казахский праздник. День весеннего равноденствия, начало нового года по восточному календарю. Варят наурыз-коже, поют, танцуют.", type:"главный" },
+  { month:"Мамыр",  day:1,  name:"Еңбек мейрамы",       icon:"⚒️",  desc:"День труда. Государственный праздник.", type:"праздник" },
+  { month:"Мамыр",  day:7,  name:"Отан Қорғаушы күні",  icon:"🛡️",  desc:"День защитника Отечества. Чествование военных и ветеранов.", type:"праздник" },
+  { month:"Мамыр",  day:9,  name:"Жеңіс күні",          icon:"🕊️",  desc:"День Победы. Память о павших во Второй мировой войне.", type:"памятная" },
+  { month:"Маусым", day:1,  name:"Балалар күні",         icon:"🧒",  desc:"Международный день детей. Праздник для всех детей Казахстана.", type:"праздник" },
+  { month:"Шілде",  day:6,  name:"Астана күні",          icon:"🏛️",  desc:"День столицы. Праздник в честь города Астаны.", type:"праздник" },
+  { month:"Тамыз",  day:30, name:"Конституция күні",     icon:"📜",  desc:"День Конституции. Принята 30 августа 1995 года.", type:"государственный" },
+  { month:"Қазан",  day:25, name:"Республика күні",      icon:"🇰🇿",  desc:"День Республики Казахстан. Отмечается с 1994 года.", type:"государственный" },
+  { month:"Желтоқсан", day:1, name:"Бірінші желтоқсан", icon:"✊",  desc:"День памяти событий Декабря 1986 года.", type:"памятная" },
+  { month:"Желтоқсан", day:16, name:"Тәуелсіздік күні", icon:"🦅",  desc:"День Независимости Казахстана. Провозглашена 16 декабря 1991 года.", type:"главный" },
+  { month:"Рамазан", day:null, name:"Ораза айт",         icon:"🌙",  desc:"Праздник окончания месяца Рамадан. Дата меняется каждый год по лунному календарю.", type:"религиозный" },
+  { month:"Зілхиджа", day:null, name:"Құрбан айт",       icon:"🐑",  desc:"Праздник жертвоприношения. Один из главных исламских праздников.", type:"религиозный" },
+  { month:"Шілде",  day:null, name:"Жаз шілде",          icon:"☀️",  desc:"Середина лета по народному календарю. Время кочевья на жайлау — летние пастбища.", type:"народный" },
+  { month:"Қараша", day:null, name:"Ұлыс күні",          icon:"🐎",  desc:"Начало зимы по народному казахскому календарю. Время возвращения с жайлау.", type:"народный" },
+];
+
+const TYPE_COLORS = {
+  "главный":       {bg:"rgba(198,165,92,.15)", border:"rgba(198,165,92,.35)", text:"var(--gold)"},
+  "праздник":      {bg:"rgba(0,63,37,.2)",     border:"rgba(198,165,92,.2)",  text:"rgba(240,235,210,.8)"},
+  "государственный":{bg:"rgba(0,48,26,.2)",   border:"rgba(198,165,92,.15)", text:"rgba(240,235,210,.7)"},
+  "памятная":      {bg:"rgba(255,255,255,.03)",border:"rgba(198,165,92,.1)",  text:"rgba(240,235,210,.6)"},
+  "религиозный":   {bg:"rgba(80,40,80,.15)",   border:"rgba(198,165,92,.15)", text:"rgba(240,235,210,.7)"},
+  "народный":      {bg:"rgba(26,60,26,.2)",    border:"rgba(198,165,92,.12)", text:"rgba(240,235,210,.6)"},
+};
+
+function LunarCalendarPage({ setPage }) {
+  const [filter, setFilter] = useState("all");
+  const now = new Date();
+  const MONTH_NUMS = { "Қаңтар":1,"Ақпан":2,"Наурыз":3,"Сәуір":4,"Мамыр":5,"Маусым":6,"Шілде":7,"Тамыз":8,"Қыркүйек":9,"Қазан":10,"Қараша":11,"Желтоқсан":12 };
+
+  const types = ["all","главный","праздник","государственный","религиозный","народный","памятная"];
+  const typeLabels = {"all":"Все","главный":"Главные","праздник":"Праздники","государственный":"Государственные","религиозный":"Религиозные","народный":"Народные","памятная":"Памятные"};
+
+  const filtered = filter === "all" ? KAZAKH_CALENDAR : KAZAKH_CALENDAR.filter(e => e.type === filter);
+
+  const isToday = (e) => {
+    const m = MONTH_NUMS[e.month];
+    return m === now.getMonth()+1 && e.day === now.getDate();
+  };
+  const isPast = (e) => {
+    const m = MONTH_NUMS[e.month];
+    if (!m || !e.day) return false;
+    return m < now.getMonth()+1 || (m === now.getMonth()+1 && e.day < now.getDate());
+  };
+  const daysUntil = (e) => {
+    const m = MONTH_NUMS[e.month];
+    if (!m || !e.day) return null;
+    const target = new Date(now.getFullYear(), m-1, e.day);
+    if (target < now) target.setFullYear(now.getFullYear()+1);
+    return Math.ceil((target - now) / 86400000);
+  };
+
+  return (
+    <div className="shell pe">
+      <div className="wrap">
+        <button className="back" onClick={() => setPage({id:"personal"})}>← Назад</button>
+
+        <div style={{marginBottom:28}}>
+          <div style={{fontSize:".6rem",letterSpacing:".22em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:6}}>Казахский календарь</div>
+          <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"2rem",fontWeight:700,letterSpacing:"-.02em",marginBottom:6}}>
+            🌙 Маңызды күндер
+          </h1>
+          <p style={{fontSize:".85rem",color:"rgba(240,235,210,.4)",lineHeight:1.6}}>Важные даты казахского народного, государственного и религиозного календаря</p>
+        </div>
+
+        {/* Filter */}
+        <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:24}}>
+          {types.map(t => (
+            <button key={t} onClick={() => setFilter(t)}
+              style={{background:filter===t?"rgba(0,63,37,.3)":"rgba(255,255,255,.03)",border:`1px solid ${filter===t?"var(--gold)":"rgba(198,165,92,.12)"}`,borderRadius:20,padding:"6px 14px",fontSize:".72rem",color:filter===t?"var(--gold)":"var(--muted)",cursor:"pointer",fontFamily:"inherit",transition:"all .18s"}}>
+              {typeLabels[t]}
+            </button>
+          ))}
+        </div>
+
+        <div className="lc-grid">
+          {filtered.map((e, i) => {
+            const colors = TYPE_COLORS[e.type] || TYPE_COLORS["праздник"];
+            const until = daysUntil(e);
+            const today = isToday(e);
+            const past = isPast(e);
+            return (
+              <div key={i} className={`lc-card${today?" today":""}`}
+                style={{background:today?"rgba(0,63,37,.35)":colors.bg, borderColor:today?"var(--gold)":colors.border, opacity:past?.7:1}}>
+                {today && <div style={{position:"absolute",top:0,left:0,right:0,height:2,background:"linear-gradient(90deg,transparent,var(--gold),transparent)"}}/>}
+                <div className="lc-month">{e.month}{e.day ? ` · ${e.day}` : " · дата меняется"}</div>
+                <div style={{fontSize:"1.8rem",marginBottom:6}}>{e.icon}</div>
+                <div className="lc-name">{e.name}</div>
+                <div className="lc-desc">{e.desc}</div>
+                <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginTop:10}}>
+                  <div className="lc-badge">{e.type}</div>
+                  {today && <span style={{fontSize:".62rem",color:"var(--gold)",fontWeight:600}}>● Сегодня!</span>}
+                  {!today && until !== null && until <= 30 && <span style={{fontSize:".62rem",color:"rgba(198,165,92,.6)"}}>через {until} дн.</span>}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <Footer/>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ANCESTOR SEARCH PAGE
+═══════════════════════════════════════════════════════════ */
+const ANCESTOR_DB = [
+  { id:1, name:"Касымбек", users:["Мустафа А.", "Нурлан С.", "Айгерим Д."], tribes:["Арғын","Арғын","Найман"], count:3 },
+  { id:2, name:"Бектемир", users:["Ерлан К.", "Дамир Ж."], tribes:["Қыпшақ","Қыпшақ"], count:2 },
+  { id:3, name:"Жанибек",  users:["Асель М.", "Руслан Б.", "Санжар О.", "Айдар Т."], tribes:["Дулат","Керей","Дулат","Дулат"], count:4 },
+  { id:4, name:"Сейткали", users:["Болат Н."], tribes:["Адай"], count:1 },
+  { id:5, name:"Темирбек", users:["Жансая К.", "Мадина С."], tribes:["Арғын","Жалайыр"], count:2 },
+  { id:6, name:"Шапырашты-ата", users:["Алмас Ш."], tribes:["Шапырашты"], count:1 },
+  { id:7, name:"Бейсенби", users:["Куат П.", "Ержан Д.", "Назым А."], tribes:["Найман","Найман","Керей"], count:3 },
+  { id:8, name:"Бакытжан", users:["Динара Р."], tribes:["Табын"], count:1 },
+];
+
+function AncestorSearchPage({ userName, profile, setPage }) {
+  const [q, setQ] = useState("");
+  const [selected, setSelected] = useState(null);
+  const tribe = TRIBES.find(t => t.id === profile?.tribeId);
+  const ancs  = profile?.ancestors || [];
+
+  const results = useMemo(() => {
+    if (!q.trim()) return [];
+    return ANCESTOR_DB.filter(r => r.name.toLowerCase().includes(q.toLowerCase()));
+  }, [q]);
+
+  // Check shared ancestors with user's own 7 ata
+  const myMatches = useMemo(() => {
+    return ANCESTOR_DB.filter(r => ancs.some(a => a && a.toLowerCase().includes(r.name.toLowerCase())));
+  }, [ancs]);
+
+  return (
+    <div className="shell pe">
+      <div className="wrap">
+        <button className="back" onClick={() => setPage({id:"personal"})}>← Назад</button>
+
+        <div style={{marginBottom:28}}>
+          <div style={{fontSize:".6rem",letterSpacing:".22em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:6}}>Поиск</div>
+          <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"2rem",fontWeight:700,letterSpacing:"-.02em",marginBottom:6}}>
+            🔍 Поиск по предкам
+          </h1>
+          <p style={{fontSize:".85rem",color:"rgba(240,235,210,.4)",lineHeight:1.6}}>Введите имя предка — найдём всех у кого он есть в 7 ата</p>
+        </div>
+
+        {/* Search */}
+        <div style={{position:"relative",marginBottom:24}}>
+          <span style={{position:"absolute",left:14,top:"50%",transform:"translateY(-50%)",color:"var(--gold)",opacity:.5,fontSize:"1rem",pointerEvents:"none"}}>⌕</span>
+          <input className="sinput" style={{width:"100%",maxWidth:"100%",paddingLeft:40,fontSize:".92rem"}}
+            placeholder="Например: Касымбек, Жанибек…"
+            value={q} onChange={e => { setQ(e.target.value); setSelected(null); }}
+            autoFocus
+          />
+        </div>
+
+        {/* My own ancestor matches */}
+        {!q && myMatches.length > 0 && (
+          <div style={{marginBottom:32}}>
+            <div style={{fontSize:".65rem",letterSpacing:".16em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:12}}>
+              🧬 Ваши предки совпадают с другими пользователями
+            </div>
+            <div style={{display:"flex",flexDirection:"column",gap:8}}>
+              {myMatches.map(r => (
+                <div key={r.id} className="sa-result" onClick={() => setSelected(r)}>
+                  <div style={{width:40,height:40,borderRadius:"50%",background:"rgba(0,63,37,.3)",border:"1px solid rgba(198,165,92,.25)",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Playfair Display',serif",fontSize:"1rem",color:"var(--gold)",flexShrink:0}}>{r.name[0]}</div>
+                  <div style={{flex:1}}>
+                    <div style={{fontFamily:"'Playfair Display',serif",fontSize:".92rem",fontWeight:600,color:"var(--gold)"}}>{r.name}</div>
+                    <div style={{fontSize:".7rem",color:"rgba(240,235,210,.45)",marginTop:2}}>Есть у {r.count} пользователей · {[...new Set(r.tribes)].join(", ")}</div>
+                  </div>
+                  <div style={{fontSize:".72rem",color:"rgba(198,165,92,.5)"}}>🧬 Совпадение</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Search results */}
+        {q && results.length > 0 && (
+          <div style={{display:"flex",flexDirection:"column",gap:8,marginBottom:24}}>
+            <div style={{fontSize:".65rem",letterSpacing:".16em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:4}}>Результаты поиска</div>
+            {results.map(r => (
+              <div key={r.id} className="sa-result" onClick={() => setSelected(r)}>
+                <div style={{width:40,height:40,borderRadius:"50%",background:"rgba(0,63,37,.2)",border:"1px solid rgba(198,165,92,.18)",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Playfair Display',serif",fontSize:"1rem",color:"var(--gold)",flexShrink:0}}>{r.name[0]}</div>
+                <div style={{flex:1}}>
+                  <div style={{fontFamily:"'Playfair Display',serif",fontSize:".92rem",fontWeight:600}}>{r.name}</div>
+                  <div style={{fontSize:".7rem",color:"rgba(240,235,210,.45)",marginTop:2}}>{r.count} пользователей · {[...new Set(r.tribes)].join(", ")}</div>
+                </div>
+                <span style={{fontSize:".75rem",color:"rgba(198,165,92,.4)"}}>›</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {q && results.length === 0 && (
+          <div style={{textAlign:"center",padding:"48px 24px",color:"rgba(240,235,210,.3)"}}>
+            <div style={{fontSize:"2rem",marginBottom:10,opacity:.3}}>🔍</div>
+            <div style={{fontSize:".9rem"}}>«{q}» не найден в базе</div>
+            <div style={{fontSize:".75rem",marginTop:6,color:"rgba(240,235,210,.2)"}}>База пополняется по мере регистрации новых пользователей</div>
+          </div>
+        )}
+
+        {/* Detail view */}
+        {selected && (
+          <div style={{background:"linear-gradient(135deg,rgba(0,63,37,.2),rgba(198,165,92,.05))",border:"1px solid rgba(198,165,92,.25)",borderRadius:16,padding:24,marginTop:8}}>
+            <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:20}}>
+              <div style={{width:54,height:54,borderRadius:"50%",background:"rgba(0,63,37,.35)",border:"2px solid rgba(198,165,92,.35)",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Playfair Display',serif",fontSize:"1.4rem",color:"var(--gold)",flexShrink:0}}>{selected.name[0]}</div>
+              <div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.2rem",fontWeight:700,color:"var(--gold)"}}>{selected.name}</div>
+                <div style={{fontSize:".72rem",color:"rgba(240,235,210,.45)",marginTop:2}}>Найден у {selected.count} пользователей</div>
+              </div>
+              <button style={{marginLeft:"auto",background:"none",border:"none",color:"rgba(240,235,210,.3)",cursor:"pointer",fontSize:"1.2rem"}} onClick={() => setSelected(null)}>✕</button>
+            </div>
+            <div style={{display:"flex",flexDirection:"column",gap:8}}>
+              {selected.users.map((u, i) => (
+                <div key={i} style={{display:"flex",alignItems:"center",gap:12,background:"rgba(255,255,255,.03)",borderRadius:10,padding:"10px 14px"}}>
+                  <div style={{width:32,height:32,borderRadius:"50%",background:"rgba(0,63,37,.25)",border:"1px solid rgba(198,165,92,.18)",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Playfair Display',serif",fontSize:".82rem",color:"var(--gold)",flexShrink:0}}>{u[0]}</div>
+                  <div style={{flex:1}}>
+                    <div style={{fontSize:".85rem",fontWeight:500}}>{u}</div>
+                    <div style={{fontSize:".68rem",color:"rgba(240,235,210,.4)",marginTop:1}}>{selected.tribes[i]}</div>
+                  </div>
+                  <button style={{background:"rgba(198,165,92,.1)",border:"1px solid rgba(198,165,92,.2)",borderRadius:7,padding:"5px 12px",color:"rgba(198,165,92,.7)",fontSize:".7rem",cursor:"pointer",fontFamily:"inherit"}}>
+                    Написать
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Empty state with hint */}
+        {!q && myMatches.length === 0 && (
+          <div style={{background:"rgba(255,255,255,.02)",border:"1.5px dashed rgba(198,165,92,.12)",borderRadius:16,padding:36,textAlign:"center"}}>
+            <div style={{fontSize:"2.5rem",marginBottom:12,opacity:.3}}>🔍</div>
+            <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1rem",color:"rgba(240,235,210,.45)",marginBottom:6}}>Введите имя предка для поиска</div>
+            <div style={{fontSize:".78rem",color:"rgba(240,235,210,.25)"}}>Заполните свои 7 Ата — и мы найдём совпадения автоматически</div>
+          </div>
+        )}
+      </div>
+      <Footer/>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
+   INVITE PAGE
+═══════════════════════════════════════════════════════════ */
+function InvitePage({ userName, profile, setPage }) {
+  const [copied, setCopied] = useState(false);
+  const tribe = TRIBES.find(t => t.id === profile?.tribeId);
+  const link = `https://abyz.kz/invite/${encodeURIComponent(userName||"user")}?ru=${profile?.tribeId||""}`;
+
+  const copyLink = () => {
+    navigator.clipboard?.writeText(link).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    });
+  };
+
+  const ROLES = [
+    { icon:"👴", label:"Дедушка", desc:"Попроси деда заполнить его 7 ата — это даст вам 14 поколений!" },
+    { icon:"👨", label:"Папа",    desc:"Папа знает имена предков лучше всего. Пусть добавит." },
+    { icon:"👩", label:"Мама",    desc:"Материнская линия — отдельная ветвь шежире." },
+    { icon:"👦", label:"Брат/Сестра", desc:"Вместе заполните общих предков быстрее." },
+  ];
+
+  return (
+    <div className="shell pe">
+      <div className="wrap">
+        <button className="back" onClick={() => setPage({id:"personal"})}>← Назад</button>
+
+        <div style={{marginBottom:32}}>
+          <div style={{fontSize:".6rem",letterSpacing:".22em",textTransform:"uppercase",color:"rgba(198,165,92,.5)",marginBottom:6}}>Приглашение</div>
+          <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"2rem",fontWeight:700,letterSpacing:"-.02em",marginBottom:6}}>
+            👨‍👩‍👧 Пригласить родственников
+          </h1>
+          <p style={{fontSize:".85rem",color:"rgba(240,235,210,.4)",lineHeight:1.6}}>
+            Отправь ссылку — папа, дедушка или братья дополнят шежире со своей стороны
+          </p>
+        </div>
+
+        {/* Link card */}
+        <div className="inv-card" style={{marginBottom:24}}>
+          <div style={{position:"absolute",top:0,left:0,right:0,height:2,background:"linear-gradient(90deg,transparent,var(--gold),transparent)",opacity:.6}}/>
+          <div style={{fontSize:"2.5rem",marginBottom:12}}>🔗</div>
+          <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.1rem",fontWeight:700,marginBottom:6}}>
+            Ваша личная ссылка
+          </div>
+          <div style={{fontSize:".78rem",color:"rgba(240,235,210,.45)",marginBottom:16,lineHeight:1.5}}>
+            {tribe ? `Шежире · ${userName} · Род ${tribe.name}` : `Шежире · ${userName}`}
+          </div>
+          <div style={{background:"rgba(255,255,255,.05)",border:"1px solid rgba(198,165,92,.2)",borderRadius:10,padding:"10px 14px",fontFamily:"monospace",fontSize:".72rem",color:"rgba(240,235,210,.55)",wordBreak:"break-all",marginBottom:14,textAlign:"left"}}>
+            {link}
+          </div>
+          <button className="bgold" style={{maxWidth:240,margin:"0 auto",display:"block"}} onClick={copyLink}>
+            {copied ? "✓ Скопировано!" : "📋 Копировать ссылку"}
+          </button>
+        </div>
+
+        {/* Share options */}
+        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(140px,1fr))",gap:10,marginBottom:32}}>
+          {[
+            {icon:"💬", label:"WhatsApp", color:"#25D366", action:() => window.open(`https://wa.me/?text=${encodeURIComponent("Давай вместе заполним наше шежире! "+link)}`)},
+            {icon:"📱", label:"Telegram", color:"#0088cc", action:() => window.open(`https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent("Заполним шежире вместе!")}`)},
+            {icon:"📧", label:"Email",    color:"var(--gold)", action:() => window.open(`mailto:?subject=ABYZ Шежире&body=${encodeURIComponent("Привет! Я создал шежире в ABYZ. Давай заполним вместе: "+link)}`)},
+            {icon:"📋", label:"Копировать", color:"var(--muted)", action:copyLink},
+          ].map(s => (
+            <button key={s.label} onClick={s.action}
+              style={{background:"rgba(255,255,255,.04)",border:"1px solid rgba(198,165,92,.12)",borderRadius:12,padding:"14px 10px",cursor:"pointer",fontFamily:"inherit",color:"var(--text)",display:"flex",flexDirection:"column",alignItems:"center",gap:6,transition:"all .2s"}}
+              onMouseEnter={e=>{e.currentTarget.style.borderColor="rgba(198,165,92,.3)";e.currentTarget.style.transform="translateY(-2px)"}}
+              onMouseLeave={e=>{e.currentTarget.style.borderColor="rgba(198,165,92,.12)";e.currentTarget.style.transform="translateY(0)"}}>
+              <span style={{fontSize:"1.4rem"}}>{s.icon}</span>
+              <span style={{fontSize:".72rem",color:"rgba(240,235,210,.6)"}}>{s.label}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Who to invite */}
+        <div style={{marginBottom:24}}>
+          <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.2rem",fontWeight:700,marginBottom:16}}>Кого пригласить?</div>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(220px,1fr))",gap:10}}>
+            {ROLES.map(r => (
+              <div key={r.label} style={{background:"rgba(255,255,255,.03)",border:"1px solid rgba(198,165,92,.1)",borderRadius:12,padding:"16px 14px"}}>
+                <div style={{fontSize:"1.6rem",marginBottom:8}}>{r.icon}</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:".9rem",fontWeight:600,marginBottom:4}}>{r.label}</div>
+                <div style={{fontSize:".72rem",color:"rgba(240,235,210,.4)",lineHeight:1.5}}>{r.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <Footer/>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
    APP ROOT
 ═══════════════════════════════════════════════════════════ */
 export default function App() {
@@ -3181,6 +3837,9 @@ export default function App() {
       case "community": return <CommunityPage data={page.data} setPage={setPage}/>;
       case "my-tree":   return <MyTreePage userName={userName} profile={profile} initialData={page.data} setPage={setPage}/>;
       case "export":    return <ExportPage userName={userName} profile={profile} setPage={setPage}/>;
+      case "calendar":  return <LunarCalendarPage setPage={setPage}/>;
+      case "search-anc": return <AncestorSearchPage userName={userName} profile={profile} setPage={setPage}/>;
+      case "invite":    return <InvitePage userName={userName} profile={profile} setPage={setPage}/>;
       default:          return <PersonalPage userName={userName} profile={profile} setProfile={setProfile} setPage={setPage}/>;
     }
   };
